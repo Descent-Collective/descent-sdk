@@ -65,7 +65,61 @@ export class DescentClass {
    * @param collateralName name of the collateral to be created for vault
    * @returns vault Id
    */
-  public createVault(ownerAddress: string, collateralName: ICollateral) {}
+  public createVault(collateralName: ICollateral) {}
+
+  /**
+   * @dev lock usdc for a particular vault
+   * @param collateralAmount amount of collateral to lock for vault
+   * @param vaultID vault id to lock usdc for
+   * @returns lockedCollateral
+   */
+  public lockUSDC(collateralAmount: string | number, vaultID: string) {}
+
+  /**
+   * @dev mint available xNGN a particular vault
+   * @param amount amount of xNGN to mint
+   * @param vaultID vault id to mint xNGN for
+   * @returns available xNGN
+   */
+  public mintAvailablexNGN(amount: string | number, vaultID: string) {}
+
+  /**
+   * @dev repay borrowed xNGN for a particular vault
+   * @param amount amount of xNGN to repay
+   * @param vaultID vault id to repay xNGN for
+   * @returns vaultDebt
+   */
+  public repayxNGN(amount: string | number, vaultID: string) {}
+
+  /**
+   * @dev withdraw usdc for a particular vault
+   * @param collateralAmount amount of unlocked collateral to withdraw
+   * @param vaultID vault id to withdraw usdc from
+   * @returns unlockedCollateral
+   */
+  public withdrawUSDC(collateralAmount: string | number, vaultID: string) {}
+
+  /**
+   * @dev Creates a new vault and lock usdc in one transaction
+   * @param collateralName name of the collateral to be created for vault
+   * @param collateralAmount amount of collateral to lock for vault
+   * @returns vault Id
+   */
+  public createVaultandLockUSDC(
+    collateralName: ICollateral,
+    collateralAmount: string | number
+  ) {}
+
+  /**
+   * @dev Creates a new vault, lock usdc and mint xNGN in one transaction
+   * @param collateralName name of the collateral to be created for vault
+   * @param collateralAmount amount of collateral to lock for vault
+   * @returns vault Id, locked usdc & minted xngn
+   */
+  public createVaultLockUSDCandMintxNGN(
+    collateralName: ICollateral,
+    collateralAmount: string | number
+  ) {}
 }
 
 async function create(rpcUrl: string, privateKey: string) {
