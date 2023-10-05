@@ -6,3 +6,7 @@ export type ISigner = ethers.Signer;
 export type IProvider = ethers.Provider;
 
 export type IContractFactory = ethers.ContractFactory;
+
+export enum ICollateral {
+  'USDC-A' = 'USDC-A',
+}
