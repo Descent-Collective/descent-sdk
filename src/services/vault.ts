@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { IContract } from '../types';
+import { ICollateral, IContract } from '../types';
 
 const getVaultById = async (vaultId: string | number, contract: IContract) => {
   try {
@@ -80,4 +80,42 @@ const getAvailablexNGN = async (owner: string, contract: IContract) => {
   }
 };
 
-export { getVaultById, getVaultsForOwner, getAvailablexNGN };
+const openVault = async (
+  owner: string,
+  collateralName: string,
+  contract: IContract
+) => {
+  try {
+    if (collateralName !== ICollateral.USDC)
+      return await ErrorMessage('Collateral type not supported');
+
+    const vaultId = await contract.createVault(owner, collateralName);
+    return BigInt(vaultId).toString();
+  } catch (e) {
+    const message = await ErrorMessage(e);
+    return message;
+  }
+};
+
+const collateralizeVault = async (
+  amount: string,
+  vaultId: string,
+  owner: string,
+  contract: IContract
+) => {
+  try {
+    const res = await contract.collateralizeVault(amount, vaultId, owner);
+    return res;
+  } catch (e) {
+    const message = await ErrorMessage(e);
+    return message;
+  }
+};
+
+export {
+  getVaultById,
+  getVaultsForOwner,
+  getAvailablexNGN,
+  openVault,
+  collateralizeVault,
+};

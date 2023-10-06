@@ -1,5 +1,5 @@
-import { ethers } from 'ethers';
-import { ICollateral, IContract, IProvider, ISigner } from './types';
+import { Eip1193Provider, Signer, SigningKey, ethers } from 'ethers';
+import { ICollateral, IContract, INetwork, IProvider, ISigner } from './types';
 import { Contract } from './libs/contract';
 import Addresses from './contracts/addresses/base.json';
 import abis from './contracts/abis';
@@ -7,6 +7,7 @@ import {
   getAvailablexNGN,
   getVaultById,
   getVaultsForOwner,
+  openVault,
 } from './services/vault';
 
 export class DescentClass {
@@ -76,7 +77,14 @@ export class DescentClass {
    * @param collateralName name of the collateral to be created for vault
    * @returns vault Id
    */
-  public async createVault(collateralName: ICollateral) {}
+  public async createVault(ownerAddress: string, collateralName: ICollateral) {
+    const vaultId = await openVault(
+      ownerAddress,
+      collateralName,
+      this.vaultContract
+    );
+    return vaultId;
+  }
 
   /**
    * @dev lock usdc for a particular vault
@@ -136,10 +144,24 @@ export class DescentClass {
   ) {}
 }
 
-async function create(rpcUrl: string, privateKey: string) {
+async function create(
+  requestType: INetwork,
+  options: {
+    ethereum?: Eip1193Provider | any;
+    rpcUrl?: string;
+    privateKey?: any | SigningKey;
+  }
+) {
   try {
-    const provider = new ethers.AbstractProvider(rpcUrl);
-    const signer = new ethers.Wallet(privateKey, provider);
+    let provider: any;
+    let signer: any;
+    if (requestType == INetwork.https) {
+      provider = new ethers.AbstractProvider(options?.rpcUrl);
+      signer = new ethers.Wallet(options.privateKey, provider);
+    } else if (requestType == INetwork.browser) {
+      provider = new ethers.BrowserProvider(options?.ethereum);
+      signer = await provider.getSigner();
+    }
 
     const descent = new DescentClass(signer, provider);
     return descent;

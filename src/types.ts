@@ -2,11 +2,18 @@ import { ethers } from 'ethers';
 
 export type IContract = ethers.Contract;
 
-export type ISigner = ethers.Signer;
-export type IProvider = ethers.Provider;
+export type ISigner = ethers.JsonRpcSigner | ethers.Wallet;
+export type IProvider =
+  | ethers.Provider
+  | ethers.JsonRpcProvider
+  | ethers.BrowserProvider;
 
 export type IContractFactory = ethers.ContractFactory;
 
 export enum ICollateral {
-  'USDC-A' = 'USDC-A',
+  USDC = 'USDC-A',
+}
+export enum INetwork {
+  https = 'https',
+  browser = 'browser',
 }
