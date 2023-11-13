@@ -1,9 +1,8 @@
 {
     "DEPLOYER": "",
-    "COREVAULT": "",
+    "VAULT": "",
     "xNGNTOKEN": "",
     "xNGNAdapter": "",
     "USDC": "",
-    "USDCAdapter": "",
     "USDCFEED": ""
 }

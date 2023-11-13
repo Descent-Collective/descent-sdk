@@ -1,4 +1,4 @@
-import { Eip1193Provider, Signer, SigningKey, ethers } from 'ethers';
+import { Eip1193Provider, SigningKey, ethers } from 'ethers';
 import { ICollateral, IContract, INetwork, IProvider, ISigner } from './types';
 import { Contract } from './libs/contract';
 import Addresses from './contracts/addresses/base.json';
@@ -14,25 +14,15 @@ export class DescentClass {
   protected signer: ISigner;
   protected provider: IProvider;
   private vaultContract: IContract;
-  private usdcAdapterContract: IContract;
-  private xNGNAdapterContract: IContract;
+  private collateral: ICollateral;
 
-  constructor(signer: ISigner, provider: IProvider) {
+  constructor(signer: ISigner, provider: IProvider, collateral: ICollateral) {
     this.provider = provider;
     this.signer = signer;
+    this.collateral = collateral;
     this.vaultContract = Contract(
-      Addresses.COREVAULT,
+      Addresses.VAULT,
       abis.CoreVaultAbi,
-      this.signer
-    );
-    this.usdcAdapterContract = Contract(
-      Addresses.USDCAdapter,
-      abis.USDCAdapterAbi,
-      this.signer
-    );
-    this.xNGNAdapterContract = Contract(
-      Addresses.xNGNAdapter,
-      abis.xNGNAdapterAbi,
       this.signer
     );
   }
@@ -42,20 +32,9 @@ export class DescentClass {
    * @param vaultId Vault ID
    * @returns The Vault information
    */
-  public async getVault(vaultId: string) {
-    const vault = await getVaultById(vaultId, this.vaultContract);
+  public async getVaultInfo(vaultAddress: string) {
+    const vault = await getVaultById(vaultAddress, this.vaultContract);
     return vault;
-  }
-
-  /**
-   * @dev Gets all the vaults associated with an address
-   * @param ownerAddress Vault owner address
-   * @returns List of vaults
-   */
-  public async getVaultsByOwner(ownerAddress: string) {
-    const vaults = await getVaultsForOwner(ownerAddress, this.vaultContract);
-
-    return vaults;
   }
 
   /**
@@ -63,7 +42,7 @@ export class DescentClass {
    * @param ownerAddress Owner of the vault
    * @returns Amount of xNGN available
    */
-  public async getTotalxNGNAvailableForOwner(ownerAddress: string) {
+  public async getTotalxNGNAvailableToMint(ownerAddress: string) {
     const availablexNGN = await getAvailablexNGN(
       ownerAddress,
       this.vaultContract
@@ -71,28 +50,12 @@ export class DescentClass {
     return availablexNGN;
   }
 
-  /**
-   * @dev Creates a new vault
-   * @param ownerAddress Owner of the vault
-   * @param collateralName name of the collateral to be created for vault
-   * @returns vault Id
-   */
-  public async createVault(ownerAddress: string, collateralName: ICollateral) {
-    const vaultId = await openVault(
-      ownerAddress,
-      collateralName,
-      this.vaultContract
-    );
-    return vaultId;
-  }
+  public async getTotalWithdrawableCollateral(ownerAddress: string) {}
 
-  /**
-   * @dev lock usdc for a particular vault
-   * @param collateralAmount amount of collateral to lock for vault
-   * @param vaultID vault id to lock usdc for
-   * @returns lockedCollateral
-   */
-  public async lockUSDC(collateralAmount: string | number, vaultID: string) {}
+  public async depositCollateral(
+    collateralAmount: string | number,
+    ownerAddress: string
+  ) {}
 
   /**
    * @dev mint available xNGN a particular vault
@@ -100,7 +63,10 @@ export class DescentClass {
    * @param vaultID vault id to mint xNGN for
    * @returns available xNGN
    */
-  public async mintAvailablexNGN(amount: string | number, vaultID: string) {}
+  public async mintAvailablexNGN(
+    amount: string | number,
+    ownerAddress: string
+  ) {}
 
   /**
    * @dev repay borrowed xNGN for a particular vault
@@ -108,7 +74,7 @@ export class DescentClass {
    * @param vaultID vault id to repay xNGN for
    * @returns vaultDebt
    */
-  public async repayxNGN(amount: string | number, vaultID: string) {}
+  public async repayxNGN(amount: string | number, ownerAddress: string) {}
 
   /**
    * @dev withdraw usdc for a particular vault
@@ -116,40 +82,18 @@ export class DescentClass {
    * @param vaultID vault id to withdraw usdc from
    * @returns unlockedCollateral
    */
-  public async withdrawUSDC(
+  public async withdrawCollateral(
     collateralAmount: string | number,
-    vaultID: string
-  ) {}
-
-  /**
-   * @dev Creates a new vault and lock usdc in one transaction
-   * @param collateralName name of the collateral to be created for vault
-   * @param collateralAmount amount of collateral to lock for vault
-   * @returns vault Id
-   */
-  public async createVaultandLockUSDC(
-    collateralName: ICollateral,
-    collateralAmount: string | number
-  ) {}
-
-  /**
-   * @dev Creates a new vault, lock usdc and mint xNGN in one transaction
-   * @param collateralName name of the collateral to be created for vault
-   * @param collateralAmount amount of collateral to lock for vault
-   * @returns vault Id, locked usdc & minted xngn
-   */
-  public async createVaultLockUSDCandMintxNGN(
-    collateralName: ICollateral,
-    collateralAmount: string | number
+    ownerAddress: string
   ) {}
 }
-
 async function create(
   requestType: INetwork,
   options: {
     ethereum?: Eip1193Provider | any;
     rpcUrl?: string;
     privateKey?: any | SigningKey;
+    collateral: ICollateral;
   }
 ) {
   try {
@@ -158,12 +102,13 @@ async function create(
     if (requestType == INetwork.https) {
       provider = new ethers.AbstractProvider(options?.rpcUrl);
       signer = new ethers.Wallet(options.privateKey, provider);
-    } else if (requestType == INetwork.browser) {
+    }
+    if (requestType == INetwork.browser) {
       provider = new ethers.BrowserProvider(options?.ethereum);
       signer = await provider.getSigner();
     }
 
-    const descent = new DescentClass(signer, provider);
+    const descent = new DescentClass(signer, provider, options.collateral);
     return descent;
   } catch (e) {
     const error = ErrorMessage(e);

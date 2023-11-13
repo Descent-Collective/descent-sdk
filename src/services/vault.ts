@@ -1,29 +1,48 @@
 import { ethers } from 'ethers';
 import { ICollateral, IContract } from '../types';
+import Addresses from '../contracts/addresses/base.json';
 
-const getVaultById = async (vaultId: string | number, contract: IContract) => {
+const getVaultInfo = async (
+  ownerAddress: string | number,
+  collateral: ICollateral,
+  contract: IContract
+) => {
+  let collateralAddress;
+  if (collateral == ICollateral.USDC) {
+    collateralAddress = Addresses.USDC;
+  }
+
   try {
-    const vaultData = await contract.getVaultById(vaultId.toString());
-
-    let vaultState;
-    switch (ethers.formatUnits(vaultData[4].vaultState)) {
-      case '0':
-        vaultState = 'Idle';
-        break;
-      case '1':
-        vaultState = 'Active';
-        break;
-      default:
-        vaultState = 'Inactive';
-        break;
-    }
+    const vaultData = await contract.getVaultInfo(
+      collateralAddress,
+      ownerAddress
+    );
+    const depositedCollateral = Number(
+      ethers.formatUnits(vaultData.depositedCollateral)
+    );
+    const availableCollateral = await contract.getMaxWithdrawable(
+      collateralAddress,
+      ownerAddress
+    );
+    const availablexNGN = await contract.getMaxBorrowable(
+      collateralAddress,
+      ownerAddress
+    );
+    const healthFactor = await contract.checkHealthFactor(
+      collateralAddress,
+      ownerAddress
+    );
 
     return {
-      lockedCollateral: ethers.formatUnits(vaultData[0].lockedCollateral),
-      unlockedCollateral: ethers.formatUnits(vaultData[1].unlockedCollateral),
-      normalisedDebt: ethers.formatUnits(vaultData[2].normalisedDebt),
-      collateralName: ethers.decodeBytes32String(vaultData[3].normalisedDebt),
-      vaultState: vaultState,
+      depositedCollateral: depositedCollateral,
+      collateralLocked:
+        depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
+      borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
+      accruedFees: ethers.formatUnits(vaultData.accruedFees),
+      currentCollateralRatio: healthFactor,
+      currentLiquidationPrice: '',
+      availableCollateral: ethers.formatUnits(availableCollateral),
+      availablexNGN: ethers.formatUnits(availablexNGN),
     };
   } catch (e) {
     const message = await ErrorMessage(e);
@@ -89,7 +108,10 @@ const openVault = async (
     if (collateralName !== ICollateral.USDC)
       return await ErrorMessage('Collateral type not supported');
 
-    const vaultId = await contract.createVault(owner, collateralName);
+    const vaultResponse = await contract.createVault(owner, collateralName);
+
+    const vault = await vaultResponse.wait();
+    const vaultId = vault.logs[0].args[0];
     return BigInt(vaultId).toString();
   } catch (e) {
     const message = await ErrorMessage(e);
@@ -104,7 +126,7 @@ const collateralizeVault = async (
   contract: IContract
 ) => {
   try {
-    const res = await contract.collateralizeVault(amount, vaultId, owner);
+    const res = await contract.join(amount, owner, vaultId);
     return res;
   } catch (e) {
     const message = await ErrorMessage(e);
@@ -112,10 +134,4 @@ const collateralizeVault = async (
   }
 };
 
-export {
-  getVaultById,
-  getVaultsForOwner,
-  getAvailablexNGN,
-  openVault,
-  collateralizeVault,
-};
+export { getVaultInfo };

@@ -11,7 +11,7 @@ export type IProvider =
 export type IContractFactory = ethers.ContractFactory;
 
 export enum ICollateral {
-  USDC = 'USDC-A',
+  USDC = 'USDC',
 }
 export enum INetwork {
   https = 'https',
