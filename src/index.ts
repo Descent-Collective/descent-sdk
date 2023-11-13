@@ -3,12 +3,7 @@ import { ICollateral, IContract, INetwork, IProvider, ISigner } from './types';
 import { Contract } from './libs/contract';
 import Addresses from './contracts/addresses/base.json';
 import abis from './contracts/abis';
-import {
-  getAvailablexNGN,
-  getVaultById,
-  getVaultsForOwner,
-  openVault,
-} from './services/vault';
+import { getVaultInfo } from './services/vault';
 
 export class DescentClass {
   protected signer: ISigner;
@@ -33,7 +28,11 @@ export class DescentClass {
    * @returns The Vault information
    */
   public async getVaultInfo(vaultAddress: string) {
-    const vault = await getVaultById(vaultAddress, this.vaultContract);
+    const vault = await getVaultInfo(
+      vaultAddress,
+      this.collateral,
+      this.vaultContract
+    );
     return vault;
   }
 
