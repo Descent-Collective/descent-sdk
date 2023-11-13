@@ -3,7 +3,13 @@ import { ICollateral, IContract, INetwork, IProvider, ISigner } from './types';
 import { Contract } from './libs/contract';
 import Addresses from './contracts/addresses/base.json';
 import abis from './contracts/abis';
-import { getVaultInfo } from './services/vault';
+import {
+  burnCurrency,
+  collateralizeVault,
+  getVaultInfo,
+  mintCurrency,
+  withdrawCollateral,
+} from './services/vault';
 
 export class DescentClass {
   protected signer: ISigner;
@@ -36,36 +42,20 @@ export class DescentClass {
     return vault;
   }
 
-  /**
-   * @dev Gets the amount of xNGN available for an owner to mint
-   * @param ownerAddress Owner of the vault
-   * @returns Amount of xNGN available
-   */
-  public async getTotalxNGNAvailableToMint(ownerAddress: string) {
-    const availablexNGN = await getAvailablexNGN(
+  public async borrowCurrency(
+    amount: string,
+    ownerAddress: string,
+    recipientAddress: string
+  ) {
+    const response = await mintCurrency(
+      amount,
+      this.collateral,
       ownerAddress,
+      recipientAddress,
       this.vaultContract
     );
-    return availablexNGN;
+    return response;
   }
-
-  public async getTotalWithdrawableCollateral(ownerAddress: string) {}
-
-  public async depositCollateral(
-    collateralAmount: string | number,
-    ownerAddress: string
-  ) {}
-
-  /**
-   * @dev mint available xNGN a particular vault
-   * @param amount amount of xNGN to mint
-   * @param vaultID vault id to mint xNGN for
-   * @returns available xNGN
-   */
-  public async mintAvailablexNGN(
-    amount: string | number,
-    ownerAddress: string
-  ) {}
 
   /**
    * @dev repay borrowed xNGN for a particular vault
@@ -73,7 +63,15 @@ export class DescentClass {
    * @param vaultID vault id to repay xNGN for
    * @returns vaultDebt
    */
-  public async repayxNGN(amount: string | number, ownerAddress: string) {}
+  public async repayCurrency(amount: string, ownerAddress: string) {
+    const response = await burnCurrency(
+      amount,
+      this.collateral,
+      ownerAddress,
+      this.vaultContract
+    );
+    return response;
+  }
 
   /**
    * @dev withdraw usdc for a particular vault
@@ -82,9 +80,36 @@ export class DescentClass {
    * @returns unlockedCollateral
    */
   public async withdrawCollateral(
-    collateralAmount: string | number,
+    collateralAmount: string,
     ownerAddress: string
-  ) {}
+  ) {
+    const response = await withdrawCollateral(
+      collateralAmount,
+      this.collateral,
+      ownerAddress,
+      this.vaultContract
+    );
+    return response;
+  }
+
+  /**
+   * @dev deposit usdc for a particular vault
+   * @param collateralAmount amount of unlocked collateral to withdraw
+   * @param vaultID vault id to withdraw usdc from
+   * @returns unlockedCollateral
+   */
+  public async depositCollateral(
+    collateralAmount: string,
+    ownerAddress: string
+  ) {
+    const response = await collateralizeVault(
+      collateralAmount,
+      this.collateral,
+      ownerAddress,
+      this.vaultContract
+    );
+    return response;
+  }
 }
 async function create(
   requestType: INetwork,
