@@ -131,6 +131,9 @@ async function create(
       provider = new ethers.BrowserProvider(options?.ethereum);
       signer = await provider.getSigner();
     }
+    if (options.ethereum) {
+      provider = new ethers.BrowserProvider(options?.ethereum);
+    }
 
     const descent = new DescentClass(signer, provider, options.collateral);
     return descent;

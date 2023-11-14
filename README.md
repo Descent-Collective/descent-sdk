@@ -1,103 +1,111 @@
-# TSDX User Guide
+# Descent JS Library
+Descent.js is a JavaScript library that makes it easy to build applications on top of Descent's multi-currency Stablecoin System. You can use Descent's contracts to open Collateralized Debt Positions, withdraw loans in xNGN, trade tokens on Onboard Exchange, and more.
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+The library features a pluggable, service-based architecture, which allows users maximal control when integrating the Descent protocol's functionality into existing infrastructures. It also includes convenient configuration presets for out-of-the-box usability, and support for both front-end and back-end applications.
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+Descent's entire suite of contracts will eventually be accessible through this library—including the DAO governance and the current alpha version is limited to the following areas:
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
+- Managing Vault Positions
+- Locking and unlocking collateral
+- Withdrawing and repaying xNGN
+- Automated token conversions
+- Buying and selling $DSN and $xNGN with built-in DEX integration
 
-## Commands
+## Installation
 
-TSDX scaffolds your new library inside `/src`.
-
-To run TSDX, use:
-
-```bash
-npm start # or yarn start
+Install the package with npm in your terminal:
+```tsx
+npm install @descent-protocol/js
+```
+Once it's installed, import the module into your project as shown below.
+```tsx
+import Descent from '@descent-protocol/js';
+// or
+const Descent = require('@descent-protocol/js');
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+### UMD
+This library is also usable as a UMD module, which you can build with `npm run build:frontend.`
+```html
+<script src="./descent.js" />
 
-To do a one-off build, use `npm run build` or `yarn build`.
-
-To run tests, use `npm test` or `yarn test`.
-
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
+<script>
+// once the script loads, window.Descent is available
+</script>
 ```
 
-### Rollup
+Quick examples
 
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
+### Look up information about a vault
 
-### TypeScript
+This code uses getVaultInfo to look up a vault that was created in the Descent protocol UI. Since this code is only reading data, not creating any transactions, it is not necessary to provide a private key or connect a wallet.
+``` tsx
+// you provide these values
+const infuraKey = 'your-infura-api-key';
+const ownerAddress = '0xf00...';
 
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
+const descent = await Descent.create('https', {
+  url: `https://mainnet.infura.io/v3/${infuraKey}`
+  collateral: 'USDC'
+});
 
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
+const vaultInfo = descent.getVaultInfo(ownerAddress);
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+``` tsx
+console.log(
+      vault.depositedCollateral, // amount of collateral tokens deposited
+      vault.collateralLocked,  // amount of collateral locked in the system
+      vault.borrowedAmount, // amount of currency(xNGN) debt
+      vault.accruedFees, // amount of fees accrued by the vault
+      vault.currentCollateralRatio, // collateralValue  to debt ratio
+      vault.healthFactor, // vaults health factor to determine liquidatable status
+      vault.availableCollateral, // amount of collateral in the system available
+      vault.availablexNGN, // amount of xNGN in the system ready to be minted
+      vault.currentRate, // current accumulated rate of vault
+);
+```
 
-## Module Formats
+## Descent.create
+You can configure the behavior of descent.js by passing different arguments to Descent.create. The first argument is the name of a preset, and the second is an options object.
 
-CJS, ESModules, and UMD module formats are supported.
+### Presets
+* `'browser'`
+Use this preset when using the library in a browser environment. It will attempt to connect using window.ethereum or window.web3.
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+* `'https'`
+Connect to a JSON-RPC node. Requires url to be set in the options.
 
-## Named Exports
+* `'test'`
+Use a local node (e.g. Ganache) running at http://127.0.0.1:2000, and sign transactions using node-managed keys.
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+```tsx
+const descentBrowser = await Descent.create('browser');
 
-## Including Styles
+const descentHttp = await Descent.create('httpsRA_PROJECT_ID'
+});
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+const descentTest = await Descent.create('test');
+```
+### Options
+* `privateKey`
+    * Optional. The private key used to sign transactions. If this is omitted, the first account available from the Ethereum provider will be used. Only used with the 'https' preset.
+    * If this is omitted and the provider does not have an unlocked account, the descent object will start in read-only mode.
+* `url`
+    * The URL of the node to connect to. Only used with the 'http' preset.
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+* `ethereum`
+    * For advanced users. You can inject your own custom instance of a Web3 provider with this, instead of using the default HttpProvider.
 
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
+```tsx
+// It doesn't necessarily make sense to set all these
+// options at the same time (e.g. `url` and `inject`),
+// this is just meant to illustrate the shape of the
+// options object.
+const descent = await Descent.create('https', {
+  privateKey: YOUR_PRIVATE_KEY, // '0xabc...'
+  url: 'http://some-ethereum-rpc-node.net',
+  ethereum: someProviderInstance
+  },
+});
+```
