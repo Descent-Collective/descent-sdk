@@ -11,6 +11,13 @@ Descent's entire suite of contracts will eventually be accessible through this l
 - Automated token conversions
 - Buying and selling $DSN and $xNGN with built-in DEX integration
 
+TODO
+- [o] Improve presets and configuration settings
+- [o] Make confguration services oriented
+- [o] Add functionality for automated token conversions
+- [o] Add functionality for buying and selling of $DSN and $xNGN in DEXs
+- [o] Add multicall functionality
+- [o] Enable listening of events for state changes 
 ## Installation
 
 Install the package with npm in your terminal:
