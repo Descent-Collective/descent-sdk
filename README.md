@@ -1,5 +1,5 @@
-# Descent JS Library
-Descent.js is a JavaScript library that makes it easy to build applications on top of Descent's multi-currency Stablecoin System. You can use Descent's contracts to open Collateralized Debt Positions, withdraw loans in xNGN, trade tokens on Onboard Exchange, and more.
+# Descent Library
+Descent SDK is a Typescript library that makes it easy to build applications on top of Descent's multi-currency Stablecoin System. You can use Descent's contracts to open Collateralized Debt Positions, withdraw loans in xNGN, trade tokens on Onboard Exchange, and more.
 
 The library features a pluggable, service-based architecture, which allows users maximal control when integrating the Descent protocol's functionality into existing infrastructures. It also includes convenient configuration presets for out-of-the-box usability, and support for both front-end and back-end applications.
 
@@ -23,13 +23,13 @@ TODO
 
 Install the package with npm in your terminal:
 ```tsx
-npm install @descent-protocol/js
+npm install @descent-protocol/sdk
 ```
 Once it's installed, import the module into your project as shown below.
 ```tsx
-import Descent from '@descent-protocol/js';
+import Descent from '@descent-protocol/sdk';
 // or
-const Descent = require('@descent-protocol/js');
+const Descent = require('@descent-protocol/sdk');
 ```
 
 ### UMD
