@@ -14,9 +14,10 @@ Descent's entire suite of contracts will eventually be accessible through this l
 TODO
 - [ ] Improve presets and configuration settings
 - [ ] Make confguration services oriented
+- [ ] Perform getters using [protocol-periphery](https://github.com/Descent-Collective/protocol-periphery) contract
+- [ ] Enable multicalls using the [protocol-periphery](https://github.com/Descent-Collective/protocol-periphery) contract
 - [ ] Add functionality for automated token conversions
 - [ ] Add functionality for buying and selling of $DSN and $xNGN in DEXs
-- [ ] Add multicall functionality
 - [ ] Enable listening of events for state changes 
 ## Installation
 
