@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import Addresses from '../contracts/addresses/base.json';
+import { Contract } from '../libs/contract';
 
 const getVaultInfo = async (
   ownerAddress: string | number,
@@ -14,6 +15,7 @@ const getVaultInfo = async (
 
   try {
     const vaultData = await contract.getVaultInfo(
+      Addresses.VAULT,
       collateralAddress,
       ownerAddress
     );
@@ -21,14 +23,17 @@ const getVaultInfo = async (
       ethers.formatUnits(vaultData.depositedCollateral)
     );
     const availableCollateral = await contract.getMaxWithdrawable(
+      Addresses.VAULT,
       collateralAddress,
       ownerAddress
     );
     const availablexNGN = await contract.getMaxBorrowable(
+      Addresses.VAULT,
       collateralAddress,
       ownerAddress
     );
     const healthFactor = await contract.checkHealthFactor(
+      Addresses.VAULT,
       collateralAddress,
       ownerAddress
     );

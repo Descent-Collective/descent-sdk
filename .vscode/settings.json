@@ -1,0 +1,5 @@
+{
+    "editor.wordBreak": "keepAll",
+    "prettier.requireConfig": true,
+    "prettier.printWidth": 100
+}
