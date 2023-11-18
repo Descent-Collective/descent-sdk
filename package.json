@@ -1,55 +1,44 @@
 {
-  "version": "0.1.0",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
-  },
-  "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "name": "descent-js",
-  "author": "Njoku Emmanuel",
+  "version": "0.1.0",
   "description": "A Typescript library for interacting with the Descent Protocol",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Descent-Collective/descent-js"
-  },
   "keywords": [
     "xNGN",
     "Web3",
     "Lending",
     "SDK"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Descent-Collective/descent-js"
+  },
+  "license": "MIT",
+  "author": "Njoku Emmanuel",
+  "type": "module",
+  "main": "dist/index.js",
   "module": "dist/descent-js.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/descent-js.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/descent-js.esm.js",
-      "limit": "10 KB"
-    }
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
   ],
+  "scripts": {
+    "analyze": "size-limit --why",
+    "build": "tsdx build",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "start": "tsdx watch",
+    "test": "tsdx test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "dependencies": {
+    "ethers": "^6.7.1"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
@@ -70,7 +59,18 @@
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   },
-  "dependencies": {
-    "ethers": "^6.7.1"
-  }
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=10"
+  },
+  "size-limit": [
+    {
+      "path": "dist/descent-js.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/descent-js.esm.js",
+      "limit": "10 KB"
+    }
+  ]
 }
