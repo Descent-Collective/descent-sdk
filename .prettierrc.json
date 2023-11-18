@@ -6,12 +6,8 @@
   "endOfLine": "lf",
   "bracketSpacing": true,
   "bracketSameLine": true,
-  "tsxSingleQuote": true,
   "arrowParens": "always",
-  "parser": "typescript",
-  "editor.formatOnSave": true,
   "tabWidth": 2,
-  "requireConfig": false,
   "overrides": [
     {
       "files": "*.json",
