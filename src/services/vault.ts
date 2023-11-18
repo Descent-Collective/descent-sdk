@@ -3,6 +3,11 @@ import { ICollateral, IContract } from '../types';
 import Addresses from '../contracts/addresses/base.json';
 import { Contract } from '../libs/contract';
 
+export enum VaultHealthFactor {
+  UNSAFE = 'UNSAFE',
+  SAFE = 'SAFE',
+}
+
 const getVaultInfo = async (
   ownerAddress: string | number,
   collateral: ICollateral,
@@ -14,6 +19,7 @@ const getVaultInfo = async (
   }
 
   try {
+    // FIXME: Refactor with MultiStaticcall
     const vaultData = await contract.getVaultInfo(
       Addresses.VAULT,
       collateralAddress,
@@ -32,18 +38,16 @@ const getVaultInfo = async (
       collateralAddress,
       ownerAddress
     );
-    const healthFactor = await contract.checkHealthFactor(
+    const healthFactorCheck = await contract.checkHealthFactor(
       Addresses.VAULT,
       collateralAddress,
       ownerAddress
     );
-    let healthState;
 
-    if (healthFactor < 1) {
-      healthState = 'Unsafe - Vault is Dangerous';
-    } else {
-      healthState = 'Safe - Vault is Safe';
-    }
+    const healthFactor =
+      healthFactorCheck < 1 //
+        ? VaultHealthFactor.UNSAFE // Unsafe - Vault is Dangerous
+        : VaultHealthFactor.SAFE; // Safe - Vault is Safe
 
     const price = '999';
     const collateralValue = depositedCollateral * Number(price);
@@ -54,13 +58,13 @@ const getVaultInfo = async (
       (100 / 1);
 
     return {
+      healthFactor,
       depositedCollateral,
       collateralLocked:
         depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
       borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
       accruedFees: ethers.formatUnits(vaultData.accruedFees),
       currentCollateralRatio: currentCollateralRatio,
-      healthFactor: healthState,
       availableCollateral: ethers.formatUnits(availableCollateral),
       availablexNGN: ethers.formatUnits(availablexNGN),
       currentRate: ethers.formatUnits(vaultData.lastTotalAccumulatedRate),
