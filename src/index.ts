@@ -21,11 +21,7 @@ export class DescentClass {
     this.provider = provider;
     this.signer = signer;
     this.collateral = collateral;
-    this.vaultContract = Contract(
-      Addresses.VAULT,
-      abis.CoreVaultAbi,
-      this.signer
-    );
+    this.vaultContract = Contract(Addresses.VAULT, abis.CoreVaultAbi, this.signer);
   }
 
   /**
@@ -34,25 +30,17 @@ export class DescentClass {
    * @returns The Vault information
    */
   public async getVaultInfo(vaultAddress: string) {
-    const vault = await getVaultInfo(
-      vaultAddress,
-      this.collateral,
-      this.vaultContract
-    );
+    const vault = await getVaultInfo(vaultAddress, this.collateral, this.vaultContract);
     return vault;
   }
 
-  public async borrowCurrency(
-    amount: string,
-    ownerAddress: string,
-    recipientAddress: string
-  ) {
+  public async borrowCurrency(amount: string, ownerAddress: string, recipientAddress: string) {
     const response = await mintCurrency(
       amount,
       this.collateral,
       ownerAddress,
       recipientAddress,
-      this.vaultContract
+      this.vaultContract,
     );
     return response;
   }
@@ -64,12 +52,7 @@ export class DescentClass {
    * @returns vaultDebt
    */
   public async repayCurrency(amount: string, ownerAddress: string) {
-    const response = await burnCurrency(
-      amount,
-      this.collateral,
-      ownerAddress,
-      this.vaultContract
-    );
+    const response = await burnCurrency(amount, this.collateral, ownerAddress, this.vaultContract);
     return response;
   }
 
@@ -79,15 +62,12 @@ export class DescentClass {
    * @param vaultID vault id to withdraw usdc from
    * @returns unlockedCollateral
    */
-  public async withdrawCollateral(
-    collateralAmount: string,
-    ownerAddress: string
-  ) {
+  public async withdrawCollateral(collateralAmount: string, ownerAddress: string) {
     const response = await withdrawCollateral(
       collateralAmount,
       this.collateral,
       ownerAddress,
-      this.vaultContract
+      this.vaultContract,
     );
     return response;
   }
@@ -98,15 +78,12 @@ export class DescentClass {
    * @param vaultID vault id to withdraw usdc from
    * @returns unlockedCollateral
    */
-  public async depositCollateral(
-    collateralAmount: string,
-    ownerAddress: string
-  ) {
+  public async depositCollateral(collateralAmount: string, ownerAddress: string) {
     const response = await collateralizeVault(
       collateralAmount,
       this.collateral,
       ownerAddress,
-      this.vaultContract
+      this.vaultContract,
     );
     return response;
   }
@@ -118,7 +95,7 @@ async function create(
     rpcUrl?: string;
     privateKey?: any | SigningKey;
     collateral: ICollateral;
-  }
+  },
 ) {
   try {
     let provider: any;
@@ -138,7 +115,7 @@ async function create(
     const descent = new DescentClass(signer, provider, options.collateral);
     return descent;
   } catch (e) {
-    const error = ErrorMessage(e);
+    const error = createError(e);
 
     return error;
   }

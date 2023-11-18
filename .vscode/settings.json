@@ -1,5 +1,14 @@
 {
-    "editor.wordBreak": "keepAll",
-    "prettier.requireConfig": true,
-    "prettier.printWidth": 100
+  "editor.wordBreak": "keepAll",
+  "prettier.requireConfig": true,
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

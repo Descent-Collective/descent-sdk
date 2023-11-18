@@ -8,10 +8,6 @@ import { ISigner } from '../types';
  * @param {array} abi - The abi of the contract.
  */
 
-export const Contract = (
-  contractAddress: string,
-  abi: Array<any>,
-  signer: ISigner
-) => {
+export const Contract = (contractAddress: string, abi: Array<any>, signer: ISigner) => {
   return new ethers.Contract(contractAddress, abi, signer);
 };
