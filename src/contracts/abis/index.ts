@@ -1,7 +1,8 @@
 export default {
-  USDCAdapterAbi: require('./USDCAdapter.json'),
-  CoreVaultAbi: require('./CoreVault.json'),
+  MultiStaticcallAbi: require('./MultiStaticcall.json'),
+  xNGNAbi: require('./Currency.json'),
   USDCAbi: require('./USDC.json'),
-  xNGNAbi: require('./xNGN.json'),
-  xNGNAdapterAbi: require('./xNGNAdapter.json'),
+  VaultRouterAbi: require('./VaultRouter.json'),
+  VaultGetterAbi: require('./VaultGetter.json'),
+  VaultAbi: require('./Vault.json'),
 };
