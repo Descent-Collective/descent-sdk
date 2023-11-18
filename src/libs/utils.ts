@@ -4,7 +4,7 @@
  * @returns The error message
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ErrorMessage = (message?: any) => {
+const createError = (message?: any) => {
   const defaultMsg =
     message && typeof message === 'string'
       ? message
@@ -13,7 +13,7 @@ const ErrorMessage = (message?: any) => {
   const contractErrorMessage =
     message?.error?.body && JSON.parse(message?.error?.body)?.error?.message;
 
-  const systemMessage = message?.errorArgs && message?.errorArgs[0];
+  const systemMessage = message?.errorArgs?.[0];
 
   const contractRevertErrorMessage =
     message?.error?.error?.body &&

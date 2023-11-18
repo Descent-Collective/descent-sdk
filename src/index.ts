@@ -138,7 +138,7 @@ async function create(
     const descent = new DescentClass(signer, provider, options.collateral);
     return descent;
   } catch (e) {
-    const error = ErrorMessage(e);
+    const error = createError(e);
 
     return error;
   }

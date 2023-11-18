@@ -66,7 +66,7 @@ const getVaultInfo = async (
       currentRate: ethers.formatUnits(vaultData.lastTotalAccumulatedRate),
     };
   } catch (e) {
-    const message = await ErrorMessage(e);
+    const message = createError(e);
     return message;
   }
 };
@@ -89,7 +89,7 @@ const collateralizeVault = async (
     );
     return res;
   } catch (e) {
-    const message = await ErrorMessage(e);
+    const message = createError(e);
     return message;
   }
 };
@@ -111,7 +111,7 @@ const withdrawCollateral = async (
     );
     return res;
   } catch (e) {
-    const message = await ErrorMessage(e);
+    const message = createError(e);
     return message;
   }
 };
@@ -135,7 +135,7 @@ const mintCurrency = async (
     );
     return res;
   } catch (e) {
-    const message = await ErrorMessage(e);
+    const message = createError(e);
     return message;
   }
 };
@@ -154,7 +154,7 @@ const burnCurrency = async (
     const res = await contract.burnCurrency(collateralAddress, owner, amount);
     return res;
   } catch (e) {
-    const message = await ErrorMessage(e);
+    const message = createError(e);
     return message;
   }
 };
