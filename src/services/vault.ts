@@ -48,18 +48,18 @@ const getVaultInfo = async (
     const price = '999';
     const collateralValue = depositedCollateral * Number(price);
 
-    const currentColalteralRatio =
+    const currentCollateralRatio =
       Number(ethers.formatUnits(vaultData.borrowedAmount)) /
       collateralValue /
       (100 / 1);
 
     return {
-      depositedCollateral: depositedCollateral,
+      depositedCollateral,
       collateralLocked:
         depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
       borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
       accruedFees: ethers.formatUnits(vaultData.accruedFees),
-      currentCollateralRatio: currentColalteralRatio,
+      currentCollateralRatio: currentCollateralRatio,
       healthFactor: healthState,
       availableCollateral: ethers.formatUnits(availableCollateral),
       availablexNGN: ethers.formatUnits(availablexNGN),
