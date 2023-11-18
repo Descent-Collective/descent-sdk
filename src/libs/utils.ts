@@ -16,13 +16,9 @@ const createError = (message?: any) => {
   const systemMessage = message?.errorArgs?.[0];
 
   const contractRevertErrorMessage =
-    message?.error?.error?.body &&
-    JSON.parse(message?.error?.error?.body)?.error?.message;
+    message?.error?.error?.body && JSON.parse(message?.error?.error?.body)?.error?.message;
 
   return new Error(
-    contractErrorMessage ||
-      contractRevertErrorMessage ||
-      systemMessage ||
-      defaultMsg
+    contractErrorMessage || contractRevertErrorMessage || systemMessage || defaultMsg,
   );
 };

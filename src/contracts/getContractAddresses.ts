@@ -1,9 +1,6 @@
 import { ContractName, SupportedNetworkId } from './types';
 
-const addresses: Record<
-  ContractName,
-  Partial<Record<SupportedNetworkId, string>> | string
-> = {
+const addresses: Record<ContractName, Partial<Record<SupportedNetworkId, string>> | string> = {
   Vault: {
     '84531': '0xeAb261C2021Af0e3AC9D716C6b7BaDAd73caCfff',
   },
@@ -26,9 +23,7 @@ const addresses: Record<
 
 export const getContractAddress = (contractName: ContractName) => {
   try {
-    return (
-      typeof addresses[contractName] === 'string' && addresses[contractName]
-    );
+    return typeof addresses[contractName] === 'string' && addresses[contractName];
   } catch {
     throw new Error(`No address for contract ${contractName}`);
   }

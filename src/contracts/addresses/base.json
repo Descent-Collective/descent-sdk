@@ -1,8 +1,8 @@
 {
-    "DEPLOYER": "",
-    "VAULT": "",
-    "xNGNTOKEN": "",
-    "xNGNAdapter": "",
-    "USDC": "",
-    "USDCFEED": ""
+  "DEPLOYER": "",
+  "VAULT": "",
+  "xNGNTOKEN": "",
+  "xNGNAdapter": "",
+  "USDC": "",
+  "USDCFEED": ""
 }

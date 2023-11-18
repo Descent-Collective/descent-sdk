@@ -11,7 +11,7 @@ export enum VaultHealthFactor {
 const getVaultInfo = async (
   ownerAddress: string | number,
   collateral: ICollateral,
-  contract: IContract
+  contract: IContract,
 ) => {
   let collateralAddress;
   if (collateral == ICollateral.USDC) {
@@ -20,28 +20,22 @@ const getVaultInfo = async (
 
   try {
     // FIXME: Refactor with MultiStaticcall
-    const vaultData = await contract.getVaultInfo(
-      Addresses.VAULT,
-      collateralAddress,
-      ownerAddress
-    );
-    const depositedCollateral = Number(
-      ethers.formatUnits(vaultData.depositedCollateral)
-    );
+    const vaultData = await contract.getVaultInfo(Addresses.VAULT, collateralAddress, ownerAddress);
+    const depositedCollateral = Number(ethers.formatUnits(vaultData.depositedCollateral));
     const availableCollateral = await contract.getMaxWithdrawable(
       Addresses.VAULT,
       collateralAddress,
-      ownerAddress
+      ownerAddress,
     );
     const availablexNGN = await contract.getMaxBorrowable(
       Addresses.VAULT,
       collateralAddress,
-      ownerAddress
+      ownerAddress,
     );
     const healthFactorCheck = await contract.checkHealthFactor(
       Addresses.VAULT,
       collateralAddress,
-      ownerAddress
+      ownerAddress,
     );
 
     const healthFactor =
@@ -53,15 +47,12 @@ const getVaultInfo = async (
     const collateralValue = depositedCollateral * Number(price);
 
     const currentCollateralRatio =
-      Number(ethers.formatUnits(vaultData.borrowedAmount)) /
-      collateralValue /
-      (100 / 1);
+      Number(ethers.formatUnits(vaultData.borrowedAmount)) / collateralValue / (100 / 1);
 
     return {
       healthFactor,
       depositedCollateral,
-      collateralLocked:
-        depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
+      collateralLocked: depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
       borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
       accruedFees: ethers.formatUnits(vaultData.accruedFees),
       currentCollateralRatio: currentCollateralRatio,
@@ -79,18 +70,14 @@ const collateralizeVault = async (
   amount: string,
   collateral: ICollateral,
   owner: string,
-  contract: IContract
+  contract: IContract,
 ) => {
   let collateralAddress;
   if (collateral == ICollateral.USDC) {
     collateralAddress = Addresses.USDC;
   }
   try {
-    const res = await contract.depositCollateral(
-      collateralAddress,
-      owner,
-      ethers.toBigInt(amount)
-    );
+    const res = await contract.depositCollateral(collateralAddress, owner, ethers.toBigInt(amount));
     return res;
   } catch (e) {
     const message = createError(e);
@@ -101,7 +88,7 @@ const withdrawCollateral = async (
   amount: string,
   collateral: ICollateral,
   owner: string,
-  contract: IContract
+  contract: IContract,
 ) => {
   let collateralAddress;
   if (collateral == ICollateral.USDC) {
@@ -111,7 +98,7 @@ const withdrawCollateral = async (
     const res = await contract.withdrawCollateral(
       collateralAddress,
       owner,
-      ethers.toBigInt(amount)
+      ethers.toBigInt(amount),
     );
     return res;
   } catch (e) {
@@ -124,7 +111,7 @@ const mintCurrency = async (
   collateral: ICollateral,
   owner: string,
   recipient: string,
-  contract: IContract
+  contract: IContract,
 ) => {
   let collateralAddress;
   if (collateral == ICollateral.USDC) {
@@ -135,7 +122,7 @@ const mintCurrency = async (
       collateralAddress,
       owner,
       recipient,
-      ethers.toBigInt(amount)
+      ethers.toBigInt(amount),
     );
     return res;
   } catch (e) {
@@ -148,7 +135,7 @@ const burnCurrency = async (
   amount: string,
   collateral: ICollateral,
   owner: string,
-  contract: IContract
+  contract: IContract,
 ) => {
   let collateralAddress;
   if (collateral == ICollateral.USDC) {
@@ -163,10 +150,4 @@ const burnCurrency = async (
   }
 };
 
-export {
-  getVaultInfo,
-  collateralizeVault,
-  withdrawCollateral,
-  mintCurrency,
-  burnCurrency,
-};
+export { getVaultInfo, collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };
