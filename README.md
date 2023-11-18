@@ -15,7 +15,7 @@ Descent's entire suite of contracts will eventually be accessible through this l
 TODO
 
 - [ ] Improve presets and configuration settings
-- [ ] Make confguration services oriented
+- [ ] Make configuration services oriented
 - [ ] Perform getters using MultiStaticCall in the [protocol-periphery]([https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/mutliStaticcall.sol)) contract to interact with the VaultGetter contract
 - [ ] Perform state change calls using the VaultRouter [protocol-periphery]([https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/vaultRouter.sol)) contract
 - [ ] Enable listening of events for state changes
