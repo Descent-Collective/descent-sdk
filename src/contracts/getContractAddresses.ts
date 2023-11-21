@@ -2,19 +2,19 @@ import { ContractName, SupportedNetworkId } from './types';
 
 const addresses: Record<ContractName, Partial<Record<SupportedNetworkId, string>> | string> = {
   Vault: {
-    '84531': '0xeAb261C2021Af0e3AC9D716C6b7BaDAd73caCfff',
+    '84531': '0x70cd9e416a943cF20887194bC4b1359F226f6530',
   },
   MultiStaticcall: {
-    '84531': '0x5d0583Ef20884C0b175046d515Ec227200C12C89',
+    '84531': '0x7F46a4944F9C3ecF4Ea622364132b3fE9aBa1015',
   },
   VaultGetters: {
-    '84531': '0x18196CCaA8C2844c82B40a8bDCa27349C7466280',
+    '84531': '0xd870EbcfD3bA3652533d303847E55291336072e5',
   },
   VaultRouters: {
-    '84531': '0x94D80B2EA3cda86bF350DD7860e1171701F284c8',
+    '84531': '0xEd78389a73Bd77c0A54f5DAcBA2beADbed27A9EC',
   },
   Currency: {
-    '84531': '0x774843f6Baa4AAE62F026a8aF3c1C6FF3e55Ca39',
+    '84531': '0xB958E73F2132793e7707B12789C6F1a0a457049A',
   },
   USDC: {
     '84531': '0xF175520C52418dfE19C8098071a252da48Cd1C19',
