@@ -21,6 +21,7 @@ TODO
 - [ ] Enable listening of events for state changes
 - [ ] Add functionality for automated token conversions (V2)
 - [ ] Add functionality for buying and selling of $DSN and $xNGN in DEXs (V2)
+- [ ] Add USD onramp and xNGN offramp functionalities (V2)
 
 ## Installation
 
