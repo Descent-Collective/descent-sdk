@@ -13,5 +13,5 @@ export enum ICollateral {
 export enum IMode {
   https = 'https',
   browser = 'browser',
-  //simulation = 'simulation',
+  simulation = 'simulation',
 }
