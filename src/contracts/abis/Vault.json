@@ -2643,27 +2643,13 @@
     "absolutePath": "src/vault.sol",
     "id": 50371,
     "exportedSymbols": {
-      "AccessControl": [
-        43683
-      ],
-      "Currency": [
-        48353
-      ],
-      "ERC20": [
-        44443
-      ],
-      "IVault": [
-        48773
-      ],
-      "Pausable": [
-        48576
-      ],
-      "SafeERC20": [
-        45027
-      ],
-      "Vault": [
-        50370
-      ]
+      "AccessControl": [43683],
+      "Currency": [48353],
+      "ERC20": [44443],
+      "IVault": [48773],
+      "Pausable": [48576],
+      "SafeERC20": [45027],
+      "Vault": [50370]
     },
     "nodeType": "SourceUnit",
     "src": "32:33040:51",
@@ -2673,11 +2659,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:23:51",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".21"
-        ]
+        "literals": ["solidity", "0.8", ".21"]
       },
       {
         "id": 48777,
@@ -3277,9 +3259,7 @@
               "pathNode": {
                 "id": 48821,
                 "name": "Currency",
-                "nameLocations": [
-                  "1008:8:51"
-                ],
+                "nameLocations": ["1008:8:51"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 48353,
                 "src": "1008:8:51"
@@ -3316,9 +3296,7 @@
               "pathNode": {
                 "id": 48824,
                 "name": "RateInfo",
-                "nameLocations": [
-                  "1077:8:51"
-                ],
+                "nameLocations": ["1077:8:51"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 48734,
                 "src": "1077:8:51"
@@ -3446,9 +3424,7 @@
                 "pathNode": {
                   "id": 48833,
                   "name": "ERC20",
-                  "nameLocations": [
-                    "1309:5:51"
-                  ],
+                  "nameLocations": ["1309:5:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 44443,
                   "src": "1309:5:51"
@@ -3474,9 +3450,7 @@
                 "pathNode": {
                   "id": 48835,
                   "name": "CollateralInfo",
-                  "nameLocations": [
-                    "1318:14:51"
-                  ],
+                  "nameLocations": ["1318:14:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48758,
                   "src": "1318:14:51"
@@ -3518,9 +3492,7 @@
                 "pathNode": {
                   "id": 48839,
                   "name": "ERC20",
-                  "nameLocations": [
-                    "1413:5:51"
-                  ],
+                  "nameLocations": ["1413:5:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 44443,
                   "src": "1413:5:51"
@@ -3568,9 +3540,7 @@
                   "pathNode": {
                     "id": 48842,
                     "name": "VaultInfo",
-                    "nameLocations": [
-                      "1441:9:51"
-                    ],
+                    "nameLocations": ["1441:9:51"],
                     "nodeType": "IdentifierPath",
                     "referencedDeclaration": 48767,
                     "src": "1441:9:51"
@@ -3965,9 +3935,7 @@
                     "pathNode": {
                       "id": 48853,
                       "name": "Currency",
-                      "nameLocations": [
-                        "1702:8:51"
-                      ],
+                      "nameLocations": ["1702:8:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48353,
                       "src": "1702:8:51"
@@ -4078,9 +4046,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              48567
-            ],
+            "baseFunctions": [48567],
             "functionSelector": "3f4ba83a",
             "implemented": true,
             "kind": "function",
@@ -4091,9 +4057,7 @@
                 "modifierName": {
                   "id": 48887,
                   "name": "whenPaused",
-                  "nameLocations": [
-                    "1984:10:51"
-                  ],
+                  "nameLocations": ["1984:10:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48559,
                   "src": "1984:10:51"
@@ -4121,9 +4085,7 @@
                 "modifierName": {
                   "id": 48889,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1995:8:51"
-                  ],
+                  "nameLocations": ["1995:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1995:8:51"
@@ -4213,9 +4175,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              48575
-            ],
+            "baseFunctions": [48575],
             "functionSelector": "8456cb59",
             "implemented": true,
             "kind": "function",
@@ -4226,9 +4186,7 @@
                 "modifierName": {
                   "id": 48901,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "2095:13:51"
-                  ],
+                  "nameLocations": ["2095:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "2095:13:51"
@@ -4256,9 +4214,7 @@
                 "modifierName": {
                   "id": 48903,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "2109:8:51"
-                  ],
+                  "nameLocations": ["2109:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "2109:8:51"
@@ -4446,9 +4402,7 @@
                     "pathNode": {
                       "id": 48913,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "2201:5:51"
-                      ],
+                      "nameLocations": ["2201:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "2201:5:51"
@@ -4827,9 +4781,7 @@
                 "modifierName": {
                   "id": 48954,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "2571:13:51"
-                  ],
+                  "nameLocations": ["2571:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "2571:13:51"
@@ -4857,9 +4809,7 @@
                 "modifierName": {
                   "id": 48956,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "2585:8:51"
-                  ],
+                  "nameLocations": ["2585:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "2585:8:51"
@@ -5009,9 +4959,7 @@
                 "modifierName": {
                   "id": 48970,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "2748:13:51"
-                  ],
+                  "nameLocations": ["2748:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "2748:13:51"
@@ -5039,9 +4987,7 @@
                 "modifierName": {
                   "id": 48972,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "2762:8:51"
-                  ],
+                  "nameLocations": ["2762:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "2762:8:51"
@@ -5295,9 +5241,7 @@
                       "src": "3412:289:51",
                       "statements": [
                         {
-                          "assignments": [
-                            49045
-                          ],
+                          "assignments": [49045],
                           "declarations": [
                             {
                               "constant": false,
@@ -5320,9 +5264,7 @@
                                 "pathNode": {
                                   "id": 49043,
                                   "name": "ERC20",
-                                  "nameLocations": [
-                                    "3426:5:51"
-                                  ],
+                                  "nameLocations": ["3426:5:51"],
                                   "nodeType": "IdentifierPath",
                                   "referencedDeclaration": 44443,
                                   "src": "3426:5:51"
@@ -5672,10 +5614,7 @@
                       "src": "3267:139:51",
                       "statements": [
                         {
-                          "assignments": [
-                            49024,
-                            null
-                          ],
+                          "assignments": [49024, null],
                           "declarations": [
                             {
                               "constant": false,
@@ -5771,9 +5710,7 @@
                               "isLValue": false,
                               "isPure": false,
                               "lValueRequested": false,
-                              "names": [
-                                "value"
-                              ],
+                              "names": ["value"],
                               "nodeType": "FunctionCallOptions",
                               "options": [
                                 {
@@ -6188,9 +6125,7 @@
                 "modifierName": {
                   "id": 48989,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "3024:13:51"
-                  ],
+                  "nameLocations": ["3024:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "3024:13:51"
@@ -6218,9 +6153,7 @@
                 "modifierName": {
                   "id": 48991,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "3038:8:51"
-                  ],
+                  "nameLocations": ["3038:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "3038:8:51"
@@ -6317,9 +6250,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49097
-                  ],
+                  "assignments": [49097],
                   "declarations": [
                     {
                       "constant": false,
@@ -6342,9 +6273,7 @@
                         "pathNode": {
                           "id": 49095,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "5169:14:51"
-                          ],
+                          "nameLocations": ["5169:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "5169:14:51"
@@ -7174,9 +7103,7 @@
                 "modifierName": {
                   "id": 49089,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "5116:13:51"
-                  ],
+                  "nameLocations": ["5116:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "5116:13:51"
@@ -7204,9 +7131,7 @@
                 "modifierName": {
                   "id": 49091,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "5130:8:51"
-                  ],
+                  "nameLocations": ["5130:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "5130:8:51"
@@ -7242,9 +7167,7 @@
                     "pathNode": {
                       "id": 49075,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "4906:5:51"
-                      ],
+                      "nameLocations": ["4906:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "4906:5:51"
@@ -7419,9 +7342,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49195
-                  ],
+                  "assignments": [49195],
                   "declarations": [
                     {
                       "constant": false,
@@ -7444,9 +7365,7 @@
                         "pathNode": {
                           "id": 49193,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "6727:14:51"
-                          ],
+                          "nameLocations": ["6727:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "6727:14:51"
@@ -8079,9 +7998,7 @@
                 "modifierName": {
                   "id": 49184,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "6619:13:51"
-                  ],
+                  "nameLocations": ["6619:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "6619:13:51"
@@ -8109,9 +8026,7 @@
                 "modifierName": {
                   "id": 49186,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "6641:8:51"
-                  ],
+                  "nameLocations": ["6641:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "6641:8:51"
@@ -8139,9 +8054,7 @@
                 "modifierName": {
                   "id": 49189,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "6678:16:51"
-                  ],
+                  "nameLocations": ["6678:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "6678:16:51"
@@ -8177,9 +8090,7 @@
                     "pathNode": {
                       "id": 49175,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "6526:5:51"
-                      ],
+                      "nameLocations": ["6526:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "6526:5:51"
@@ -8214,9 +8125,7 @@
                     "pathNode": {
                       "id": 49178,
                       "name": "ModifiableParameters",
-                      "nameLocations": [
-                        "6550:20:51"
-                      ],
+                      "nameLocations": ["6550:20:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48772,
                       "src": "6550:20:51"
@@ -8421,9 +8330,7 @@
                 "modifierName": {
                   "id": 49260,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "7900:13:51"
-                  ],
+                  "nameLocations": ["7900:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "7900:13:51"
@@ -8451,9 +8358,7 @@
                 "modifierName": {
                   "id": 49262,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "7922:8:51"
-                  ],
+                  "nameLocations": ["7922:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "7922:8:51"
@@ -8518,9 +8423,7 @@
                 "modifierName": {
                   "id": 49265,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "7959:16:51"
-                  ],
+                  "nameLocations": ["7959:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "7959:16:51"
@@ -8948,9 +8851,7 @@
                 "modifierName": {
                   "id": 49286,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "8845:13:51"
-                  ],
+                  "nameLocations": ["8845:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "8845:13:51"
@@ -8978,9 +8879,7 @@
                 "modifierName": {
                   "id": 49288,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "8859:8:51"
-                  ],
+                  "nameLocations": ["8859:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "8859:8:51"
@@ -9048,9 +8947,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49339
-                  ],
+                  "assignments": [49339],
                   "declarations": [
                     {
                       "constant": false,
@@ -9073,9 +8970,7 @@
                         "pathNode": {
                           "id": 49337,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "10212:14:51"
-                          ],
+                          "nameLocations": ["10212:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "10212:14:51"
@@ -9544,9 +9439,7 @@
                 "modifierName": {
                   "id": 49328,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "10104:13:51"
-                  ],
+                  "nameLocations": ["10104:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "10104:13:51"
@@ -9574,9 +9467,7 @@
                 "modifierName": {
                   "id": 49330,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "10126:8:51"
-                  ],
+                  "nameLocations": ["10126:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "10126:8:51"
@@ -9604,9 +9495,7 @@
                 "modifierName": {
                   "id": 49333,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "10163:16:51"
-                  ],
+                  "nameLocations": ["10163:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "10163:16:51"
@@ -9642,9 +9531,7 @@
                     "pathNode": {
                       "id": 49322,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "10040:5:51"
-                      ],
+                      "nameLocations": ["10040:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "10040:5:51"
@@ -9956,9 +9843,7 @@
                 "modifierName": {
                   "id": 49388,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "11219:13:51"
-                  ],
+                  "nameLocations": ["11219:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "11219:13:51"
@@ -9986,9 +9871,7 @@
                 "modifierName": {
                   "id": 49390,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "11241:8:51"
-                  ],
+                  "nameLocations": ["11241:8:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "11241:8:51"
@@ -10016,9 +9899,7 @@
                 "modifierName": {
                   "id": 49393,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "11281:16:51"
-                  ],
+                  "nameLocations": ["11281:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "11281:16:51"
@@ -10054,9 +9935,7 @@
                     "pathNode": {
                       "id": 49382,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "11153:5:51"
-                      ],
+                      "nameLocations": ["11153:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "11153:5:51"
@@ -10252,9 +10131,7 @@
                 "modifierName": {
                   "id": 49422,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "11767:13:51"
-                  ],
+                  "nameLocations": ["11767:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "11767:13:51"
@@ -10452,9 +10329,7 @@
                 "modifierName": {
                   "id": 49440,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "12143:13:51"
-                  ],
+                  "nameLocations": ["12143:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "12143:13:51"
@@ -10696,9 +10571,7 @@
                 "modifierName": {
                   "id": 49463,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "13029:13:51"
-                  ],
+                  "nameLocations": ["13029:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "13029:13:51"
@@ -10726,9 +10599,7 @@
                 "modifierName": {
                   "id": 49465,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "13051:16:51"
-                  ],
+                  "nameLocations": ["13051:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "13051:16:51"
@@ -10756,9 +10627,7 @@
                 "modifierName": {
                   "id": 49468,
                   "name": "onlyOwnerOrReliedUpon",
-                  "nameLocations": [
-                    "13094:21:51"
-                  ],
+                  "nameLocations": ["13094:21:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48950,
                   "src": "13094:21:51"
@@ -10794,9 +10663,7 @@
                     "pathNode": {
                       "id": 49455,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "12947:5:51"
-                      ],
+                      "nameLocations": ["12947:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "12947:5:51"
@@ -10891,9 +10758,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49507
-                  ],
+                  "assignments": [49507],
                   "declarations": [
                     {
                       "constant": false,
@@ -10916,9 +10781,7 @@
                         "pathNode": {
                           "id": 49505,
                           "name": "VaultInfo",
-                          "nameLocations": [
-                            "14825:9:51"
-                          ],
+                          "nameLocations": ["14825:9:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48767,
                           "src": "14825:9:51"
@@ -11000,9 +10863,7 @@
                   "src": "14825:65:51"
                 },
                 {
-                  "assignments": [
-                    49516
-                  ],
+                  "assignments": [49516],
                   "declarations": [
                     {
                       "constant": false,
@@ -11025,9 +10886,7 @@
                         "pathNode": {
                           "id": 49514,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "14900:14:51"
-                          ],
+                          "nameLocations": ["14900:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "14900:14:51"
@@ -11429,9 +11288,7 @@
                 "modifierName": {
                   "id": 49496,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "14716:13:51"
-                  ],
+                  "nameLocations": ["14716:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "14716:13:51"
@@ -11459,9 +11316,7 @@
                 "modifierName": {
                   "id": 49498,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "14738:16:51"
-                  ],
+                  "nameLocations": ["14738:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "14738:16:51"
@@ -11489,9 +11344,7 @@
                 "modifierName": {
                   "id": 49501,
                   "name": "onlyOwnerOrReliedUpon",
-                  "nameLocations": [
-                    "14781:21:51"
-                  ],
+                  "nameLocations": ["14781:21:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48950,
                   "src": "14781:21:51"
@@ -11527,9 +11380,7 @@
                     "pathNode": {
                       "id": 49486,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "14621:5:51"
-                      ],
+                      "nameLocations": ["14621:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "14621:5:51"
@@ -11652,9 +11503,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49568
-                  ],
+                  "assignments": [49568],
                   "declarations": [
                     {
                       "constant": false,
@@ -11677,9 +11526,7 @@
                         "pathNode": {
                           "id": 49566,
                           "name": "VaultInfo",
-                          "nameLocations": [
-                            "17365:9:51"
-                          ],
+                          "nameLocations": ["17365:9:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48767,
                           "src": "17365:9:51"
@@ -11761,9 +11608,7 @@
                   "src": "17365:65:51"
                 },
                 {
-                  "assignments": [
-                    49577
-                  ],
+                  "assignments": [49577],
                   "declarations": [
                     {
                       "constant": false,
@@ -11786,9 +11631,7 @@
                         "pathNode": {
                           "id": 49575,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "17440:14:51"
-                          ],
+                          "nameLocations": ["17440:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "17440:14:51"
@@ -12452,9 +12295,7 @@
                 "modifierName": {
                   "id": 49557,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "17256:13:51"
-                  ],
+                  "nameLocations": ["17256:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "17256:13:51"
@@ -12482,9 +12323,7 @@
                 "modifierName": {
                   "id": 49559,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "17278:16:51"
-                  ],
+                  "nameLocations": ["17278:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "17278:16:51"
@@ -12512,9 +12351,7 @@
                 "modifierName": {
                   "id": 49562,
                   "name": "onlyOwnerOrReliedUpon",
-                  "nameLocations": [
-                    "17321:21:51"
-                  ],
+                  "nameLocations": ["17321:21:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48950,
                   "src": "17321:21:51"
@@ -12550,9 +12387,7 @@
                     "pathNode": {
                       "id": 49547,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "17161:5:51"
-                      ],
+                      "nameLocations": ["17161:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "17161:5:51"
@@ -12675,9 +12510,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49648
-                  ],
+                  "assignments": [49648],
                   "declarations": [
                     {
                       "constant": false,
@@ -12700,9 +12533,7 @@
                         "pathNode": {
                           "id": 49646,
                           "name": "VaultInfo",
-                          "nameLocations": [
-                            "19395:9:51"
-                          ],
+                          "nameLocations": ["19395:9:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48767,
                           "src": "19395:9:51"
@@ -12784,9 +12615,7 @@
                   "src": "19395:65:51"
                 },
                 {
-                  "assignments": [
-                    49657
-                  ],
+                  "assignments": [49657],
                   "declarations": [
                     {
                       "constant": false,
@@ -12809,9 +12638,7 @@
                         "pathNode": {
                           "id": 49655,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "19470:14:51"
-                          ],
+                          "nameLocations": ["19470:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "19470:14:51"
@@ -13127,9 +12954,7 @@
                 "modifierName": {
                   "id": 49637,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "19286:13:51"
-                  ],
+                  "nameLocations": ["19286:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "19286:13:51"
@@ -13157,9 +12982,7 @@
                 "modifierName": {
                   "id": 49639,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "19308:16:51"
-                  ],
+                  "nameLocations": ["19308:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "19308:16:51"
@@ -13187,9 +13010,7 @@
                 "modifierName": {
                   "id": 49642,
                   "name": "onlyOwnerOrReliedUpon",
-                  "nameLocations": [
-                    "19351:21:51"
-                  ],
+                  "nameLocations": ["19351:21:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48950,
                   "src": "19351:21:51"
@@ -13225,9 +13046,7 @@
                     "pathNode": {
                       "id": 49629,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "19204:5:51"
-                      ],
+                      "nameLocations": ["19204:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "19204:5:51"
@@ -13322,9 +13141,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49700
-                  ],
+                  "assignments": [49700],
                   "declarations": [
                     {
                       "constant": false,
@@ -13347,9 +13164,7 @@
                         "pathNode": {
                           "id": 49698,
                           "name": "VaultInfo",
-                          "nameLocations": [
-                            "21308:9:51"
-                          ],
+                          "nameLocations": ["21308:9:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48767,
                           "src": "21308:9:51"
@@ -13431,9 +13246,7 @@
                   "src": "21308:65:51"
                 },
                 {
-                  "assignments": [
-                    49709
-                  ],
+                  "assignments": [49709],
                   "declarations": [
                     {
                       "constant": false,
@@ -13456,9 +13269,7 @@
                         "pathNode": {
                           "id": 49707,
                           "name": "CollateralInfo",
-                          "nameLocations": [
-                            "21383:14:51"
-                          ],
+                          "nameLocations": ["21383:14:51"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 48758,
                           "src": "21383:14:51"
@@ -13585,9 +13396,7 @@
                   "src": "21568:32:51"
                 },
                 {
-                  "assignments": [
-                    49720
-                  ],
+                  "assignments": [49720],
                   "declarations": [
                     {
                       "constant": false,
@@ -13989,9 +13798,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    49751
-                  ],
+                  "assignments": [49751],
                   "declarations": [
                     {
                       "constant": false,
@@ -14091,9 +13898,7 @@
                   "src": "22386:107:51"
                 },
                 {
-                  "assignments": [
-                    49758
-                  ],
+                  "assignments": [49758],
                   "declarations": [
                     {
                       "constant": false,
@@ -14232,9 +14037,7 @@
                   "src": "22503:86:51"
                 },
                 {
-                  "assignments": [
-                    49768
-                  ],
+                  "assignments": [49768],
                   "declarations": [
                     {
                       "constant": false,
@@ -14929,9 +14732,7 @@
                 "modifierName": {
                   "id": 49692,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "21087:13:51"
-                  ],
+                  "nameLocations": ["21087:13:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48548,
                   "src": "21087:13:51"
@@ -14959,9 +14760,7 @@
                 "modifierName": {
                   "id": 49694,
                   "name": "collateralExists",
-                  "nameLocations": [
-                    "21109:16:51"
-                  ],
+                  "nameLocations": ["21109:16:51"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48928,
                   "src": "21109:16:51"
@@ -14997,9 +14796,7 @@
                     "pathNode": {
                       "id": 49682,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "20979:5:51"
-                      ],
+                      "nameLocations": ["20979:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "20979:5:51"
@@ -15122,9 +14919,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    49830
-                  ],
+                  "assignments": [49830],
                   "declarations": [
                     {
                       "constant": false,
@@ -15432,9 +15227,7 @@
                   "src": "24020:76:51"
                 },
                 {
-                  "assignments": [
-                    49852
-                  ],
+                  "assignments": [49852],
                   "declarations": [
                     {
                       "constant": false,
@@ -15839,9 +15632,7 @@
                     "pathNode": {
                       "id": 49820,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "23680:5:51"
-                      ],
+                      "nameLocations": ["23680:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "23680:5:51"
@@ -16268,9 +16059,7 @@
                     "pathNode": {
                       "id": 49882,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "24657:5:51"
-                      ],
+                      "nameLocations": ["24657:5:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "24657:5:51"
@@ -16677,9 +16466,7 @@
                     "pathNode": {
                       "id": 49920,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "25175:9:51"
-                      ],
+                      "nameLocations": ["25175:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "25175:9:51"
@@ -16714,9 +16501,7 @@
                     "pathNode": {
                       "id": 49923,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "25201:14:51"
-                      ],
+                      "nameLocations": ["25201:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "25201:14:51"
@@ -16875,9 +16660,7 @@
                     "src": "26502:380:51",
                     "statements": [
                       {
-                        "assignments": [
-                          49999
-                        ],
+                        "assignments": [49999],
                         "declarations": [
                           {
                             "constant": false,
@@ -17620,9 +17403,7 @@
                     "pathNode": {
                       "id": 49958,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "25981:9:51"
-                      ],
+                      "nameLocations": ["25981:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "25981:9:51"
@@ -17657,9 +17438,7 @@
                     "pathNode": {
                       "id": 49961,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "26007:14:51"
-                      ],
+                      "nameLocations": ["26007:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "26007:14:51"
@@ -18212,9 +17991,7 @@
                     "pathNode": {
                       "id": 50040,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "27279:9:51"
-                      ],
+                      "nameLocations": ["27279:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "27279:9:51"
@@ -18249,9 +18026,7 @@
                     "pathNode": {
                       "id": 50043,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "27313:14:51"
-                      ],
+                      "nameLocations": ["27313:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "27313:14:51"
@@ -18346,10 +18121,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50100,
-                    50102
-                  ],
+                  "assignments": [50100, 50102],
                   "declarations": [
                     {
                       "constant": false,
@@ -18731,9 +18503,7 @@
                     "pathNode": {
                       "id": 50091,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "27847:9:51"
-                      ],
+                      "nameLocations": ["27847:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "27847:9:51"
@@ -18768,9 +18538,7 @@
                     "pathNode": {
                       "id": 50094,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "27873:14:51"
-                      ],
+                      "nameLocations": ["27873:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "27873:14:51"
@@ -18810,9 +18578,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50143
-                  ],
+                  "assignments": [50143],
                   "declarations": [
                     {
                       "constant": false,
@@ -19050,9 +18816,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    50161
-                  ],
+                  "assignments": [50161],
                   "declarations": [
                     {
                       "constant": false,
@@ -19152,9 +18916,7 @@
                   "src": "29100:87:51"
                 },
                 {
-                  "assignments": [
-                    50168
-                  ],
+                  "assignments": [50168],
                   "declarations": [
                     {
                       "constant": false,
@@ -19332,9 +19094,7 @@
                     "pathNode": {
                       "id": 50132,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "28485:9:51"
-                      ],
+                      "nameLocations": ["28485:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "28485:9:51"
@@ -19369,9 +19129,7 @@
                     "pathNode": {
                       "id": 50135,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "28511:14:51"
-                      ],
+                      "nameLocations": ["28511:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "28511:14:51"
@@ -19439,9 +19197,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50192
-                  ],
+                  "assignments": [50192],
                   "declarations": [
                     {
                       "constant": false,
@@ -19734,9 +19490,7 @@
                     "pathNode": {
                       "id": 50181,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "29699:9:51"
-                      ],
+                      "nameLocations": ["29699:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "29699:9:51"
@@ -19771,9 +19525,7 @@
                     "pathNode": {
                       "id": 50184,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "29725:14:51"
-                      ],
+                      "nameLocations": ["29725:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "29725:14:51"
@@ -19841,9 +19593,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50222
-                  ],
+                  "assignments": [50222],
                   "declarations": [
                     {
                       "constant": false,
@@ -20136,9 +19886,7 @@
                     "pathNode": {
                       "id": 50212,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "30288:14:51"
-                      ],
+                      "nameLocations": ["30288:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "30288:14:51"
@@ -20233,9 +19981,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50255
-                  ],
+                  "assignments": [50255],
                   "declarations": [
                     {
                       "constant": false,
@@ -20319,9 +20065,7 @@
                   "src": "30966:89:51"
                 },
                 {
-                  "assignments": [
-                    50261
-                  ],
+                  "assignments": [50261],
                   "declarations": [
                     {
                       "constant": false,
@@ -20605,9 +20349,7 @@
                     "pathNode": {
                       "id": 50242,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "30825:9:51"
-                      ],
+                      "nameLocations": ["30825:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "30825:9:51"
@@ -20642,9 +20384,7 @@
                     "pathNode": {
                       "id": 50245,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "30851:14:51"
-                      ],
+                      "nameLocations": ["30851:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "30851:14:51"
@@ -20739,9 +20479,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50289
-                  ],
+                  "assignments": [50289],
                   "declarations": [
                     {
                       "constant": false,
@@ -21021,9 +20759,7 @@
                   "src": "31794:180:51"
                 },
                 {
-                  "assignments": [
-                    50308
-                  ],
+                  "assignments": [50308],
                   "declarations": [
                     {
                       "constant": false,
@@ -21340,9 +21076,7 @@
                     "pathNode": {
                       "id": 50281,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "31595:14:51"
-                      ],
+                      "nameLocations": ["31595:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "31595:14:51"
@@ -21561,9 +21295,7 @@
                     "pathNode": {
                       "id": 50330,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "32527:14:51"
-                      ],
+                      "nameLocations": ["32527:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "32527:14:51"
@@ -21831,9 +21563,7 @@
                     "pathNode": {
                       "id": 50350,
                       "name": "VaultInfo",
-                      "nameLocations": [
-                        "32869:9:51"
-                      ],
+                      "nameLocations": ["32869:9:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48767,
                       "src": "32869:9:51"
@@ -21868,9 +21598,7 @@
                     "pathNode": {
                       "id": 50353,
                       "name": "CollateralInfo",
-                      "nameLocations": [
-                        "32895:14:51"
-                      ],
+                      "nameLocations": ["32895:14:51"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 48758,
                       "src": "32895:14:51"
@@ -21905,9 +21633,7 @@
             "baseName": {
               "id": 48788,
               "name": "AccessControl",
-              "nameLocations": [
-                "493:13:51"
-              ],
+              "nameLocations": ["493:13:51"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 43683,
               "src": "493:13:51"
@@ -21920,9 +21646,7 @@
             "baseName": {
               "id": 48790,
               "name": "Pausable",
-              "nameLocations": [
-                "508:8:51"
-              ],
+              "nameLocations": ["508:8:51"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 48576,
               "src": "508:8:51"
@@ -21935,9 +21659,7 @@
             "baseName": {
               "id": 48792,
               "name": "IVault",
-              "nameLocations": [
-                "518:6:51"
-              ],
+              "nameLocations": ["518:6:51"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 48773,
               "src": "518:6:51"
@@ -21951,53 +21673,15 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          50370,
-          48773,
-          48576,
-          43683,
-          46625,
-          46637,
-          43766,
-          45302
-        ],
+        "linearizedBaseContracts": [50370, 48773, 48576, 43683, 46625, 46637, 43766, 45302],
         "name": "Vault",
         "nameLocation": "484:5:51",
         "scope": 50371,
         "usedErrors": [
-          43693,
-          43696,
-          44754,
-          45035,
-          45040,
-          45043,
-          48519,
-          48521,
-          48659,
-          48661,
-          48663,
-          48665,
-          48667,
-          48669,
-          48671,
-          48673,
-          48675,
-          48677,
-          48679,
-          48681
+          43693, 43696, 44754, 45035, 45040, 45043, 48519, 48521, 48659, 48661, 48663, 48665, 48667,
+          48669, 48671, 48673, 48675, 48677, 48679, 48681
         ],
-        "usedEvents": [
-          43705,
-          43714,
-          43723,
-          48685,
-          48691,
-          48699,
-          48705,
-          48711,
-          48717,
-          48727
-        ]
+        "usedEvents": [43705, 43714, 43723, 48685, 48691, 48699, 48705, 48711, 48717, 48727]
       }
     ],
     "license": "MIT"

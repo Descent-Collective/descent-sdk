@@ -16,8 +16,8 @@ TODO
 
 - [ ] Improve presets and configuration settings
 - [ ] Make configuration services oriented
-- [ ] Perform getters using MultiStaticCall in the [protocol-periphery]([https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/mutliStaticcall.sol)) contract to interact with the VaultGetter contract
-- [ ] Perform state change calls using the VaultRouter [protocol-periphery]([https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/vaultRouter.sol)) contract
+- [ ] Perform getters using MultiStaticCall in the [protocol-periphery](<[https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/mutliStaticcall.sol)>) contract to interact with the VaultGetter contract
+- [ ] Perform state change calls using the VaultRouter [protocol-periphery](<[https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/vaultRouter.sol)>) contract
 - [ ] Enable listening of events for state changes
 - [ ] Add functionality for automated token conversions (V2)
 - [ ] Add functionality for buying and selling of $DSN and $xNGN in DEXs (V2)

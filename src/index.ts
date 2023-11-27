@@ -1,5 +1,5 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
-import { ICollateral, IContract, INetwork, IProvider, ISigner } from './types';
+import { ICollateral, IContract, IMode, IProvider, ISigner } from './types';
 import { Contract } from './libs/contract';
 import Addresses from './contracts/addresses/base.json';
 import abis from './contracts/abis';
@@ -10,6 +10,7 @@ import {
   mintCurrency,
   withdrawCollateral,
 } from './services/vault';
+import { SupportedNetwork } from './contracts/types';
 
 export class DescentClass {
   protected signer: ISigner;
@@ -22,6 +23,13 @@ export class DescentClass {
     this.signer = signer;
     this.collateral = collateral;
     this.vaultContract = Contract(Addresses.VAULT, abis.CoreVaultAbi, this.signer);
+
+    this.provider.getNetwork().then((network) => {
+      const chainId = network.chainId.toString(10);
+      if (![chainId].includes(SupportedNetwork.GOERLI)) {
+        throw new Error(`chainId '${chainId}' is not supported.`);
+      }
+    });
   }
 
   /**
@@ -89,7 +97,7 @@ export class DescentClass {
   }
 }
 async function create(
-  requestType: INetwork,
+  mode: IMode,
   options: {
     ethereum?: Eip1193Provider | any;
     rpcUrl?: string;
@@ -98,18 +106,19 @@ async function create(
   },
 ) {
   try {
+    // Validate required options
+    if (!options.collateral) {
+      throw new Error('Missing required options');
+    }
     let provider: any;
     let signer: any;
-    if (requestType == INetwork.https) {
+    if (mode == IMode.https) {
       provider = new ethers.AbstractProvider(options?.rpcUrl);
       signer = new ethers.Wallet(options.privateKey, provider);
     }
-    if (requestType == INetwork.browser) {
+    if (mode == IMode.browser) {
       provider = new ethers.BrowserProvider(options?.ethereum);
       signer = await provider.getSigner();
-    }
-    if (options.ethereum) {
-      provider = new ethers.BrowserProvider(options?.ethereum);
     }
 
     const descent = new DescentClass(signer, provider, options.collateral);

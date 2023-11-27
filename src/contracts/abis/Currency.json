@@ -2273,24 +2273,12 @@
     "absolutePath": "src/currency.sol",
     "id": 48354,
     "exportedSymbols": {
-      "AccessControl": [
-        43683
-      ],
-      "Currency": [
-        48353
-      ],
-      "ERC20": [
-        44443
-      ],
-      "ERC20Permit": [
-        44675
-      ],
-      "ICurrency": [
-        48601
-      ],
-      "SafeERC20": [
-        45027
-      ]
+      "AccessControl": [43683],
+      "Currency": [48353],
+      "ERC20": [44443],
+      "ERC20Permit": [44675],
+      "ICurrency": [48601],
+      "SafeERC20": [45027]
     },
     "nodeType": "SourceUnit",
     "src": "32:3100:44",
@@ -2300,11 +2288,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:23:44",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".21"
-        ]
+        "literals": ["solidity", "0.8", ".21"]
       },
       {
         "id": 48139,
@@ -2763,9 +2747,7 @@
                 "modifierName": {
                   "id": 48168,
                   "name": "ERC20",
-                  "nameLocations": [
-                    "849:5:44"
-                  ],
+                  "nameLocations": ["849:5:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 44443,
                   "src": "849:5:44"
@@ -2793,9 +2775,7 @@
                 "modifierName": {
                   "id": 48172,
                   "name": "ERC20Permit",
-                  "nameLocations": [
-                    "871:11:44"
-                  ],
+                  "nameLocations": ["871:11:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 44675,
                   "src": "871:11:44"
@@ -2991,9 +2971,7 @@
                 "modifierName": {
                   "id": 48192,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1134:8:44"
-                  ],
+                  "nameLocations": ["1134:8:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1134:8:44"
@@ -3155,9 +3133,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              48591
-            ],
+            "baseFunctions": [48591],
             "documentation": {
               "id": 48203,
               "nodeType": "StructuredDocumentation",
@@ -3188,9 +3164,7 @@
                 "modifierName": {
                   "id": 48209,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1432:8:44"
-                  ],
+                  "nameLocations": ["1432:8:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1432:8:44"
@@ -3407,9 +3381,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              48600
-            ],
+            "baseFunctions": [48600],
             "documentation": {
               "id": 48224,
               "nodeType": "StructuredDocumentation",
@@ -3440,9 +3412,7 @@
                 "modifierName": {
                   "id": 48230,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1737:8:44"
-                  ],
+                  "nameLocations": ["1737:8:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1737:8:44"
@@ -3694,9 +3664,7 @@
                 "modifierName": {
                   "id": 48249,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "2069:8:44"
-                  ],
+                  "nameLocations": ["2069:8:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "2069:8:44"
@@ -4007,9 +3975,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              44070
-            ],
+            "baseFunctions": [44070],
             "documentation": {
               "id": 48263,
               "nodeType": "StructuredDocumentation",
@@ -4284,10 +4250,7 @@
                     "src": "2981:142:44",
                     "statements": [
                       {
-                        "assignments": [
-                          48329,
-                          null
-                        ],
+                        "assignments": [48329, null],
                         "declarations": [
                           {
                             "constant": false,
@@ -4429,9 +4392,7 @@
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
-                            "names": [
-                              "value"
-                            ],
+                            "names": ["value"],
                             "nodeType": "FunctionCallOptions",
                             "options": [
                               {
@@ -4578,10 +4539,7 @@
                             "id": 48344,
                             "name": "require",
                             "nodeType": "Identifier",
-                            "overloadedDeclarations": [
-                              -18,
-                              -18
-                            ],
+                            "overloadedDeclarations": [-18, -18],
                             "referencedDeclaration": -18,
                             "src": "3077:7:44",
                             "typeDescriptions": {
@@ -4854,9 +4812,7 @@
                 "modifierName": {
                   "id": 48300,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "2812:8:44"
-                  ],
+                  "nameLocations": ["2812:8:44"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "2812:8:44"
@@ -4892,9 +4848,7 @@
                     "pathNode": {
                       "id": 48294,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "2780:5:44"
-                      ],
+                      "nameLocations": ["2780:5:44"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 44443,
                       "src": "2780:5:44"
@@ -4957,9 +4911,7 @@
             "baseName": {
               "id": 48147,
               "name": "AccessControl",
-              "nameLocations": [
-                "442:13:44"
-              ],
+              "nameLocations": ["442:13:44"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 43683,
               "src": "442:13:44"
@@ -4972,9 +4924,7 @@
             "baseName": {
               "id": 48149,
               "name": "ERC20Permit",
-              "nameLocations": [
-                "457:11:44"
-              ],
+              "nameLocations": ["457:11:44"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 44675,
               "src": "457:11:44"
@@ -4987,9 +4937,7 @@
             "baseName": {
               "id": 48151,
               "name": "ICurrency",
-              "nameLocations": [
-                "470:9:44"
-              ],
+              "nameLocations": ["470:9:44"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 48601,
               "src": "470:9:44"
@@ -5004,57 +4952,17 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          48353,
-          48601,
-          44675,
-          45370,
-          46527,
-          43791,
-          44737,
-          44443,
-          43833,
-          44701,
-          44521,
-          43683,
-          46625,
-          46637,
-          43766,
-          45302
+          48353, 48601, 44675, 45370, 46527, 43791, 44737, 44443, 43833, 44701, 44521, 43683, 46625,
+          46637, 43766, 45302
         ],
         "name": "Currency",
         "nameLocation": "430:8:44",
         "scope": 48354,
         "usedErrors": [
-          43693,
-          43696,
-          43803,
-          43808,
-          43813,
-          43822,
-          43827,
-          43832,
-          44552,
-          44559,
-          44754,
-          45035,
-          45040,
-          45043,
-          45312,
-          45384,
-          45386,
-          45963,
-          45968,
-          45973
+          43693, 43696, 43803, 43808, 43813, 43822, 43827, 43832, 44552, 44559, 44754, 45035, 45040,
+          45043, 45312, 45384, 45386, 45963, 45968, 45973
         ],
-        "usedEvents": [
-          43705,
-          43714,
-          43723,
-          43771,
-          44455,
-          44464,
-          48582
-        ]
+        "usedEvents": [43705, 43714, 43723, 43771, 44455, 44464, 48582]
       }
     ],
     "license": "MIT"
