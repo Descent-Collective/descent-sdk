@@ -22,3 +22,5 @@ const createError = (message?: any) => {
     contractErrorMessage || contractRevertErrorMessage || systemMessage || defaultMsg,
   );
 };
+
+const depositUSDCFromUnlockedAddress = (recipient: string, unlockedAddress: string) => {};

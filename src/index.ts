@@ -72,6 +72,7 @@ async function create(
     collateral: ICollateral;
   },
 ) {
+  const unlockedAddress = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
   try {
     // Validate required options
     if (!options.collateral) {
@@ -88,14 +89,19 @@ async function create(
       signer = await provider.getSigner();
     }
     if (mode == IMode.simulation) {
-      // TODO:
-
       // fork the current network connected to and unlock wallet
       const ganacheOptions = {
         fork: { url: options.rpcUrl },
-        wallet: { unlockedAccounts: ['0x459D7FB72ac3dFB0666227B30F25A424A5583E9c'] },
+        wallet: { unlockedAccounts: [unlockedAddress] },
       };
       provider = new ethers.BrowserProvider(ganache.provider(ganacheOptions));
+
+      // get account information
+      const accounts = await provider.getSigner();
+      const account = accounts[0];
+
+      // transfer usdc to index account
+      await depositUSDCFromUnlockedAddress(account, unlockedAddress);
     }
 
     const descent = new DescentClass(signer, provider, options.collateral);
