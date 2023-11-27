@@ -10,7 +10,8 @@ export type IContractFactory = ethers.ContractFactory;
 export enum ICollateral {
   USDC = 'USDC',
 }
-export enum INetwork {
+export enum IMode {
   https = 'https',
   browser = 'browser',
+  simulation = 'simulation',
 }

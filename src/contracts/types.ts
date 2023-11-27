@@ -6,4 +6,6 @@ export type ContractName =
   | 'VaultGetters'
   | 'VaultRouters';
 
-export type SupportedNetworkId = '84531';
+export enum SupportedNetwork {
+  GOERLI = '84531',
+}

@@ -1,23 +1,23 @@
-import { ContractName, SupportedNetworkId } from './types';
+import { ContractName, SupportedNetwork } from './types';
 
-const addresses: Record<ContractName, Partial<Record<SupportedNetworkId, string>> | string> = {
+const addresses: Record<ContractName, Partial<Record<SupportedNetwork, string>>> = {
   Vault: {
-    '84531': '0x70cd9e416a943cF20887194bC4b1359F226f6530',
+    [SupportedNetwork.GOERLI]: '0xc93d667F5381CF2E41722829DF14E016bBb33A6A',
   },
   MultiStaticcall: {
-    '84531': '0x7F46a4944F9C3ecF4Ea622364132b3fE9aBa1015',
+    [SupportedNetwork.GOERLI]: '0xb78A27F2fC100380F074846D79809142C9FA99B9',
   },
   VaultGetters: {
-    '84531': '0xd870EbcfD3bA3652533d303847E55291336072e5',
+    [SupportedNetwork.GOERLI]: '0xDae34bf80b03a4F77Cd12679b8414088ea9cc5A2',
   },
   VaultRouters: {
-    '84531': '0xEd78389a73Bd77c0A54f5DAcBA2beADbed27A9EC',
+    [SupportedNetwork.GOERLI]: '0xe2f47eBEA1942AFCa1F5dC432b86B6b6259E70dC',
   },
   Currency: {
-    '84531': '0xB958E73F2132793e7707B12789C6F1a0a457049A',
+    [SupportedNetwork.GOERLI]: '0xED68D8380ED16ad69b861aDFae3Bf8fF75Acc25f',
   },
   USDC: {
-    '84531': '0xF175520C52418dfE19C8098071a252da48Cd1C19',
+    [SupportedNetwork.GOERLI]: '0xF175520C52418dfE19C8098071a252da48Cd1C19',
   },
 };
 
