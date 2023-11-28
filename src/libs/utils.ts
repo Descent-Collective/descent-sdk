@@ -3,6 +3,10 @@
  * @param message Error object
  * @returns The error message
  */
+
+import { ethers } from 'ethers';
+import ContractManager from '../contracts';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createError = (message?: any) => {
   const defaultMsg =
@@ -23,6 +27,15 @@ const createError = (message?: any) => {
   );
 };
 
-const depositUSDCFromUnlockedAddress = (recipient: string, unlockedAddress: string) => { };
+const depositUSDCFromUnlockedAddress = (
+  recipient: string,
+  unlockedAddress: string,
+  contract: ContractManager,
+) => {};
 
+const approveUSDC = async (spender: string, amount: string, contract: ContractManager) => {
+  const _amount = ethers.formatEther(amount);
+  (await contract.getUSDCContract()!).approve(spender, _amount);
+};
 
+export { createError, depositUSDCFromUnlockedAddress, approveUSDC };

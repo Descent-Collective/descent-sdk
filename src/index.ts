@@ -5,6 +5,8 @@ import type { Signer, Provider, BaseContract, Interface } from 'ethers';
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
 import ContractManager from './contracts';
+import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
+import { collateralizeVault } from './services/vault';
 
 export class DescentClass {
   protected signer: Signer;
@@ -55,10 +57,20 @@ export class DescentClass {
   /**
    * @dev deposit usdc for a particular vault
    * @param collateralAmount amount of unlocked collateral to withdraw
-   * @param vaultID vault id to withdraw usdc from
-   * @returns unlockedCollateral
+   * @param ownerAddress owner of the vault which should be the caller
+   * @returns transactionReceipt
    */
-  public async depositCollateral(collateralAmount: string, ownerAddress: string) {}
+  public async depositCollateral(collateralAmount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await collateralizeVault(
+      collateralAmount,
+      this.collateral,
+      owner,
+      this.contracts!,
+    );
+
+    return result;
+  }
 }
 async function create(
   mode: IMode,
@@ -98,7 +110,7 @@ async function create(
       const account = accounts[0];
 
       // transfer usdc to index account
-      await depositUSDCFromUnlockedAddress(account, unlockedAddress);
+      //depositUSDCFromUnlockedAddress(account, unlockedAddress);
     }
 
     const descent = new DescentClass(signer, provider, options.collateral);

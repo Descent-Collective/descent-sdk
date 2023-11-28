@@ -3,6 +3,7 @@ import { ICollateral, IContract } from '../types';
 import { Contract } from '../libs/contract';
 import ContractManager from '../contracts';
 import { getContractAddress } from '../contracts/getContractAddresses';
+import { createError } from '../libs/utils';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
