@@ -9,6 +9,10 @@ async function main() {
   if (!fs.existsSync('./cache/json-abis'))
     await fsp.mkdir('./cache/json-abis', { recursive: true });
 
+  if (fs.existsSync('./src/generated'))
+    await fsp.rm('./src/generated', { recursive: true, force: true });
+  await fsp.mkdir('./src/generated');
+
   const importABIs = glob(cwd, [
     '../src/contracts/abis/MultiStaticcall.json',
     '../src/contracts/abis/usdc.json',
@@ -25,6 +29,8 @@ async function main() {
 
     const content = await fsp.readFile(file, 'utf8');
 
+    console.log(content);
+
     const obj = JSON.parse(content) as Record<string, any>;
     obj.bytecode = '0x';
     obj.deployedBytecode = '0x';
@@ -32,13 +38,14 @@ async function main() {
 
     copiedABIs.push(dest);
   }
+  console.log(copiedABIs);
 
   await runTypeChain({
     cwd,
-    filesToProcess: copiedABIs,
+    filesToProcess: importABIs,
     allFiles: copiedABIs,
     outDir: './src/generated',
-    target: 'ethers-v5',
+    target: 'ethers-v6',
   });
 }
 
