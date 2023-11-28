@@ -1,11 +1,19 @@
-// import { ethers } from 'ethers';
-// import { ICollateral, IContract } from '../types';
-// import { Contract } from '../libs/contract';
+import { ethers, BigNumberish, AddressLike } from 'ethers';
+import { ICollateral, IContract } from '../types';
+import { Contract } from '../libs/contract';
+import ContractManager from '../contracts';
+import { getContractAddress } from '../contracts/getContractAddresses';
 
-// export enum VaultHealthFactor {
-//   UNSAFE = 'UNSAFE',
-//   SAFE = 'SAFE',
-// }
+export enum VaultHealthFactor {
+  UNSAFE = 'UNSAFE',
+  SAFE = 'SAFE',
+}
+export enum VaultOperations {
+  DepositCollateral = 'DepositCollateral',
+  WithdrawCollateral = 'WithdrawCollateral',
+  MintCurrency = 'MintCurrency',
+  BurnCurrency = 'BurnCurrency',
+}
 
 // const getVaultInfo = async (
 //   ownerAddress: string | number,
@@ -65,24 +73,42 @@
 //   }
 // };
 
-// const collateralizeVault = async (
-//   amount: string,
-//   collateral: ICollateral,
-//   owner: string,
-//   contract: IContract,
-// ) => {
-//   let collateralAddress;
-//   if (collateral == ICollateral.USDC) {
-//     collateralAddress = Addresses.USDC;
-//   }
-//   try {
-//     const res = await contract.depositCollateral(collateralAddress, owner, ethers.toBigInt(amount));
-//     return res;
-//   } catch (e) {
-//     const message = createError(e);
-//     return message;
-//   }
-// };
+const collateralizeVault = async (
+  amount: string,
+  collateral: ICollateral,
+  owner: string,
+  contract: ContractManager,
+) => {
+  const collateralAddress: any = getContractAddress(collateral);
+  const vaultContractAddress: any = getContractAddress('Vault');
+
+  const operation = 'DepositCollateral';
+  const _amount = ethers.formatEther(amount);
+
+  try {
+    // approve router to talk to vault on behalf of user
+    const relyRes = (await contract.getVaultContract()!).rely(owner);
+    const relyResResult = (await relyRes)!.wait();
+    console.log(relyResResult, 'rely result for vault');
+
+    const depositRes = (await contract.getVaultRouterContract()!).multiInteract(
+      [vaultContractAddress],
+      [operation],
+      [collateralAddress],
+      [],
+      [_amount],
+    );
+
+    const depositResResult = (await depositRes).wait();
+
+    console.log(depositResResult);
+
+    return depositResResult;
+  } catch (e) {
+    const message = createError(e);
+    return message;
+  }
+};
 // const withdrawCollateral = async (
 //   amount: string,
 //   collateral: ICollateral,
@@ -149,4 +175,4 @@
 //   }
 // };
 
-// export { getVaultInfo, collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };
+export { collateralizeVault };
