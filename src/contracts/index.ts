@@ -30,9 +30,12 @@ export default class ContractManager {
 
       const provider = passedProvider || this.provider;
 
+      console.log(provider?.getNetwork()?.chainId?.toString(10), 'chain id');
+
       const inputAddress: any = (getContractAddress(name) || {})[
-        provider!.getNetwork()!.chainId!.toString(10)
+        provider?.getNetwork()?.chainId?.toString(10)
       ];
+      console.log(inputAddress, 'input address');
       if (!inputAddress) {
         throw new Error(`No address for contract ${name}`);
       }

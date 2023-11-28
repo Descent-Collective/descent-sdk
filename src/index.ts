@@ -73,7 +73,7 @@ export class DescentClass {
   }
 }
 async function create(
-  mode: IMode,
+  mode: string,
   options: {
     ethereum?: Eip1193Provider | any;
     rpcUrl?: string;
@@ -90,31 +90,30 @@ async function create(
     let provider: any;
     let signer: any;
     if (mode == IMode.https) {
-      provider = new ethers.AbstractProvider(options?.rpcUrl);
+      provider = new ethers.JsonRpcProvider(options?.rpcUrl);
       signer = new ethers.Wallet(options.privateKey, provider);
     }
     if (mode == IMode.browser) {
       provider = new ethers.BrowserProvider(options?.ethereum);
       signer = await provider.getSigner();
     }
-    if (mode == IMode.simulation) {
-      // fork the current network connected to and unlock wallet
-      const ganacheOptions = {
-        fork: { url: options.rpcUrl },
-        wallet: { unlockedAccounts: [unlockedAddress] },
-      };
-      provider = new ethers.BrowserProvider(ganache.provider(ganacheOptions));
+    // if (mode == IMode.simulation) {
+    //   // fork the current network connected to and unlock wallet
+    //   const ganacheOptions = {
+    //     fork: { url: options.rpcUrl },
+    //     wallet: { unlockedAccounts: [unlockedAddress] },
+    //   };
+    //   provider = new ethers.BrowserProvider(ganache.provider(ganacheOptions));
 
-      // get account information
-      const accounts = await provider.getSigner();
-      const account = accounts[0];
+    //   // get account information
+    //   const accounts = await provider.getSigner();
+    //   const account = accounts[0];
 
-      // transfer usdc to index account
-      //depositUSDCFromUnlockedAddress(account, unlockedAddress);
-    }
+    //   // transfer usdc to index account
+    //   //depositUSDCFromUnlockedAddress(account, unlockedAddress);
+    //}
 
-    const descent = new DescentClass(signer, provider, options.collateral);
-    return descent;
+    return new DescentClass(signer, provider, options.collateral);
   } catch (e) {
     const error = createError(e);
 

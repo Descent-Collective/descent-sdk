@@ -33,8 +33,12 @@ const depositUSDCFromUnlockedAddress = (
   contract: ContractManager,
 ) => {};
 
-const approveUSDC = async (spender: string, amount: string, contract: ContractManager) => {
+const approveUSDC = async (spender: string, amount: string, rpcUrl: string) => {
+  console.log(rpcUrl, 'rpc');
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
   const _amount = ethers.formatEther(amount);
+
+  const contract = new ContractManager(provider);
   (await contract.getUSDCContract()!).approve(spender, _amount);
 };
 
