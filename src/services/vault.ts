@@ -79,9 +79,10 @@ const collateralizeVault = async (
   collateral: ICollateral,
   owner: string,
   contract: ContractManager,
+  chainId: string,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral);
-  const vaultContractAddress: any = getContractAddress('Vault');
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
 
   const operation = 'DepositCollateral';
   const _amount = ethers.formatEther(amount);
@@ -106,6 +107,7 @@ const collateralizeVault = async (
 
     return depositResResult;
   } catch (e) {
+    console.log(e, 'main error');
     const message = createError(e);
     return message;
   }

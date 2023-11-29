@@ -1,5 +1,5 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
-import { ICollateral, IMode } from './types';
+import { ICollateral, IMode, ISigner } from './types';
 import type { Signer, Provider, BaseContract, Interface } from 'ethers';
 
 import { SupportedNetwork } from './contracts/types';
@@ -15,6 +15,7 @@ export class DescentClass {
 
   contracts?: ContractManager;
   configMode: IMode | string;
+  chainId: string;
 
   constructor(
     signer: Signer,
@@ -22,12 +23,14 @@ export class DescentClass {
     collateral: ICollateral,
     contracts: ContractManager,
     configMode: IMode | string,
+    chainId: string,
   ) {
     this.provider = provider;
     this.signer = signer;
     this.collateral = collateral;
     this.contracts = contracts;
     this.configMode = configMode;
+    this.chainId = chainId;
   }
 
   /**
@@ -63,11 +66,13 @@ export class DescentClass {
    */
   public async depositCollateral(collateralAmount: string) {
     const owner = await this.signer.getAddress();
+    const contracts = new ContractManager(this.signer);
     const result = await collateralizeVault(
       collateralAmount,
       this.collateral,
       owner,
-      this.contracts!,
+      contracts!,
+      this.chainId,
     );
 
     return result;
@@ -82,37 +87,31 @@ async function create(
     collateral: ICollateral;
   },
 ) {
-  const unlockedAddress = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
-  try {
-    // Validate required options
-    if (!options.collateral) {
-      throw new Error('Missing required options');
-    }
-    let provider: any;
-    let signer: any;
-    if (mode == IMode.https) {
-      provider = new ethers.JsonRpcProvider(options?.rpcUrl);
-
-      signer = new ethers.Wallet(options.privateKey, provider);
-    }
-    if (mode == IMode.browser) {
-      provider = new ethers.BrowserProvider(options?.ethereum);
-      signer = await provider.getSigner();
-    }
-    provider.getNetwork().then((network: { chainId: { toString: (arg0: number) => any } }) => {
-      const chainId = network.chainId.toString(10);
-      if (![chainId].includes(SupportedNetwork.GOERLI)) {
-        throw new Error(`chainId '${chainId}' is not supported.`);
-      }
-    });
-    const contracts = new ContractManager(provider);
-
-    return new DescentClass(signer, provider, options.collateral, contracts, mode);
-  } catch (e) {
-    const error = createError(e);
-
-    return error;
+  // Validate required options
+  if (!options.collateral) {
+    throw new Error('Missing required options');
   }
+  let provider: any;
+  let signer: any;
+
+  if (mode == IMode.https) {
+    provider = new ethers.JsonRpcProvider(options?.rpcUrl);
+
+    signer = new ethers.Wallet(options.privateKey, provider);
+  }
+  if (mode == IMode.browser) {
+    provider = new ethers.BrowserProvider(options?.ethereum);
+    signer = await provider?.getSigner();
+  }
+  const chainId = (await provider.getNetwork()).chainId.toString(10);
+
+  if (![chainId].includes(SupportedNetwork.GOERLI)) {
+    throw new Error(`chainId '${chainId}' is not supported.`);
+  }
+
+  const contracts = new ContractManager(provider);
+
+  return new DescentClass(signer, provider, options.collateral, contracts, mode, chainId);
 }
 
 const Descent = {

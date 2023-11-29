@@ -4,7 +4,7 @@
  * @returns The error message
  */
 
-import { ethers } from 'ethers';
+import { Signer, ethers } from 'ethers';
 import ContractManager from '../contracts';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,13 +33,15 @@ const depositUSDCFromUnlockedAddress = (
   contract: ContractManager,
 ) => {};
 
-const approveUSDC = async (spender: string, amount: string, rpcUrl: string) => {
-  console.log(rpcUrl, 'rpc');
-  const provider = new ethers.JsonRpcProvider(rpcUrl);
-  const _amount = ethers.formatEther(amount);
+const approveUSDC = async (spender: string, amount: string, signer: Signer) => {
+  const contract = new ContractManager(signer);
 
-  const contract = new ContractManager(provider);
-  (await contract.getUSDCContract()!).approve(spender, _amount);
+  (await contract.getUSDCContract()!).approve(spender, amount);
+
+  const owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
+
+  const allowance = (await contract.getUSDCContract()).allowance(owner, spender);
+  console.log(await allowance);
 };
 
 export { createError, depositUSDCFromUnlockedAddress, approveUSDC };
