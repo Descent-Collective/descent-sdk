@@ -23,7 +23,7 @@ const addresses: Record<ContractName, Partial<Record<SupportedNetwork | string, 
 
 export const getContractAddress = (contractName: ContractName) => {
   try {
-    return typeof addresses[contractName] === 'string' && addresses[contractName];
+    return addresses[contractName];
   } catch {
     throw new Error(`No address for contract ${contractName}`);
   }

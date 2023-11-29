@@ -1,7 +1,7 @@
 import { getContractAddress } from './getContractAddresses';
 import { ContractName, SupportedNetwork } from './types';
 import type { Signer, Provider, BaseContract, Interface } from 'ethers';
-import { Currency, MultiStaticcall, Usdc, Vault, VaultGetters, VaultRouter } from '../generated';
+import { Currency, MultiStaticcall, USDC, Vault, VaultGetters, VaultRouter } from '../generated';
 
 type BaseFactory = {
   readonly abi: object;
@@ -13,11 +13,6 @@ export default class ContractManager {
   private contractAddress: any;
   private provider: Provider;
 
-  protected getModule = async (name: string) => {
-    const mod = await import(`../generated/factories/${name}__factory`);
-    return mod[`${name}__factory`] as BaseFactory;
-  };
-
   constructor(provider: Provider) {
     this.provider = provider;
   }
@@ -26,20 +21,19 @@ export default class ContractManager {
     name: ContractName,
   ): ((passedProvider?: any) => Promise<C>) => {
     return async (passedProvider) => {
-      const mod = await this.getModule(name);
+      const mod = await import(`../generated/factories/${name}__factory`);
 
       const provider = passedProvider || this.provider;
 
-      console.log(provider?.getNetwork()?.chainId?.toString(10), 'chain id');
+      const chainId = (await this.provider.getNetwork()).chainId.toString(10);
 
-      const inputAddress: any = (getContractAddress(name) || {})[
-        provider?.getNetwork()?.chainId?.toString(10)
-      ];
-      console.log(inputAddress, 'input address');
+      const inputAddress: any = (getContractAddress(name) || {})[chainId];
+
       if (!inputAddress) {
         throw new Error(`No address for contract ${name}`);
       }
-      return mod.connect(inputAddress, provider) as C;
+
+      return mod[`${name}__factory`]?.connect(inputAddress, provider);
     };
   };
 
@@ -49,5 +43,5 @@ export default class ContractManager {
   public getMultistaticcallContract =
     this.generateContractGetter<MultiStaticcall>('MultiStaticcall');
   public getCurrencyContract = this.generateContractGetter<Currency>('Currency');
-  public getUSDCContract = this.generateContractGetter<Usdc>('USDC');
+  public getUSDCContract = this.generateContractGetter<USDC>('USDC');
 }

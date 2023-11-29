@@ -3,7 +3,7 @@
 /* eslint-disable */
 export { Currency__factory } from "./Currency__factory";
 export { MultiStaticcall__factory } from "./MultiStaticcall__factory";
+export { USDC__factory } from "./USDC__factory";
 export { Vault__factory } from "./Vault__factory";
 export { VaultGetters__factory } from "./VaultGetters__factory";
 export { VaultRouter__factory } from "./VaultRouter__factory";
-export { Usdc__factory } from "./Usdc__factory";

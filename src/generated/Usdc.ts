@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "./common";
 
-export interface UsdcInterface extends Interface {
+export interface USDCInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "name"
@@ -120,11 +120,11 @@ export namespace TransferEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface Usdc extends BaseContract {
-  connect(runner?: ContractRunner | null): Usdc;
+export interface USDC extends BaseContract {
+  connect(runner?: ContractRunner | null): USDC;
   waitForDeployment(): Promise<this>;
 
-  interface: UsdcInterface;
+  interface: USDCInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,

@@ -14,19 +14,20 @@ export class DescentClass {
   private collateral: ICollateral;
 
   contracts?: ContractManager;
+  configMode: IMode | string;
 
-  constructor(signer: Signer, provider: Provider, collateral: ICollateral) {
+  constructor(
+    signer: Signer,
+    provider: Provider,
+    collateral: ICollateral,
+    contracts: ContractManager,
+    configMode: IMode | string,
+  ) {
     this.provider = provider;
     this.signer = signer;
     this.collateral = collateral;
-
-    this.provider.getNetwork().then((network) => {
-      const chainId = network.chainId.toString(10);
-      if (![chainId].includes(SupportedNetwork.GOERLI)) {
-        throw new Error(`chainId '${chainId}' is not supported.`);
-      }
-    });
-    this.contracts = new ContractManager(provider);
+    this.contracts = contracts;
+    this.configMode = configMode;
   }
 
   /**
@@ -91,29 +92,22 @@ async function create(
     let signer: any;
     if (mode == IMode.https) {
       provider = new ethers.JsonRpcProvider(options?.rpcUrl);
+
       signer = new ethers.Wallet(options.privateKey, provider);
     }
     if (mode == IMode.browser) {
       provider = new ethers.BrowserProvider(options?.ethereum);
       signer = await provider.getSigner();
     }
-    // if (mode == IMode.simulation) {
-    //   // fork the current network connected to and unlock wallet
-    //   const ganacheOptions = {
-    //     fork: { url: options.rpcUrl },
-    //     wallet: { unlockedAccounts: [unlockedAddress] },
-    //   };
-    //   provider = new ethers.BrowserProvider(ganache.provider(ganacheOptions));
+    provider.getNetwork().then((network: { chainId: { toString: (arg0: number) => any } }) => {
+      const chainId = network.chainId.toString(10);
+      if (![chainId].includes(SupportedNetwork.GOERLI)) {
+        throw new Error(`chainId '${chainId}' is not supported.`);
+      }
+    });
+    const contracts = new ContractManager(provider);
 
-    //   // get account information
-    //   const accounts = await provider.getSigner();
-    //   const account = accounts[0];
-
-    //   // transfer usdc to index account
-    //   //depositUSDCFromUnlockedAddress(account, unlockedAddress);
-    //}
-
-    return new DescentClass(signer, provider, options.collateral);
+    return new DescentClass(signer, provider, options.collateral, contracts, mode);
   } catch (e) {
     const error = createError(e);
 
