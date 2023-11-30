@@ -1,23 +1,19 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
-import { ICollateral, IContract, IMode, IProvider, ISigner } from './types';
-import { Contract } from './libs/contract';
-import abis from './contracts/abis';
-import {
-  burnCurrency,
-  collateralizeVault,
-  getVaultInfo,
-  mintCurrency,
-  withdrawCollateral,
-} from './services/vault';
+import { ICollateral, IMode } from './types';
+import type { Signer, Provider, BaseContract, Interface } from 'ethers';
+
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
+import ContractManager from './contracts';
 
 export class DescentClass {
-  protected signer: ISigner;
-  protected provider: IProvider;
+  protected signer: Signer;
+  protected provider: Provider;
   private collateral: ICollateral;
 
-  constructor(signer: ISigner, provider: IProvider, collateral: ICollateral) {
+  contracts?: ContractManager;
+
+  constructor(signer: Signer, provider: Provider, collateral: ICollateral) {
     this.provider = provider;
     this.signer = signer;
     this.collateral = collateral;
@@ -28,6 +24,7 @@ export class DescentClass {
         throw new Error(`chainId '${chainId}' is not supported.`);
       }
     });
+    this.contracts = new ContractManager(provider);
   }
 
   /**

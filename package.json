@@ -26,9 +26,10 @@
     "analyze": "size-limit --why",
     "build": "tsdx build",
     "format": "prettier --write .",
+    "generate-types": "typechain --target ethers-v6 --out-dir src/generated 'src/contracts/abis/*.json' ",
+    "start": "ts-node --files src/index.test.ts",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "start": "tsdx watch",
     "test": "tsdx test"
   },
   "husky": {
@@ -41,11 +42,15 @@
     "ganache": "^7.9.1"
   },
   "devDependencies": {
+    "@ethersproject/abi": "^5.7.0",
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@size-limit/preset-small-lib": "^9.0.0",
+    "@typechain/ethers-v6": "^0.5.1",
     "dotenv": "^16.3.1",
+    "fs": "^0.0.1-security",
+    "glob": "^8.0.3",
     "husky": "^8.0.3",
     "prettier": "^3.1.0",
     "rollup": "^3.29.4",
@@ -53,11 +58,12 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "size-limit": "^9.0.0",
+    "ts-node": "^10.7.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
+    "typechain": "^8.3.2",
     "typescript": "^5.2.2"
   },
-  "peerDependencies": {},
   "engines": {
     "node": ">=10"
   },

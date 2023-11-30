@@ -1,6 +1,6 @@
 import { ContractName, SupportedNetwork } from './types';
 
-const addresses: Record<ContractName, Partial<Record<SupportedNetwork, string>>> = {
+const addresses: Record<ContractName, Partial<Record<SupportedNetwork | string, string>>> = {
   Vault: {
     [SupportedNetwork.GOERLI]: '0xc93d667F5381CF2E41722829DF14E016bBb33A6A',
   },
@@ -10,7 +10,7 @@ const addresses: Record<ContractName, Partial<Record<SupportedNetwork, string>>>
   VaultGetters: {
     [SupportedNetwork.GOERLI]: '0xDae34bf80b03a4F77Cd12679b8414088ea9cc5A2',
   },
-  VaultRouters: {
+  VaultRouter: {
     [SupportedNetwork.GOERLI]: '0xe2f47eBEA1942AFCa1F5dC432b86B6b6259E70dC',
   },
   Currency: {
