@@ -75,12 +75,10 @@ export class DescentClass {
    */
   public async depositCollateral(collateralAmount: string) {
     const owner = await this.signer.getAddress();
-    const contracts = new ContractManager(this.signer);
     const result = await collateralizeVault(
       collateralAmount,
       this.collateral,
       owner,
-      contracts!,
       this.chainId,
       this.transaction,
       this.internal,

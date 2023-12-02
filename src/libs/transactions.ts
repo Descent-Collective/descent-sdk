@@ -22,8 +22,11 @@ export class Transaction {
   ): Promise<string> => {
     return new Promise(async (resolve, reject) => {
       if (this.descent.configMode == 'node') {
+        console.log('if block');
+        console.log(this.descent.configMode);
         try {
           const signedTransaction = await this.descent.signer.signTransaction(transactionConfig);
+          console.log(signedTransaction, 'tx signed');
 
           if (!signedTransaction)
             throw new Error(
@@ -35,6 +38,7 @@ export class Transaction {
           reject(error);
         }
       } else {
+        console.log('else block');
         try {
           const tx = await this.descent.signer.sendTransaction(transactionConfig);
           const hash = tx!.hash;

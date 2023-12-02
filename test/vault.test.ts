@@ -31,6 +31,8 @@ describe('Descent Protocol SDK Test', () => {
 
     const response = await descent.depositCollateral('100');
 
-    console.log(response, 'from test');
+    const txData = await descent.signer.provider?.getTransactionReceipt(response);
+
+    console.log(txData);
   });
 });

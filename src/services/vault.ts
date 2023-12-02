@@ -80,7 +80,6 @@ const collateralizeVault = async (
   amount: string,
   collateral: ICollateral,
   owner: string,
-  contract: ContractManager,
   chainId: string,
   transaction: Transaction,
   internal: Internal,
@@ -114,28 +113,45 @@ const collateralizeVault = async (
 
   return depositResResult;
 };
-// const withdrawCollateral = async (
-//   amount: string,
-//   collateral: ICollateral,
-//   owner: string,
-//   contract: IContract,
-// ) => {
-//   let collateralAddress;
-//   if (collateral == ICollateral.USDC) {
-//     collateralAddress = Addresses.USDC;
-//   }
-//   try {
-//     const res = await contract.withdrawCollateral(
-//       collateralAddress,
-//       owner,
-//       ethers.toBigInt(amount),
-//     );
-//     return res;
-//   } catch (e) {
-//     const message = createError(e);
-//     return message;
-//   }
-// };
+const withdrawCollateral = async (
+  amount: string,
+  collateral: ICollateral,
+  owner: string,
+  chainId: string,
+  transaction: Transaction,
+  internal: Internal,
+) => {
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+
+  const _amount = BigInt(amount) * BigInt(1e6);
+
+  // build transaction object
+  const to: any = getContractAddress('VaultRouter')[chainId];
+  let iface = internal.getInterface(VaultRouter__factory.abi);
+  const data = iface.encodeFunctionData('multiInteract', [
+    [vaultContractAddress],
+    [VaultOperations.WithdrawCollateral],
+    [collateralAddress],
+    [ethers.ZeroAddress],
+    [_amount],
+  ]);
+
+  const count = await transaction.getTransactionCount(owner);
+
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+    nonce: count! + 1,
+  });
+
+  const withdrawResResult = await transaction.send(txConfig, {});
+
+  console.log(withdrawResResult, 'withdraw response');
+
+  return withdrawResResult;
+};
 // const mintCurrency = async (
 //   amount: string,
 //   collateral: ICollateral,
