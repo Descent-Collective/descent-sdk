@@ -9,6 +9,7 @@ config();
 describe('Descent Protocol SDK Test', () => {
   let descent: DescentClass;
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
+  let vault = '0xCaC650a8F8E71BDE3d60f0B020A4AA3874974705';
   let rpcUrl = 'https://goerli.base.org';
 
   beforeAll(async () => {
@@ -26,7 +27,7 @@ describe('Descent Protocol SDK Test', () => {
 
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
-    await approveUSDC(owner, '100000000', signer);
+    await approveUSDC(vault, '100000000', signer, descent.transaction, descent.internal);
 
     const response = await descent.depositCollateral('100');
 

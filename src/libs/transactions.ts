@@ -70,7 +70,7 @@ export class Transaction {
    * @returns Transaction count for address
    */
   getTransactionCount = async (address: string) => {
-    const transactionCount = await this.descent.signer.provider?.getTransaction(address);
+    const transactionCount = await this.descent.signer.provider?.getTransactionCount(address);
 
     return transactionCount;
   };

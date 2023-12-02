@@ -1,21 +1,21 @@
-import { ethers, BigNumberish, AddressLike } from 'ethers';
+import { ethers, BigNumberish, AddressLike, formatUnits, NonceManager } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import ContractManager from '../contracts';
 import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { createError } from '../libs/utils';
 import { Internal } from '../libs/internal';
-import { Vault__factory } from '../generated/factories';
+import { VaultRouter__factory, Vault__factory } from '../generated/factories';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
   SAFE = 'SAFE',
 }
 export enum VaultOperations {
-  DepositCollateral = 'DepositCollateral',
-  WithdrawCollateral = 'WithdrawCollateral',
-  MintCurrency = 'MintCurrency',
-  BurnCurrency = 'BurnCurrency',
+  DepositCollateral = 0,
+  WithdrawCollateral = 1,
+  MintCurrency = 2,
+  BurnCurrency = 3,
 }
 
 // const getVaultInfo = async (
@@ -88,28 +88,34 @@ const collateralizeVault = async (
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
 
-  const operation = 'DepositCollateral';
-  const _amount = ethers.formatEther(amount);
+  const _amount = BigInt(amount) * BigInt(1e6);
+  console.log(_amount, 'amount');
 
-  try {
-    const depositRes = (await contract.getVaultRouterContract()!).multiInteract(
-      [vaultContractAddress],
-      [operation],
-      [collateralAddress],
-      [],
-      [_amount],
-    );
+  // build transaction object
+  const to: any = getContractAddress('VaultRouter')[chainId];
+  let iface = internal.getInterface(VaultRouter__factory.abi);
+  const data = iface.encodeFunctionData('multiInteract', [
+    [vaultContractAddress],
+    [VaultOperations.DepositCollateral],
+    [collateralAddress],
+    [ethers.ZeroAddress],
+    [_amount],
+  ]);
 
-    const depositResResult = (await depositRes).wait();
+  const count = await transaction.getTransactionCount(owner);
 
-    console.log(depositResResult);
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+    nonce: count! + 1,
+  });
 
-    return depositResResult;
-  } catch (e) {
-    console.log(e, 'main error');
-    const message = createError(e);
-    return message;
-  }
+  const depositResResult = await transaction.send(txConfig, {});
+
+  console.log(depositResResult);
+
+  return depositResResult;
 };
 // const withdrawCollateral = async (
 //   amount: string,

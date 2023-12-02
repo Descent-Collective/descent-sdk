@@ -107,7 +107,7 @@ async function create(
   if (mode == IMode.https) {
     provider = new ethers.JsonRpcProvider(options?.rpcUrl);
 
-    signer = new NonceManager(new ethers.Wallet(options.privateKey, provider));
+    signer = new ethers.Wallet(options.privateKey, provider);
   }
   if (mode == IMode.browser) {
     provider = new ethers.BrowserProvider(options?.ethereum);
@@ -119,30 +119,16 @@ async function create(
     throw new Error(`chainId '${chainId}' is not supported.`);
   }
 
-  const contracts = new ContractManager(provider);
+  const contracts = new ContractManager(signer);
 
   const descent = new DescentClass(signer, provider, options.collateral, contracts, mode, chainId);
 
   // approve router to talk to vault on behalf of user
-  // build transaction object
-  const to: any = getContractAddress('Vault')[chainId];
-  let iface = descent.internal.getInterface(Vault__factory.abi);
 
-  const owner = await descent.signer.getAddress();
-  const data = iface.encodeFunctionData('rely', [owner]);
+  const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
 
-  const count = await descent.signer.provider?.getTransactionCount(owner);
-
-  const txConfig = await descent.internal.getTransactionConfig({
-    from: owner,
-    to,
-    data: data,
-    nonce: Number(BigInt(count!)),
-  });
-
-  const tx = await descent.transaction.send(txConfig, {});
-
-  console.log(tx, 'rely method');
+  const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
+  (await relyResponse).wait(2);
 
   return descent;
 }

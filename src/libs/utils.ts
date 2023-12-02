@@ -6,6 +6,10 @@
 
 import { Signer, ethers } from 'ethers';
 import ContractManager from '../contracts';
+import { Transaction } from './transactions';
+import { Internal } from './internal';
+import { getContractAddress } from '../contracts/getContractAddresses';
+import { USDC__factory } from '../generated';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createError = (message?: any) => {
@@ -33,15 +37,37 @@ const depositUSDCFromUnlockedAddress = (
   contract: ContractManager,
 ) => {};
 
-const approveUSDC = async (spender: string, amount: string, signer: Signer) => {
+const approveUSDC = async (
+  spender: string,
+  amount: string,
+  signer: Signer,
+  transaction: Transaction,
+  internal: Internal,
+) => {
   const contract = new ContractManager(signer);
 
-  (await contract.getUSDCContract()!).approve(spender, amount);
+  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-  const owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
+  const owner = await signer.getAddress();
+
+  // build transaction object
+  const to: any = getContractAddress('USDC')[chainId!];
+  let iface = internal.getInterface(USDC__factory.abi);
+  const data = iface.encodeFunctionData('approve', [spender, amount]);
+
+  const count = await transaction.getTransactionCount(owner);
+
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+    nonce: count! + 1,
+  });
+
+  await transaction.send(txConfig, {});
 
   const allowance = (await contract.getUSDCContract()).allowance(owner, spender);
-  console.log(await allowance);
+  console.log(await allowance, 'allowance');
 };
 
 export { createError, depositUSDCFromUnlockedAddress, approveUSDC };
