@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import { Contract, Interface, type ContractRunner } from "ethers";
-import type { Usdc, UsdcInterface } from "../Usdc";
+import type { USDC, USDCInterface } from "../USDC";
 
 const _abi = [
   {
@@ -228,12 +228,12 @@ const _abi = [
   },
 ] as const;
 
-export class Usdc__factory {
+export class USDC__factory {
   static readonly abi = _abi;
-  static createInterface(): UsdcInterface {
-    return new Interface(_abi) as UsdcInterface;
+  static createInterface(): USDCInterface {
+    return new Interface(_abi) as USDCInterface;
   }
-  static connect(address: string, runner?: ContractRunner | null): Usdc {
-    return new Contract(address, _abi, runner) as unknown as Usdc;
+  static connect(address: string, runner?: ContractRunner | null): USDC {
+    return new Contract(address, _abi, runner) as unknown as USDC;
   }
 }

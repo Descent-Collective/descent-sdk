@@ -1,30 +1,45 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
-import { ICollateral, IMode } from './types';
-import type { Signer, Provider, BaseContract, Interface } from 'ethers';
+import { ICollateral, IMode, ISigner } from './types';
+import { Signer, Provider } from 'ethers';
 
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
 import ContractManager from './contracts';
+import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
+import { collateralizeVault } from './services/vault';
+import { Transaction } from './libs/transactions';
+import { Internal } from './libs/internal';
+import { Vault__factory } from './generated/factories';
+import { getContractAddress } from './contracts/getContractAddresses';
 
+// TODO: Use nonce manager globally
 export class DescentClass {
-  protected signer: Signer;
+  signer: Signer;
   protected provider: Provider;
   private collateral: ICollateral;
 
   contracts?: ContractManager;
+  configMode: IMode | string;
+  chainId: string;
 
-  constructor(signer: Signer, provider: Provider, collateral: ICollateral) {
+  // Extensions
+  readonly internal = new Internal(this);
+  readonly transaction = new Transaction(this);
+
+  constructor(
+    signer: Signer,
+    provider: Provider,
+    collateral: ICollateral,
+    contracts: ContractManager,
+    configMode: IMode | string,
+    chainId: string,
+  ) {
     this.provider = provider;
     this.signer = signer;
     this.collateral = collateral;
-
-    this.provider.getNetwork().then((network) => {
-      const chainId = network.chainId.toString(10);
-      if (![chainId].includes(SupportedNetwork.GOERLI)) {
-        throw new Error(`chainId '${chainId}' is not supported.`);
-      }
-    });
-    this.contracts = new ContractManager(provider);
+    this.contracts = contracts;
+    this.configMode = configMode;
+    this.chainId = chainId;
   }
 
   /**
@@ -55,13 +70,27 @@ export class DescentClass {
   /**
    * @dev deposit usdc for a particular vault
    * @param collateralAmount amount of unlocked collateral to withdraw
-   * @param vaultID vault id to withdraw usdc from
-   * @returns unlockedCollateral
+   * @param ownerAddress owner of the vault which should be the caller
+   * @returns transactionReceipt
    */
-  public async depositCollateral(collateralAmount: string, ownerAddress: string) {}
+  public async depositCollateral(collateralAmount: string) {
+    const owner = await this.signer.getAddress();
+    const contracts = new ContractManager(this.signer);
+    const result = await collateralizeVault(
+      collateralAmount,
+      this.collateral,
+      owner,
+      contracts!,
+      this.chainId,
+      this.transaction,
+      this.internal,
+    );
+
+    return result;
+  }
 }
 async function create(
-  mode: IMode,
+  mode: string,
   options: {
     ethereum?: Eip1193Provider | any;
     rpcUrl?: string;
@@ -69,45 +98,40 @@ async function create(
     collateral: ICollateral;
   },
 ) {
-  const unlockedAddress = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
-  try {
-    // Validate required options
-    if (!options.collateral) {
-      throw new Error('Missing required options');
-    }
-    let provider: any;
-    let signer: any;
-    if (mode == IMode.https) {
-      provider = new ethers.AbstractProvider(options?.rpcUrl);
-      signer = new ethers.Wallet(options.privateKey, provider);
-    }
-    if (mode == IMode.browser) {
-      provider = new ethers.BrowserProvider(options?.ethereum);
-      signer = await provider.getSigner();
-    }
-    if (mode == IMode.simulation) {
-      // fork the current network connected to and unlock wallet
-      const ganacheOptions = {
-        fork: { url: options.rpcUrl },
-        wallet: { unlockedAccounts: [unlockedAddress] },
-      };
-      provider = new ethers.BrowserProvider(ganache.provider(ganacheOptions));
-
-      // get account information
-      const accounts = await provider.getSigner();
-      const account = accounts[0];
-
-      // transfer usdc to index account
-      await depositUSDCFromUnlockedAddress(account, unlockedAddress);
-    }
-
-    const descent = new DescentClass(signer, provider, options.collateral);
-    return descent;
-  } catch (e) {
-    const error = createError(e);
-
-    return error;
+  // Validate required options
+  if (!options.collateral) {
+    throw new Error('Missing required options');
   }
+  let provider: any;
+  let signer: any;
+
+  if (mode == IMode.https) {
+    provider = new ethers.JsonRpcProvider(options?.rpcUrl);
+
+    signer = new ethers.Wallet(options.privateKey, provider);
+  }
+  if (mode == IMode.browser) {
+    provider = new ethers.BrowserProvider(options?.ethereum);
+    signer = await provider?.getSigner();
+  }
+  const chainId = (await provider.getNetwork()).chainId.toString(10);
+
+  if (![chainId].includes(SupportedNetwork.GOERLI)) {
+    throw new Error(`chainId '${chainId}' is not supported.`);
+  }
+
+  const contracts = new ContractManager(signer);
+
+  const descent = new DescentClass(signer, provider, options.collateral, contracts, mode, chainId);
+
+  // approve router to talk to vault on behalf of user
+
+  const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
+
+  const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
+  (await relyResponse).wait(2);
+
+  return descent;
 }
 
 const Descent = {

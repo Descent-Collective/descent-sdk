@@ -23,20 +23,26 @@ import type {
 export interface VaultGettersInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "checkHealthFactor"
       | "getCollateralInfo"
+      | "getCollateralRatio"
+      | "getHealthFactor"
       | "getMaxBorrowable"
       | "getMaxWithdrawable"
       | "getVault"
+      | "isReliedUpon"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "checkHealthFactor",
+    functionFragment: "getCollateralInfo",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCollateralRatio",
     values: [AddressLike, AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "getCollateralInfo",
-    values: [AddressLike, AddressLike]
+    functionFragment: "getHealthFactor",
+    values: [AddressLike, AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getMaxBorrowable",
@@ -50,13 +56,21 @@ export interface VaultGettersInterface extends Interface {
     functionFragment: "getVault",
     values: [AddressLike, AddressLike, AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "isReliedUpon",
+    values: [AddressLike, AddressLike, AddressLike]
+  ): string;
 
   decodeFunctionResult(
-    functionFragment: "checkHealthFactor",
+    functionFragment: "getCollateralInfo",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getCollateralInfo",
+    functionFragment: "getCollateralRatio",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getHealthFactor",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -68,6 +82,10 @@ export interface VaultGettersInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getVault", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "isReliedUpon",
+    data: BytesLike
+  ): Result;
 }
 
 export interface VaultGetters extends BaseContract {
@@ -113,7 +131,13 @@ export interface VaultGetters extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  checkHealthFactor: TypedContractMethod<
+  getCollateralInfo: TypedContractMethod<
+    [_vaultContract: AddressLike, _collateralToken: AddressLike],
+    [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
+    "view"
+  >;
+
+  getCollateralRatio: TypedContractMethod<
     [
       _vaultContract: AddressLike,
       _collateralToken: AddressLike,
@@ -123,9 +147,13 @@ export interface VaultGetters extends BaseContract {
     "view"
   >;
 
-  getCollateralInfo: TypedContractMethod<
-    [_vaultContract: AddressLike, _collateralToken: AddressLike],
-    [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
+  getHealthFactor: TypedContractMethod<
+    [
+      _vaultContract: AddressLike,
+      _collateralToken: AddressLike,
+      _owner: AddressLike
+    ],
+    [boolean],
     "view"
   >;
 
@@ -159,12 +187,29 @@ export interface VaultGetters extends BaseContract {
     "view"
   >;
 
+  isReliedUpon: TypedContractMethod<
+    [
+      _vaultContract: AddressLike,
+      _owner: AddressLike,
+      _reliedUpon: AddressLike
+    ],
+    [boolean],
+    "view"
+  >;
+
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
   getFunction(
-    nameOrSignature: "checkHealthFactor"
+    nameOrSignature: "getCollateralInfo"
+  ): TypedContractMethod<
+    [_vaultContract: AddressLike, _collateralToken: AddressLike],
+    [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "getCollateralRatio"
   ): TypedContractMethod<
     [
       _vaultContract: AddressLike,
@@ -175,10 +220,14 @@ export interface VaultGetters extends BaseContract {
     "view"
   >;
   getFunction(
-    nameOrSignature: "getCollateralInfo"
+    nameOrSignature: "getHealthFactor"
   ): TypedContractMethod<
-    [_vaultContract: AddressLike, _collateralToken: AddressLike],
-    [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
+    [
+      _vaultContract: AddressLike,
+      _collateralToken: AddressLike,
+      _owner: AddressLike
+    ],
+    [boolean],
     "view"
   >;
   getFunction(
@@ -212,6 +261,17 @@ export interface VaultGetters extends BaseContract {
       _owner: AddressLike
     ],
     [[bigint, bigint, bigint]],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "isReliedUpon"
+  ): TypedContractMethod<
+    [
+      _vaultContract: AddressLike,
+      _owner: AddressLike,
+      _reliedUpon: AddressLike
+    ],
+    [boolean],
     "view"
   >;
 

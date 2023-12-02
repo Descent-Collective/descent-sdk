@@ -2,3 +2,9 @@
 .DS_Store
 node_modules
 dist
+.env
+
+#Build
+coverage
+public/css/main.css
+.nyc_output/*
