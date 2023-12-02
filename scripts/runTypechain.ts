@@ -29,8 +29,6 @@ async function main() {
 
     const content = await fsp.readFile(file, 'utf8');
 
-    console.log(content);
-
     const obj = JSON.parse(content) as Record<string, any>;
     obj.bytecode = '0x';
     obj.deployedBytecode = '0x';
@@ -38,7 +36,6 @@ async function main() {
 
     copiedABIs.push(dest);
   }
-  console.log(copiedABIs);
 
   await runTypeChain({
     cwd,

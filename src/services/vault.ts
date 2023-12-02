@@ -89,7 +89,6 @@ const collateralizeVault = async (
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
 
   const _amount = BigInt(amount) * BigInt(1e6);
-  console.log(_amount, 'amount');
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
@@ -112,8 +111,6 @@ const collateralizeVault = async (
   });
 
   const depositResResult = await transaction.send(txConfig, {});
-
-  console.log(depositResResult);
 
   return depositResResult;
 };

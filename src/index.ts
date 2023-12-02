@@ -1,6 +1,6 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
 import { ICollateral, IMode, ISigner } from './types';
-import { Signer, Provider, NonceManager } from 'ethers';
+import { Signer, Provider } from 'ethers';
 
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
@@ -12,6 +12,7 @@ import { Internal } from './libs/internal';
 import { Vault__factory } from './generated/factories';
 import { getContractAddress } from './contracts/getContractAddresses';
 
+// TODO: Use nonce manager globally
 export class DescentClass {
   signer: Signer;
   protected provider: Provider;
