@@ -1,12 +1,16 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
 import { ICollateral, IMode, ISigner } from './types';
-import type { Signer, Provider, BaseContract, Interface } from 'ethers';
+import { Signer, Provider, NonceManager } from 'ethers';
 
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
 import ContractManager from './contracts';
 import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
 import { collateralizeVault } from './services/vault';
+import { Transaction } from './libs/transactions';
+import { Internal } from './libs/internal';
+import { Vault__factory } from './generated/factories';
+import { getContractAddress } from './contracts/getContractAddresses';
 
 export class DescentClass {
   signer: Signer;
@@ -16,6 +20,10 @@ export class DescentClass {
   contracts?: ContractManager;
   configMode: IMode | string;
   chainId: string;
+
+  // Extensions
+  readonly internal = new Internal(this);
+  readonly transaction = new Transaction(this);
 
   constructor(
     signer: Signer,
@@ -73,6 +81,8 @@ export class DescentClass {
       owner,
       contracts!,
       this.chainId,
+      this.transaction,
+      this.internal,
     );
 
     return result;
@@ -97,8 +107,7 @@ async function create(
   if (mode == IMode.https) {
     provider = new ethers.JsonRpcProvider(options?.rpcUrl);
 
-    signer = new ethers.Wallet(options.privateKey, provider);
-    console.log(signer, 'signer');
+    signer = new NonceManager(new ethers.Wallet(options.privateKey, provider));
   }
   if (mode == IMode.browser) {
     provider = new ethers.BrowserProvider(options?.ethereum);
@@ -112,7 +121,30 @@ async function create(
 
   const contracts = new ContractManager(provider);
 
-  return new DescentClass(signer, provider, options.collateral, contracts, mode, chainId);
+  const descent = new DescentClass(signer, provider, options.collateral, contracts, mode, chainId);
+
+  // approve router to talk to vault on behalf of user
+  // build transaction object
+  const to: any = getContractAddress('Vault')[chainId];
+  let iface = descent.internal.getInterface(Vault__factory.abi);
+
+  const owner = await descent.signer.getAddress();
+  const data = iface.encodeFunctionData('rely', [owner]);
+
+  const count = await descent.signer.provider?.getTransactionCount(owner);
+
+  const txConfig = await descent.internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+    nonce: Number(BigInt(count!)),
+  });
+
+  const tx = await descent.transaction.send(txConfig, {});
+
+  console.log(tx, 'rely method');
+
+  return descent;
 }
 
 const Descent = {

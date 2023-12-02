@@ -1,8 +1,11 @@
 import { ethers, BigNumberish, AddressLike } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import ContractManager from '../contracts';
+import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { createError } from '../libs/utils';
+import { Internal } from '../libs/internal';
+import { Vault__factory } from '../generated/factories';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
@@ -79,6 +82,8 @@ const collateralizeVault = async (
   owner: string,
   contract: ContractManager,
   chainId: string,
+  transaction: Transaction,
+  internal: Internal,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
@@ -87,13 +92,6 @@ const collateralizeVault = async (
   const _amount = ethers.formatEther(amount);
 
   try {
-    // approve router to talk to vault on behalf of user
-
-    const relyRes = (await contract.getVaultContract()!).rely(owner)
-    const relyResResult = (await relyRes)!.wait();
-
-    console.log(await relyResResult, ' result for currency');
-
     const depositRes = (await contract.getVaultRouterContract()!).multiInteract(
       [vaultContractAddress],
       [operation],
