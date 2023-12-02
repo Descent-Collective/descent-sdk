@@ -9,7 +9,7 @@ import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
 import { collateralizeVault } from './services/vault';
 
 export class DescentClass {
-  protected signer: Signer;
+  signer: Signer;
   protected provider: Provider;
   private collateral: ICollateral;
 
@@ -98,6 +98,7 @@ async function create(
     provider = new ethers.JsonRpcProvider(options?.rpcUrl);
 
     signer = new ethers.Wallet(options.privateKey, provider);
+    console.log(signer, 'signer');
   }
   if (mode == IMode.browser) {
     provider = new ethers.BrowserProvider(options?.ethereum);

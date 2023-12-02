@@ -1,6 +1,5 @@
 import { ethers, BigNumberish, AddressLike } from 'ethers';
 import { ICollateral, IContract } from '../types';
-import { Contract } from '../libs/contract';
 import ContractManager from '../contracts';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { createError } from '../libs/utils';
@@ -89,9 +88,11 @@ const collateralizeVault = async (
 
   try {
     // approve router to talk to vault on behalf of user
-    const relyRes = (await contract.getVaultContract()!).rely(owner);
+
+    const relyRes = (await contract.getVaultContract()!).rely(owner)
     const relyResResult = (await relyRes)!.wait();
-    console.log(relyResResult, 'rely result for vault');
+
+    console.log(await relyResResult, ' result for currency');
 
     const depositRes = (await contract.getVaultRouterContract()!).multiInteract(
       [vaultContractAddress],
