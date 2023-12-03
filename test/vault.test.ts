@@ -62,4 +62,16 @@ describe('Descent Protocol SDK Test', () => {
     waitTime(60);
     expect(response).not.toBeNull;
   }, 80000);
+
+    it('should payback xNGN', async () => {
+    const balanceBeforePayback = await getxNGNBalance(owner, signer);
+
+    const response = await descent.repayCurrency('9000');
+    const balanceAfterPayback = await getxNGNBalance(owner, signer);
+
+    expect(balanceAfterPayback).toBeLessThan(balanceBeforePayback);
+
+    waitTime(60);
+    expect(response).not.toBeNull;
+  }, 80000);
 });
