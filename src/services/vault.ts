@@ -1,11 +1,9 @@
 import { ethers, BigNumberish, AddressLike, formatUnits, NonceManager } from 'ethers';
 import { ICollateral, IContract } from '../types';
-import ContractManager from '../contracts';
 import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
-import { createError } from '../libs/utils';
 import { Internal } from '../libs/internal';
-import { VaultRouter__factory, Vault__factory } from '../generated/factories';
+import { VaultRouter__factory } from '../generated/factories';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
@@ -100,13 +98,10 @@ const collateralizeVault = async (
     [_amount],
   ]);
 
-  const count = await transaction.getTransactionCount(owner);
-
   const txConfig = await internal.getTransactionConfig({
     from: owner,
     to,
     data: data,
-    nonce: count! + 2,
   });
 
   const depositResResult = await transaction.send(txConfig, {});
@@ -136,14 +131,10 @@ const withdrawCollateral = async (
     [owner],
     [_amount],
   ]);
-
-  const count = await transaction.getTransactionCount(owner);
-
   const txConfig = await internal.getTransactionConfig({
     from: owner,
     to,
     data: data,
-    nonce: count! + 1,
   });
 
   const withdrawResResult = await transaction.send(txConfig, {});

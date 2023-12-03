@@ -11,6 +11,7 @@ describe('Descent Protocol SDK Test', () => {
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
   let vault = '0xCaC650a8F8E71BDE3d60f0B020A4AA3874974705';
   let rpcUrl = 'https://goerli.base.org';
+  const waitTime = (seconds) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 
   beforeAll(async () => {
     descent = await Descent.create('https', {
@@ -29,7 +30,7 @@ describe('Descent Protocol SDK Test', () => {
     await approveUSDC(vault, '100000000', signer, descent.transaction, descent.internal);
 
     const response = await descent.depositCollateral('100');
-    console.log(response, 'response');
+    await waitTime(60);
     expect(response).not.toBeNull;
   });
 
@@ -37,7 +38,7 @@ describe('Descent Protocol SDK Test', () => {
     const response = await descent.withdrawCollateral('50');
 
     console.log(response, 'response');
-
+    await waitTime(60);
     expect(response).not.toBeNull;
   });
 });

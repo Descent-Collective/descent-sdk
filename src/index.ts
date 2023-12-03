@@ -139,7 +139,7 @@ async function create(
   const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
 
   const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
-  (await relyResponse).wait(2);
+  (await relyResponse).wait();
 
   return descent;
 }
