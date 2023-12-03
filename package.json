@@ -56,7 +56,7 @@
     "size": "size-limit",
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
-    "build": "npm clean && npm lint && node esbuild.js",
+    "build": "node esbuild.js",
     "prepublish": "npm run build && cp ../../README.md ../../LICENSE ./",
     "test": "jest --coverage ./test/"
   },
