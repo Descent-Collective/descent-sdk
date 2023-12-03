@@ -31,12 +31,6 @@ const createError = (message?: any) => {
   );
 };
 
-const depositUSDCFromUnlockedAddress = (
-  recipient: string,
-  unlockedAddress: string,
-  contract: ContractManager,
-) => {};
-
 const approveUSDC = async (
   spender: string,
   amount: string,
@@ -44,8 +38,6 @@ const approveUSDC = async (
   transaction: Transaction,
   internal: Internal,
 ) => {
-  const contract = new ContractManager(signer);
-
   const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
   const owner = await signer.getAddress();
@@ -62,8 +54,6 @@ const approveUSDC = async (
   });
 
   await transaction.send(txConfig, {});
-
-  const allowance = (await contract.getUSDCContract()).allowance(owner, spender);
   await waitTime(50);
 };
 
@@ -88,4 +78,13 @@ const updateTestPrice = async (signer: Signer) => {
   await waitTime(50);
 };
 
-export { createError, depositUSDCFromUnlockedAddress, approveUSDC, waitTime, updateTestPrice };
+const getxNGNBalance = async (owner: any, signer?: Signer) => {
+  const contract = new ContractManager(signer!);
+  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+
+  await waitTime(50);
+
+  return balance * BigInt(10e18);
+};
+
+export { createError, approveUSDC, waitTime, updateTestPrice, getxNGNBalance };

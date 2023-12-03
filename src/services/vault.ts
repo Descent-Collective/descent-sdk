@@ -5,6 +5,7 @@ import { getContractAddress } from '../contracts/getContractAddresses';
 import { Internal } from '../libs/internal';
 import { VaultRouter__factory } from '../generated/factories';
 import ContractManager from '../contracts';
+import { getxNGNBalance } from '../libs/utils';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
@@ -123,22 +124,22 @@ const withdrawCollateral = async (
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
-  // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
   let iface = internal.getInterface(VaultRouter__factory.abi);
 
   const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
     vaultContractAddress,
     collateralAddress,
-    owner
+    owner,
   );
 
-  const formattedMaxWithdrawable = await maxWithdrawable / BigInt(1e6);
+  const formattedMaxWithdrawable = (await maxWithdrawable) / BigInt(1e6);
 
-  if (amount > (formattedMaxWithdrawable).toString()) {
-    throw new Error(" Withdrawal amount is more than available collateral balance")
+  if (amount > formattedMaxWithdrawable.toString()) {
+    throw new Error(' Withdrawal amount is more than available collateral balance');
   }
 
+  // build transaction object
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],
     [VaultOperations.WithdrawCollateral],
@@ -163,11 +164,24 @@ const mintCurrency = async (
   chainId: string,
   transaction: Transaction,
   internal: Internal,
+  contract: ContractManager,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
 
-  const _amount = BigInt(amount) * BigInt(1e6);
+  const _amount = BigInt(amount) * BigInt(1e18);
+
+  const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
+    vaultContractAddress,
+    collateralAddress,
+    owner,
+  );
+
+  const formattedmaxBorrowable = (await maxBorrowable) / BigInt(1e18);
+
+  if (amount > formattedmaxBorrowable.toString()) {
+    throw new Error(' Borrow amount is more than available currency borrowable');
+  }
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
@@ -190,23 +204,47 @@ const mintCurrency = async (
   return mintResResult;
 };
 
-// const burnCurrency = async (
-//   amount: string,
-//   collateral: ICollateral,
-//   owner: string,
-//   contract: IContract,
-// ) => {
-//   let collateralAddress;
-//   if (collateral == ICollateral.USDC) {
-//     collateralAddress = Addresses.USDC;
-//   }
-//   try {
-//     const res = await contract.burnCurrency(collateralAddress, owner, amount);
-//     return res;
-//   } catch (e) {
-//     const message = createError(e);
-//     return message;
-//   }
-// };
+const burnCurrency = async (
+  amount: string,
+  collateral: ICollateral,
+  owner: string,
+  chainId: string,
+  transaction: Transaction,
+  internal: Internal,
+  contract: ContractManager,
+) => {
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
 
-export { collateralizeVault, withdrawCollateral, mintCurrency };
+  const _amount = BigInt(amount) * BigInt(1e18);
+
+  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+
+  const formattedBalance = (await balance) / BigInt(1e18);
+
+  if (amount > formattedBalance.toString()) {
+    throw new Error('Payback xNGN: Insufficient funds');
+  }
+
+  // build transaction object
+  const to: any = getContractAddress('VaultRouter')[chainId];
+  let iface = internal.getInterface(VaultRouter__factory.abi);
+  const data = iface.encodeFunctionData('multiInteract', [
+    [vaultContractAddress],
+    [VaultOperations.BurnCurrency],
+    [collateralAddress],
+    [owner],
+    [_amount],
+  ]);
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+  });
+
+  const burnResult = await transaction.send(txConfig, {});
+
+  return burnResult;
+};
+
+export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };
