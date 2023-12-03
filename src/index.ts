@@ -5,8 +5,8 @@ import { Signer, Provider } from 'ethers';
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
 import ContractManager from './contracts';
-import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
-import { collateralizeVault, withdrawCollateral } from './services/vault';
+import { createError, depositUSDCFromUnlockedAddress, waitTime } from './libs/utils';
+import { collateralizeVault, mintCurrency, withdrawCollateral } from './services/vault';
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { Vault__factory } from './generated/factories';
@@ -49,7 +49,19 @@ export class DescentClass {
    */
   public async getVaultInfo(ownerAddress: string) {}
 
-  public async borrowCurrency(amount: string, ownerAddress: string, recipientAddress: string) {}
+  public async borrowCurrency(borrowAmount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await mintCurrency(
+      borrowAmount,
+      this.collateral,
+      owner,
+      this.chainId,
+      this.transaction,
+      this.internal,
+    );
+
+    return result;
+  }
 
   /**
    * @dev repay borrowed xNGN for a particular vault
@@ -74,6 +86,7 @@ export class DescentClass {
       this.chainId,
       this.transaction,
       this.internal,
+      this.contracts!,
     );
 
     return result;

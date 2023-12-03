@@ -61,13 +61,15 @@ const approveUSDC = async (
     from: owner,
     to,
     data: data,
-    nonce: count! + 1,
   });
 
   await transaction.send(txConfig, {});
 
   const allowance = (await contract.getUSDCContract()).allowance(owner, spender);
+  await waitTime(50);
   console.log(await allowance, 'allowance');
 };
 
-export { createError, depositUSDCFromUnlockedAddress, approveUSDC };
+const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+
+export { createError, depositUSDCFromUnlockedAddress, approveUSDC, waitTime };

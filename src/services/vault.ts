@@ -4,6 +4,7 @@ import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { Internal } from '../libs/internal';
 import { VaultRouter__factory } from '../generated/factories';
+import ContractManager from '../contracts';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
@@ -115,6 +116,7 @@ const withdrawCollateral = async (
   chainId: string,
   transaction: Transaction,
   internal: Internal,
+  contract: ContractManager,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
@@ -124,6 +126,21 @@ const withdrawCollateral = async (
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
   let iface = internal.getInterface(VaultRouter__factory.abi);
+
+  const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
+    vaultContractAddress,
+    collateralAddress,
+    owner
+  );
+
+  const formattedMaxWithdrawable = await maxWithdrawable / BigInt(1e6);
+
+  if (_amount > formattedMaxWithdrawable) {
+    throw new Error(" Withdrawal amount is more than available collateral balance")
+  }
+
+  console.log(formattedMaxWithdrawable);
+
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],
     [VaultOperations.WithdrawCollateral],
@@ -143,30 +160,41 @@ const withdrawCollateral = async (
 
   return withdrawResResult;
 };
-// const mintCurrency = async (
-//   amount: string,
-//   collateral: ICollateral,
-//   owner: string,
-//   recipient: string,
-//   contract: IContract,
-// ) => {
-//   let collateralAddress;
-//   if (collateral == ICollateral.USDC) {
-//     collateralAddress = Addresses.USDC;
-//   }
-//   try {
-//     const res = await contract.mintCurrency(
-//       collateralAddress,
-//       owner,
-//       recipient,
-//       ethers.toBigInt(amount),
-//     );
-//     return res;
-//   } catch (e) {
-//     const message = createError(e);
-//     return message;
-//   }
-// };
+const mintCurrency = async (
+  amount: string,
+  collateral: ICollateral,
+  owner: string,
+  chainId: string,
+  transaction: Transaction,
+  internal: Internal,
+) => {
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+
+  const _amount = BigInt(amount) * BigInt(1e6);
+
+  // build transaction object
+  const to: any = getContractAddress('VaultRouter')[chainId];
+  let iface = internal.getInterface(VaultRouter__factory.abi);
+  const data = iface.encodeFunctionData('multiInteract', [
+    [vaultContractAddress],
+    [VaultOperations.MintCurrency],
+    [collateralAddress],
+    [owner],
+    [_amount],
+  ]);
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+  });
+
+  const mintResResult = await transaction.send(txConfig, {});
+
+  console.log(mintResResult, 'MINT response');
+
+  return mintResResult;
+};
 
 // const burnCurrency = async (
 //   amount: string,
@@ -187,4 +215,4 @@ const withdrawCollateral = async (
 //   }
 // };
 
-export { collateralizeVault, withdrawCollateral };
+export { collateralizeVault, withdrawCollateral, mintCurrency };
