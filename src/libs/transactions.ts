@@ -20,38 +20,19 @@ export class Transaction {
     transactionConfig: TransactionRequest,
     transactionCallbacks: TransactionCallbacks = {},
   ): Promise<string> => {
-    return new Promise(async (resolve, reject) => {
-      if (this.descent.configMode == 'node') {
-        console.log('if block');
-        console.log(this.descent.configMode);
-        try {
-          const signedTransaction = await this.descent.signer.signTransaction(transactionConfig);
-          console.log(signedTransaction, 'tx signed');
+    return new Promise(async (resolve: any, reject) => {
+      try {
+        const tx = await this.descent.signer.sendTransaction(transactionConfig);
+        const hash = tx!.hash;
+        const receipt = await tx!.provider.getTransactionReceipt(hash);
+        const confirmations = await tx!.confirmations();
 
-          if (!signedTransaction)
-            throw new Error(
-              'Error while signing transaction. Please contact our support: https://docs.descentdao.com/',
-            );
-          const tx = await this.descent.signer.provider?.broadcastTransaction(signedTransaction);
-          resolve(tx!.hash);
-        } catch (error) {
-          reject(error);
-        }
-      } else {
-        console.log('else block');
-        try {
-          const tx = await this.descent.signer.sendTransaction(transactionConfig);
-          const hash = tx!.hash;
-          const receipt = await tx!.provider.getTransactionReceipt(hash);
-          const confirmations = await tx!.confirmations();
-
-          resolve(tx.hash);
-          transactionCallbacks.onReceipt && transactionCallbacks.onReceipt(receipt!);
-          transactionCallbacks.onConfirmation &&
-            transactionCallbacks.onConfirmation(confirmations!, receipt);
-        } catch (error) {
-          reject(error);
-        }
+        resolve(tx);
+        transactionCallbacks.onReceipt && transactionCallbacks.onReceipt(receipt!);
+        transactionCallbacks.onConfirmation &&
+          transactionCallbacks.onConfirmation(confirmations!, receipt);
+      } catch (error) {
+        reject(error);
       }
     });
   };

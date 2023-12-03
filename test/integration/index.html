@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground</title>
+  </head>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+  <body>
+    Open console for testing
+    
+    <!-- Usage in modern browsers -->
+    <script type="module">
+    import Descent from '../../src';
+
+     console.log(window.ethereum)
+      $(window).on( "load", async function(e) {
+        e.preventDefault();
+   
+        const descent = new Descent();
+
+        const res = descent.create('browser',window.ethereum);
+
+        console.log(window.ethereum)
+      });
+
+    </script>
+    
+  </body>
+</html>

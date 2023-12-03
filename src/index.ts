@@ -6,7 +6,7 @@ import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
 import ContractManager from './contracts';
 import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
-import { collateralizeVault } from './services/vault';
+import { collateralizeVault, withdrawCollateral } from './services/vault';
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { Vault__factory } from './generated/factories';
@@ -65,7 +65,19 @@ export class DescentClass {
    * @param vaultID vault id to withdraw usdc from
    * @returns unlockedCollateral
    */
-  public async withdrawCollateral(collateralAmount: string, ownerAddress: string) {}
+  public async withdrawCollateral(collateralAmount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await withdrawCollateral(
+      collateralAmount,
+      this.collateral,
+      owner,
+      this.chainId,
+      this.transaction,
+      this.internal,
+    );
+
+    return result;
+  }
 
   /**
    * @dev deposit usdc for a particular vault

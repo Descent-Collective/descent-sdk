@@ -22,7 +22,6 @@ describe('Descent Protocol SDK Test', () => {
 
   it('should deposit usdc into a vault', async () => {
     // approve 100 usdc
-
     const provider = new ethers.JsonRpcProvider(rpcUrl);
 
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
@@ -30,9 +29,15 @@ describe('Descent Protocol SDK Test', () => {
     await approveUSDC(vault, '100000000', signer, descent.transaction, descent.internal);
 
     const response = await descent.depositCollateral('100');
+    console.log(response, 'response');
+    expect(response).not.toBeNull;
+  });
 
-    const txData = await descent.signer.provider?.getTransactionReceipt(response);
+  it('should withdraw usdc from a vault', async () => {
+    const response = await descent.withdrawCollateral('50');
 
-    console.log(txData);
+    console.log(response, 'response');
+
+    expect(response).not.toBeNull;
   });
 });

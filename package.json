@@ -15,10 +15,35 @@
   "license": "MIT",
   "author": "Njoku Emmanuel",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "browser": "dist/index.bundle.js",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*.js": {
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.js",
+      "default": "./dist/esm/*.mjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./*.mjs": {
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.js",
+      "default": "./dist/esm/*.mjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.js",
+      "default": "./dist/esm/*.mjs",
+      "types": "./dist/types/*.d.ts"
+    }
+  },
   "files": [
     "dist",
     "src"
@@ -31,8 +56,8 @@
     "size": "size-limit",
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
-    "build": "rollup -c",
-    "build:watch": "rollup -cw",
+    "build": "npm clean && npm lint && node esbuild.js",
+    "prepublish": "npm build && cp ../../README.md ../../LICENSE ./",
     "test": "jest --coverage ./test/"
   },
   "jest": {
@@ -59,6 +84,7 @@
     "@size-limit/preset-small-lib": "^9.0.0",
     "@typechain/ethers-v6": "^0.5.1",
     "dotenv": "^16.3.1",
+    "esbuild": "^0.19.8",
     "fs": "^0.0.1-security",
     "glob": "^8.0.3",
     "husky": "^8.0.3",

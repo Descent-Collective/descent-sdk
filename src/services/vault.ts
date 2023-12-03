@@ -106,7 +106,7 @@ const collateralizeVault = async (
     from: owner,
     to,
     data: data,
-    nonce: count! + 1,
+    nonce: count! + 2,
   });
 
   const depositResResult = await transaction.send(txConfig, {});
@@ -133,7 +133,7 @@ const withdrawCollateral = async (
     [vaultContractAddress],
     [VaultOperations.WithdrawCollateral],
     [collateralAddress],
-    [ethers.ZeroAddress],
+    [owner],
     [_amount],
   ]);
 
@@ -196,4 +196,4 @@ const withdrawCollateral = async (
 //   }
 // };
 
-export { collateralizeVault };
+export { collateralizeVault, withdrawCollateral };
