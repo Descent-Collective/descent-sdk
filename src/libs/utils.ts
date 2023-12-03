@@ -55,8 +55,6 @@ const approveUSDC = async (
   let iface = internal.getInterface(USDC__factory.abi);
   const data = iface.encodeFunctionData('approve', [spender, amount]);
 
-  const count = await transaction.getTransactionCount(owner);
-
   const txConfig = await internal.getTransactionConfig({
     from: owner,
     to,
@@ -72,4 +70,23 @@ const approveUSDC = async (
 
 const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 
-export { createError, depositUSDCFromUnlockedAddress, approveUSDC, waitTime };
+const updateTestPrice = async (signer: Signer) => {
+  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
+
+  const collateralAddress: any = getContractAddress('USDC')[chainId!];
+  const feedContractAddress: any = getContractAddress('Feed')[chainId!];
+  const contract = new ContractManager(signer);
+
+  await (await contract.getVaultContract()).updateFeedContract(feedContractAddress);
+
+  await waitTime(50);
+
+  const price = BigInt(1100) * BigInt(1e6);
+
+  const priceUpdate = (await contract.getFeedContract()).mockUpdatePrice(collateralAddress, price);
+  (await priceUpdate).wait();
+
+  await waitTime(50);
+};
+
+export { createError, depositUSDCFromUnlockedAddress, approveUSDC, waitTime, updateTestPrice };

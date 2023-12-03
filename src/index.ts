@@ -154,6 +154,8 @@ async function create(
   const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
   (await relyResponse).wait();
 
+  await waitTime(50);
+
   return descent;
 }
 

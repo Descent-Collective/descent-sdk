@@ -16,6 +16,9 @@ const addresses: Record<ContractName, Partial<Record<SupportedNetwork | string, 
   Currency: {
     [SupportedNetwork.GOERLI]: '0xC8A88052006142d7ae0B56452e1f153BF480E341',
   },
+  Feed: {
+    [SupportedNetwork.GOERLI]: '0xEdC725Db7e54C3C85EB551E859b90489d076a9Ca',
+  },
   USDC: {
     [SupportedNetwork.GOERLI]: '0xF175520C52418dfE19C8098071a252da48Cd1C19',
   },

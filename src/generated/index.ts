@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Currency } from './Currency';
+export type { Feed } from './Feed';
 export type { MultiStaticcall } from './MultiStaticcall';
 export type { USDC } from './USDC';
 export type { Vault } from './Vault';
@@ -9,6 +10,7 @@ export type { VaultGetters } from './VaultGetters';
 export type { VaultRouter } from './VaultRouter';
 export * as factories from './factories';
 export { Currency__factory } from './factories/Currency__factory';
+export { Feed__factory } from './factories/Feed__factory';
 export { MultiStaticcall__factory } from './factories/MultiStaticcall__factory';
 export { USDC__factory } from './factories/USDC__factory';
 export { Vault__factory } from './factories/Vault__factory';

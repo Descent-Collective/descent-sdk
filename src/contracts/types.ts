@@ -4,7 +4,8 @@ export type ContractName =
   | 'USDC'
   | 'MultiStaticcall'
   | 'VaultGetters'
-  | 'VaultRouter';
+  | 'VaultRouter'
+  | 'Feed';
 
 export enum SupportedNetwork {
   GOERLI = '84531',

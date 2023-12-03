@@ -135,11 +135,13 @@ const withdrawCollateral = async (
 
   const formattedMaxWithdrawable = await maxWithdrawable / BigInt(1e6);
 
-  if (_amount > formattedMaxWithdrawable) {
+  console.log(formattedMaxWithdrawable, "formatted max withdrawable");
+
+  if (amount > (formattedMaxWithdrawable).toString()) {
     throw new Error(" Withdrawal amount is more than available collateral balance")
   }
 
-  console.log(formattedMaxWithdrawable);
+
 
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],
