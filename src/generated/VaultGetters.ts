@@ -11,81 +11,63 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from "ethers";
+} from 'ethers';
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
   TypedListener,
   TypedContractMethod,
-} from "./common";
+} from './common';
 
 export interface VaultGettersInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "getCollateralInfo"
-      | "getCollateralRatio"
-      | "getHealthFactor"
-      | "getMaxBorrowable"
-      | "getMaxWithdrawable"
-      | "getVault"
-      | "isReliedUpon"
+      | 'getCollateralInfo'
+      | 'getCollateralRatio'
+      | 'getHealthFactor'
+      | 'getMaxBorrowable'
+      | 'getMaxWithdrawable'
+      | 'getVault'
+      | 'isReliedUpon',
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "getCollateralInfo",
-    values: [AddressLike, AddressLike]
+    functionFragment: 'getCollateralInfo',
+    values: [AddressLike, AddressLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "getCollateralRatio",
-    values: [AddressLike, AddressLike, AddressLike]
+    functionFragment: 'getCollateralRatio',
+    values: [AddressLike, AddressLike, AddressLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "getHealthFactor",
-    values: [AddressLike, AddressLike, AddressLike]
+    functionFragment: 'getHealthFactor',
+    values: [AddressLike, AddressLike, AddressLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "getMaxBorrowable",
-    values: [AddressLike, AddressLike, AddressLike]
+    functionFragment: 'getMaxBorrowable',
+    values: [AddressLike, AddressLike, AddressLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "getMaxWithdrawable",
-    values: [AddressLike, AddressLike, AddressLike]
+    functionFragment: 'getMaxWithdrawable',
+    values: [AddressLike, AddressLike, AddressLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "getVault",
-    values: [AddressLike, AddressLike, AddressLike]
+    functionFragment: 'getVault',
+    values: [AddressLike, AddressLike, AddressLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "isReliedUpon",
-    values: [AddressLike, AddressLike, AddressLike]
+    functionFragment: 'isReliedUpon',
+    values: [AddressLike, AddressLike, AddressLike],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "getCollateralInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getCollateralRatio",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getHealthFactor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMaxBorrowable",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMaxWithdrawable",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getVault", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "isReliedUpon",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'getCollateralInfo', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getCollateralRatio', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getHealthFactor', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMaxBorrowable', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMaxWithdrawable', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getVault', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isReliedUpon', data: BytesLike): Result;
 }
 
 export interface VaultGetters extends BaseContract {
@@ -97,182 +79,130 @@ export interface VaultGetters extends BaseContract {
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEventLog<TCEvent>>>;
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEventLog<TCEvent>>>;
 
   on<TCEvent extends TypedContractEvent>(
     event: TCEvent,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
 
   once<TCEvent extends TypedContractEvent>(
     event: TCEvent,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
 
   listeners<TCEvent extends TypedContractEvent>(
-    event: TCEvent
+    event: TCEvent,
   ): Promise<Array<TypedListener<TCEvent>>>;
   listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(
-    event?: TCEvent
-  ): Promise<this>;
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
 
   getCollateralInfo: TypedContractMethod<
     [_vaultContract: AddressLike, _collateralToken: AddressLike],
     [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
-    "view"
+    'view'
   >;
 
   getCollateralRatio: TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [bigint],
-    "view"
+    'view'
   >;
 
   getHealthFactor: TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [boolean],
-    "view"
+    'view'
   >;
 
   getMaxBorrowable: TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [bigint],
-    "view"
+    'view'
   >;
 
   getMaxWithdrawable: TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [bigint],
-    "view"
+    'view'
   >;
 
   getVault: TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [[bigint, bigint, bigint]],
-    "view"
+    'view'
   >;
 
   isReliedUpon: TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _owner: AddressLike,
-      _reliedUpon: AddressLike
-    ],
+    [_vaultContract: AddressLike, _owner: AddressLike, _reliedUpon: AddressLike],
     [boolean],
-    "view"
+    'view'
   >;
 
-  getFunction<T extends ContractMethod = ContractMethod>(
-    key: string | FunctionFragment
-  ): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
   getFunction(
-    nameOrSignature: "getCollateralInfo"
+    nameOrSignature: 'getCollateralInfo',
   ): TypedContractMethod<
     [_vaultContract: AddressLike, _collateralToken: AddressLike],
     [[bigint, bigint, bigint, bigint, bigint, bigint, bigint]],
-    "view"
+    'view'
   >;
   getFunction(
-    nameOrSignature: "getCollateralRatio"
+    nameOrSignature: 'getCollateralRatio',
   ): TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [bigint],
-    "view"
+    'view'
   >;
   getFunction(
-    nameOrSignature: "getHealthFactor"
+    nameOrSignature: 'getHealthFactor',
   ): TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [boolean],
-    "view"
+    'view'
   >;
   getFunction(
-    nameOrSignature: "getMaxBorrowable"
+    nameOrSignature: 'getMaxBorrowable',
   ): TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [bigint],
-    "view"
+    'view'
   >;
   getFunction(
-    nameOrSignature: "getMaxWithdrawable"
+    nameOrSignature: 'getMaxWithdrawable',
   ): TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [bigint],
-    "view"
+    'view'
   >;
   getFunction(
-    nameOrSignature: "getVault"
+    nameOrSignature: 'getVault',
   ): TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _collateralToken: AddressLike,
-      _owner: AddressLike
-    ],
+    [_vaultContract: AddressLike, _collateralToken: AddressLike, _owner: AddressLike],
     [[bigint, bigint, bigint]],
-    "view"
+    'view'
   >;
   getFunction(
-    nameOrSignature: "isReliedUpon"
+    nameOrSignature: 'isReliedUpon',
   ): TypedContractMethod<
-    [
-      _vaultContract: AddressLike,
-      _owner: AddressLike,
-      _reliedUpon: AddressLike
-    ],
+    [_vaultContract: AddressLike, _owner: AddressLike, _reliedUpon: AddressLike],
     [boolean],
-    "view"
+    'view'
   >;
 
   filters: {};

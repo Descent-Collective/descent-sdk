@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 import Descent, { DescentClass } from '../src';
 import { ICollateral } from '../src/types';
-import { approveUSDC } from '../src/libs/utils';
+import { approveUSDC, updateTestPrice, waitTime } from '../src/libs/utils';
 import { ethers } from 'ethers';
 
 config();
@@ -18,19 +18,29 @@ describe('Descent Protocol SDK Test', () => {
       privateKey: process.env.PRIVATE_KEY,
       collateral: ICollateral.USDC,
     });
-  });
+  }, 120000);
 
   it('should deposit usdc into a vault', async () => {
     // approve 100 usdc
-
     const provider = new ethers.JsonRpcProvider(rpcUrl);
 
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
     await approveUSDC(vault, '100000000', signer, descent.transaction, descent.internal);
 
+    await updateTestPrice(signer);
+
     const response = await descent.depositCollateral('100');
 
-    console.log(response, 'from test');
-  });
+    waitTime(60);
+    expect(response).not.toBeNull;
+  }, 200000);
+
+  it('should withdraw usdc from a vault', async () => {
+    const response = await descent.withdrawCollateral('50');
+
+    console.log(response, 'response');
+    waitTime(60);
+    expect(response).not.toBeNull;
+  }, 80000);
 });

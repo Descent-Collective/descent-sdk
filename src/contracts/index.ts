@@ -1,8 +1,15 @@
 import { getContractAddress } from './getContractAddresses';
 import { ContractName, SupportedNetwork } from './types';
 import type { Signer, Provider, BaseContract, Interface } from 'ethers';
-import { Currency, MultiStaticcall, USDC, Vault, VaultGetters, VaultRouter } from '../generated';
-import { ISigner } from '../types';
+import {
+  Currency,
+  Feed,
+  MultiStaticcall,
+  USDC,
+  Vault,
+  VaultGetters,
+  VaultRouter,
+} from '../generated';
 
 type BaseFactory = {
   readonly abi: object;
@@ -43,4 +50,5 @@ export default class ContractManager {
     this.generateContractGetter<MultiStaticcall>('MultiStaticcall');
   public getCurrencyContract = this.generateContractGetter<Currency>('Currency');
   public getUSDCContract = this.generateContractGetter<USDC>('USDC');
+  public getFeedContract = this.generateContractGetter<Feed>('Feed');
 }

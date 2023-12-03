@@ -11,14 +11,14 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from "ethers";
+} from 'ethers';
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
   TypedListener,
   TypedContractMethod,
-} from "./common";
+} from './common';
 
 export declare namespace MultiStaticcall {
   export type StaticcallStruct = { target: AddressLike; callData: BytesLike };
@@ -30,24 +30,21 @@ export declare namespace MultiStaticcall {
 
   export type ReturnDatumStruct = { returnDatum: BytesLike; success: boolean };
 
-  export type ReturnDatumStructOutput = [
-    returnDatum: string,
-    success: boolean
-  ] & { returnDatum: string; success: boolean };
+  export type ReturnDatumStructOutput = [returnDatum: string, success: boolean] & {
+    returnDatum: string;
+    success: boolean;
+  };
 }
 
 export interface MultiStaticcallInterface extends Interface {
-  getFunction(nameOrSignature: "multiStaticcall"): FunctionFragment;
+  getFunction(nameOrSignature: 'multiStaticcall'): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "multiStaticcall",
-    values: [MultiStaticcall.StaticcallStruct[]]
+    functionFragment: 'multiStaticcall',
+    values: [MultiStaticcall.StaticcallStruct[]],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "multiStaticcall",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'multiStaticcall', data: BytesLike): Result;
 }
 
 export interface MultiStaticcall extends BaseContract {
@@ -59,56 +56,52 @@ export interface MultiStaticcall extends BaseContract {
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEventLog<TCEvent>>>;
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEventLog<TCEvent>>>;
 
   on<TCEvent extends TypedContractEvent>(
     event: TCEvent,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
 
   once<TCEvent extends TypedContractEvent>(
     event: TCEvent,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>
+    listener: TypedListener<TCEvent>,
   ): Promise<this>;
 
   listeners<TCEvent extends TypedContractEvent>(
-    event: TCEvent
+    event: TCEvent,
   ): Promise<Array<TypedListener<TCEvent>>>;
   listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(
-    event?: TCEvent
-  ): Promise<this>;
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
 
   multiStaticcall: TypedContractMethod<
     [staticcalls: MultiStaticcall.StaticcallStruct[]],
     [MultiStaticcall.ReturnDatumStructOutput[]],
-    "view"
+    'view'
   >;
 
-  getFunction<T extends ContractMethod = ContractMethod>(
-    key: string | FunctionFragment
-  ): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
   getFunction(
-    nameOrSignature: "multiStaticcall"
+    nameOrSignature: 'multiStaticcall',
   ): TypedContractMethod<
     [staticcalls: MultiStaticcall.StaticcallStruct[]],
     [MultiStaticcall.ReturnDatumStructOutput[]],
-    "view"
+    'view'
   >;
 
   filters: {};

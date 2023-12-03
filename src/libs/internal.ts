@@ -84,7 +84,7 @@ export class Internal {
 
   private getGas = async (transactionConfig: TransactionRequest) => {
     // @ts-ignore
-    return (await this.descent.signer.estimateGas(transactionConfig)) * BigInt(3); // increasing gas cost by 10% for margin
+    return (await this.descent.signer.estimateGas(transactionConfig)) * BigInt(2); // increasing gas cost by 20% for margin
   };
 
   /**

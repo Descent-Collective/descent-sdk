@@ -5,8 +5,8 @@ import { Signer, Provider } from 'ethers';
 import { SupportedNetwork } from './contracts/types';
 import ganache from 'ganache';
 import ContractManager from './contracts';
-import { createError, depositUSDCFromUnlockedAddress } from './libs/utils';
-import { collateralizeVault } from './services/vault';
+import { createError, depositUSDCFromUnlockedAddress, waitTime } from './libs/utils';
+import { collateralizeVault, mintCurrency, withdrawCollateral } from './services/vault';
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { Vault__factory } from './generated/factories';
@@ -49,7 +49,19 @@ export class DescentClass {
    */
   public async getVaultInfo(ownerAddress: string) {}
 
-  public async borrowCurrency(amount: string, ownerAddress: string, recipientAddress: string) {}
+  public async borrowCurrency(borrowAmount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await mintCurrency(
+      borrowAmount,
+      this.collateral,
+      owner,
+      this.chainId,
+      this.transaction,
+      this.internal,
+    );
+
+    return result;
+  }
 
   /**
    * @dev repay borrowed xNGN for a particular vault
@@ -65,7 +77,20 @@ export class DescentClass {
    * @param vaultID vault id to withdraw usdc from
    * @returns unlockedCollateral
    */
-  public async withdrawCollateral(collateralAmount: string, ownerAddress: string) {}
+  public async withdrawCollateral(collateralAmount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await withdrawCollateral(
+      collateralAmount,
+      this.collateral,
+      owner,
+      this.chainId,
+      this.transaction,
+      this.internal,
+      this.contracts!,
+    );
+
+    return result;
+  }
 
   /**
    * @dev deposit usdc for a particular vault
@@ -75,12 +100,10 @@ export class DescentClass {
    */
   public async depositCollateral(collateralAmount: string) {
     const owner = await this.signer.getAddress();
-    const contracts = new ContractManager(this.signer);
     const result = await collateralizeVault(
       collateralAmount,
       this.collateral,
       owner,
-      contracts!,
       this.chainId,
       this.transaction,
       this.internal,
@@ -129,7 +152,9 @@ async function create(
   const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
 
   const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
-  (await relyResponse).wait(2);
+  (await relyResponse).wait();
+
+  await waitTime(50);
 
   return descent;
 }
