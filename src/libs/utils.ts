@@ -65,7 +65,6 @@ const approveUSDC = async (
 
   const allowance = (await contract.getUSDCContract()).allowance(owner, spender);
   await waitTime(50);
-  console.log(await allowance, 'allowance');
 };
 
 const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));

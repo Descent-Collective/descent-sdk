@@ -135,13 +135,9 @@ const withdrawCollateral = async (
 
   const formattedMaxWithdrawable = await maxWithdrawable / BigInt(1e6);
 
-  console.log(formattedMaxWithdrawable, "formatted max withdrawable");
-
   if (amount > (formattedMaxWithdrawable).toString()) {
     throw new Error(" Withdrawal amount is more than available collateral balance")
   }
-
-
 
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],
@@ -157,8 +153,6 @@ const withdrawCollateral = async (
   });
 
   const withdrawResResult = await transaction.send(txConfig, {});
-
-  console.log(withdrawResResult, 'withdraw response');
 
   return withdrawResResult;
 };
@@ -192,8 +186,6 @@ const mintCurrency = async (
   });
 
   const mintResResult = await transaction.send(txConfig, {});
-
-  console.log(mintResResult, 'MINT response');
 
   return mintResResult;
 };
