@@ -57,7 +57,8 @@
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build": "node esbuild.js",
-    "test": "jest --coverage ./test/"
+    "test": "jest --coverage ./test/",
+    "test:getter": "jest ./test/getters.test.ts"
   },
   "jest": {
     "preset": "ts-jest",
