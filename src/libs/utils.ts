@@ -9,7 +9,7 @@ import ContractManager from '../contracts';
 import { Transaction } from './transactions';
 import { Internal } from './internal';
 import { getContractAddress } from '../contracts/getContractAddresses';
-import { USDC__factory } from '../generated';
+import { Currency__factory, USDC__factory } from '../generated';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createError = (message?: any) => {
@@ -78,6 +78,17 @@ const updateTestPrice = async (signer: Signer) => {
   await waitTime(50);
 };
 
+const setMinterRole = async (signer: Signer, owner: string) => {
+  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
+
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId!];
+  const contract = new ContractManager(signer);
+
+  await (await contract.getCurrencyContract()).setMinterRole(vaultContractAddress);
+
+  await waitTime(50);
+};
+
 const getxNGNBalance = async (owner: any, signer?: Signer) => {
   const contract = new ContractManager(signer!);
   const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
@@ -86,5 +97,40 @@ const getxNGNBalance = async (owner: any, signer?: Signer) => {
 
   return balance * BigInt(10e18);
 };
+const approvexNGN = async (
+  spender: string,
+  amount: string,
+  signer: Signer,
+  transaction: Transaction,
+  internal: Internal,
+) => {
+  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-export { createError, approveUSDC, waitTime, updateTestPrice, getxNGNBalance };
+  const owner = await signer.getAddress();
+
+  const _amount = BigInt(amount) * BigInt(10e18);
+
+  // build transaction object
+  const to: any = getContractAddress('Currency')[chainId!];
+  let iface = internal.getInterface(Currency__factory.abi);
+  const data = iface.encodeFunctionData('approve', [spender, _amount]);
+
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+  });
+
+  await transaction.send(txConfig, {});
+  await waitTime(50);
+};
+
+export {
+  createError,
+  approveUSDC,
+  waitTime,
+  updateTestPrice,
+  getxNGNBalance,
+  setMinterRole,
+  approvexNGN,
+};

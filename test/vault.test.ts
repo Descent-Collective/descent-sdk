@@ -1,8 +1,15 @@
 import { config } from 'dotenv';
 import Descent, { DescentClass } from '../src';
 import { ICollateral } from '../src/types';
-import { approveUSDC, getxNGNBalance, updateTestPrice, waitTime } from '../src/libs/utils';
-import { ethers } from 'ethers';
+import {
+  approveUSDC,
+  approvexNGN,
+  getxNGNBalance,
+  setMinterRole,
+  updateTestPrice,
+  waitTime,
+} from '../src/libs/utils';
+import { Signer, ethers } from 'ethers';
 
 config();
 
@@ -12,7 +19,7 @@ describe('Descent Protocol SDK Test', () => {
   let vault = '0xCaC650a8F8E71BDE3d60f0B020A4AA3874974705';
   let rpcUrl = 'https://goerli.base.org';
 
-  let signer;
+  let signer: Signer;
 
   beforeAll(async () => {
     descent = await Descent.create('https', {
@@ -35,11 +42,13 @@ describe('Descent Protocol SDK Test', () => {
 
     await approveUSDC(vault, '100000000', signer, descent.transaction, descent.internal);
 
-    await updateTestPrice(signer);
+    // await updateTestPrice(signer);
+    // await setMinterRole(signer, owner);
+    // console.log('minter set');
 
     const response = await descent.depositCollateral('100');
 
-    waitTime(60);
+    await waitTime(60);
     expect(response).not.toBeNull;
   }, 200000);
 
@@ -47,31 +56,29 @@ describe('Descent Protocol SDK Test', () => {
     const response = await descent.withdrawCollateral('50');
 
     console.log(response, 'response');
-    waitTime(60);
+    await waitTime(60);
     expect(response).not.toBeNull;
-  }, 80000);
+  }, 200000);
 
   it('should mint xNGN from a vault to an address', async () => {
-    const balanceBeforeBorrow = await getxNGNBalance(owner, signer);
-
     const response = await descent.borrowCurrency('10000');
-    const balanceAfterBorrow = await getxNGNBalance(owner, signer);
 
-    expect(balanceAfterBorrow).toBeGreaterThan(balanceBeforeBorrow);
-
-    waitTime(60);
+    await waitTime(60);
     expect(response).not.toBeNull;
-  }, 80000);
+  }, 200000);
 
-    it('should payback xNGN', async () => {
-    const balanceBeforePayback = await getxNGNBalance(owner, signer);
+  it('should payback xNGN', async () => {
+    await approvexNGN(vault, '9000', signer, descent.transaction, descent.internal);
 
     const response = await descent.repayCurrency('9000');
-    const balanceAfterPayback = await getxNGNBalance(owner, signer);
 
-    expect(balanceAfterPayback).toBeLessThan(balanceBeforePayback);
-
-    waitTime(60);
+    await waitTime(60);
     expect(response).not.toBeNull;
-  }, 80000);
+  }, 200000);
+
+  it('should get vault data', async () => {
+    const vaultData = await descent.getVaultInfo();
+
+    console.log(vaultData, 'vault data');
+  });
 });

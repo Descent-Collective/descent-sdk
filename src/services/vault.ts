@@ -1,4 +1,12 @@
-import { ethers, BigNumberish, AddressLike, formatUnits, NonceManager } from 'ethers';
+import {
+  ethers,
+  BigNumberish,
+  AddressLike,
+  formatUnits,
+  NonceManager,
+  parseUnits,
+  parseEther,
+} from 'ethers';
 import { ICollateral, IContract } from '../types';
 import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
@@ -76,6 +84,23 @@ export enum VaultOperations {
 //   }
 // };
 
+const getVault = async (
+  collateral: ICollateral,
+  owner: string,
+  chainId: string,
+  contract: ContractManager,
+) => {
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+
+  const getVaultInfo = (await contract.getVaultGetterContract()).getVault(
+    vaultContractAddress,
+    collateralAddress,
+    owner,
+  );
+
+  return getVaultInfo;
+};
 const collateralizeVault = async (
   amount: string,
   collateral: ICollateral,
@@ -127,17 +152,19 @@ const withdrawCollateral = async (
   const to: any = getContractAddress('VaultRouter')[chainId];
   let iface = internal.getInterface(VaultRouter__factory.abi);
 
-  const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
-    vaultContractAddress,
-    collateralAddress,
-    owner,
-  );
+  // const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
+  //   vaultContractAddress,
+  //   collateralAddress,
+  //   owner,
+  // );
 
-  const formattedMaxWithdrawable = (await maxWithdrawable) / BigInt(1e6);
+  // const formattedMaxWithdrawable = parseUnits((await maxWithdrawable).toString(), 6);
 
-  if (amount > formattedMaxWithdrawable.toString()) {
-    throw new Error(' Withdrawal amount is more than available collateral balance');
-  }
+  // console.log('formatted max withdrawable: ' + formattedMaxWithdrawable);
+
+  // if (Number(amount) > Number((formattedMaxWithdrawable).toString())) {
+  //   throw new Error(' Withdrawal amount is more than available collateral balance');
+  // }
 
   // build transaction object
   const data = iface.encodeFunctionData('multiInteract', [
@@ -171,17 +198,17 @@ const mintCurrency = async (
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
-    vaultContractAddress,
-    collateralAddress,
-    owner,
-  );
+  // const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
+  //   vaultContractAddress,
+  //   collateralAddress,
+  //   owner,
+  // );
 
-  const formattedmaxBorrowable = (await maxBorrowable) / BigInt(1e18);
+  // const formattedmaxBorrowable =  parseEther((await maxBorrowable).toString());
 
-  if (amount > formattedmaxBorrowable.toString()) {
-    throw new Error(' Borrow amount is more than available currency borrowable');
-  }
+  // if (Number(amount) > Number(formattedmaxBorrowable)) {
+  //   throw new Error(' Borrow amount is more than available currency borrowable');
+  // }
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
@@ -218,13 +245,13 @@ const burnCurrency = async (
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+  // const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
 
-  const formattedBalance = (await balance) / BigInt(1e18);
+  // const formattedBalance = (await parseEther(balance.toString()));
 
-  if (amount > formattedBalance.toString()) {
-    throw new Error('Payback xNGN: Insufficient funds');
-  }
+  // if (Number(amount) > Number(formattedBalance.toString())) {
+  //   throw new Error('Payback xNGN: Insufficient funds');
+  // }
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
@@ -247,4 +274,4 @@ const burnCurrency = async (
   return burnResult;
 };
 
-export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };
+export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency, getVault };

@@ -5,7 +5,13 @@ import { Signer, Provider } from 'ethers';
 import { SupportedNetwork } from './contracts/types';
 import ContractManager from './contracts';
 import { waitTime } from './libs/utils';
-import { burnCurrency, collateralizeVault, mintCurrency, withdrawCollateral } from './services/vault';
+import {
+  burnCurrency,
+  collateralizeVault,
+  getVault,
+  mintCurrency,
+  withdrawCollateral,
+} from './services/vault';
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { getContractAddress } from './contracts/getContractAddresses';
@@ -44,9 +50,14 @@ export class DescentClass {
    * @param ownerAddress Vault ID
    * @returns The Vault information
    */
-  public async getVaultInfo(ownerAddress: string) {}
+  public async getVaultInfo() {
+    const owner = await this.signer.getAddress();
+    const result = await getVault(this.collateral, owner, this.chainId, this.contracts!);
 
-    /**
+    return result;
+  }
+
+  /**
    * @dev borrow xNGN against deposited USDC
    * @param amount amount of xNGN to borrow
    * @returns transaction obj
@@ -72,7 +83,7 @@ export class DescentClass {
    * @returns transaction obj
    */
   public async repayCurrency(amount: string) {
-     const owner = await this.signer.getAddress();
+    const owner = await this.signer.getAddress();
     const result = await burnCurrency(
       amount,
       this.collateral,
