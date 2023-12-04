@@ -3,16 +3,19 @@ import { ICollateral, IMode, ISigner } from './types';
 import { Signer, Provider } from 'ethers';
 
 import { SupportedNetwork } from './contracts/types';
-import ganache from 'ganache';
 import ContractManager from './contracts';
-import { createError, depositUSDCFromUnlockedAddress, waitTime } from './libs/utils';
-import { collateralizeVault, mintCurrency, withdrawCollateral } from './services/vault';
+import { waitTime } from './libs/utils';
+import {
+  burnCurrency,
+  collateralizeVault,
+  getVault,
+  mintCurrency,
+  withdrawCollateral,
+} from './services/vault';
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
-import { Vault__factory } from './generated/factories';
 import { getContractAddress } from './contracts/getContractAddresses';
 
-// TODO: Use nonce manager globally
 export class DescentClass {
   signer: Signer;
   protected provider: Provider;
@@ -47,8 +50,18 @@ export class DescentClass {
    * @param ownerAddress Vault ID
    * @returns The Vault information
    */
-  public async getVaultInfo(ownerAddress: string) {}
+  public async getVaultInfo() {
+    const owner = await this.signer.getAddress();
+    const result = await getVault(this.collateral, owner, this.chainId, this.contracts!);
 
+    return result;
+  }
+
+  /**
+   * @dev borrow xNGN against deposited USDC
+   * @param amount amount of xNGN to borrow
+   * @returns transaction obj
+   */
   public async borrowCurrency(borrowAmount: string) {
     const owner = await this.signer.getAddress();
     const result = await mintCurrency(
@@ -58,6 +71,7 @@ export class DescentClass {
       this.chainId,
       this.transaction,
       this.internal,
+      this.contracts!,
     );
 
     return result;
@@ -66,16 +80,27 @@ export class DescentClass {
   /**
    * @dev repay borrowed xNGN for a particular vault
    * @param amount amount of xNGN to repay
-   * @param vaultID vault id to repay xNGN for
-   * @returns vaultDebt
+   * @returns transaction obj
    */
-  public async repayCurrency(amount: string, ownerAddress: string) {}
+  public async repayCurrency(amount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await burnCurrency(
+      amount,
+      this.collateral,
+      owner,
+      this.chainId,
+      this.transaction,
+      this.internal,
+      this.contracts!,
+    );
+
+    return result;
+  }
 
   /**
    * @dev withdraw usdc for a particular vault
    * @param collateralAmount amount of unlocked collateral to withdraw
-   * @param vaultID vault id to withdraw usdc from
-   * @returns unlockedCollateral
+   * @returns transaction obj
    */
   public async withdrawCollateral(collateralAmount: string) {
     const owner = await this.signer.getAddress();
@@ -96,7 +121,7 @@ export class DescentClass {
    * @dev deposit usdc for a particular vault
    * @param collateralAmount amount of unlocked collateral to withdraw
    * @param ownerAddress owner of the vault which should be the caller
-   * @returns transactionReceipt
+   * @returns transaction obj
    */
   public async depositCollateral(collateralAmount: string) {
     const owner = await this.signer.getAddress();
