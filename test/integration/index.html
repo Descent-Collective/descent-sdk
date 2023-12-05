@@ -3,21 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground</title>
-  </head>
-  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.4.1.js"
-    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
+    <title>Descent browser example</title>
 
-  <body>
-    Open console for testing
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.6/dist/web3.min.js"></script>
+    <script src="../../dist/esm/index.mjs"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"></script>
 
-    <!-- Usage in modern browsers -->
-    <script type="module">
-      import Descent from '../../src';
-
+    <script type="module" >
+       
       console.log(window.ethereum);
       $(window).on('load', async function (e) {
         e.preventDefault();
@@ -26,8 +22,17 @@
 
         const res = descent.create('browser', window.ethereum);
 
-        console.log(window.ethereum);
+        console.log(res);
+
+        descent.getVaultInfo().then((res) => {
+          console.log(res, 'vault info');
+        });
       });
     </script>
-  </body>
+    <body>
+      Open console for testing
+
+      <!-- Usage in modern browsers -->
+    </body>
+  </head>
 </html>

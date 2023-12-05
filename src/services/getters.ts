@@ -82,7 +82,10 @@ const getVault = async (
   ];
 
   const getVaultInfo = (await contract.getMultistaticcallContract()).multiStaticcall([
-   
+    {
+      vaultGettersAddress,
+      getHealthFactor,
+    },
   ]);
 
   return getVaultInfo;
