@@ -14,7 +14,7 @@ import {
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { getContractAddress } from './contracts/getContractAddresses';
-import { getVault } from './services/getters';
+import { getCollateralData, getVault } from './services/getters';
 
 export class DescentClass {
   signer: Signer;
@@ -57,6 +57,21 @@ export class DescentClass {
       this.chainId,
       this.contracts!,
       this.internal,
+    );
+
+    return result;
+  }
+
+  /**
+   * @dev Gets the information of collateral initialized in `create()`
+   * @returns The collateral information
+   */
+  public async getCollateralInfo() {
+    const result = await getCollateralData(
+      this.collateral,
+
+      this.chainId,
+      this.contracts!,
     );
 
     return result;

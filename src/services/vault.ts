@@ -26,64 +26,6 @@ export enum VaultOperations {
   BurnCurrency = 3,
 }
 
-// const getVaultInfo = async (
-//   ownerAddress: string | number,
-//   collateral: ICollateral,
-//   contract: IContract,
-// ) => {
-//   let collateralAddress;
-//   if (collateral == ICollateral.USDC) {
-//     collateralAddress = Addresses.USDC;
-//   }
-
-//   try {
-//     // FIXME: Refactor with MultiStaticcall
-//     const vaultData = await contract.getVaultInfo(Addresses.VAULT, collateralAddress, ownerAddress);
-//     const depositedCollateral = Number(ethers.formatUnits(vaultData.depositedCollateral));
-//     const availableCollateral = await contract.getMaxWithdrawable(
-//       Addresses.VAULT,
-//       collateralAddress,
-//       ownerAddress,
-//     );
-//     const availablexNGN = await contract.getMaxBorrowable(
-//       Addresses.VAULT,
-//       collateralAddress,
-//       ownerAddress,
-//     );
-//     const healthFactorCheck = await contract.checkHealthFactor(
-//       Addresses.VAULT,
-//       collateralAddress,
-//       ownerAddress,
-//     );
-
-//     const healthFactor =
-//       healthFactorCheck < 1 //
-//         ? VaultHealthFactor.UNSAFE // Unsafe - Vault is Dangerous
-//         : VaultHealthFactor.SAFE; // Safe - Vault is Safe
-
-//     const price = '999';
-//     const collateralValue = depositedCollateral * Number(price);
-
-//     const currentCollateralRatio =
-//       Number(ethers.formatUnits(vaultData.borrowedAmount)) / collateralValue / (100 / 1);
-
-//     return {
-//       healthFactor,
-//       depositedCollateral,
-//       collateralLocked: depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
-//       borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
-//       accruedFees: ethers.formatUnits(vaultData.accruedFees),
-//       currentCollateralRatio: currentCollateralRatio,
-//       availableCollateral: ethers.formatUnits(availableCollateral),
-//       availablexNGN: ethers.formatUnits(availablexNGN),
-//       currentRate: ethers.formatUnits(vaultData.lastTotalAccumulatedRate),
-//     };
-//   } catch (e) {
-//     const message = createError(e);
-//     return message;
-//   }
-// };
-
 const collateralizeVault = async (
   amount: string,
   collateral: ICollateral,

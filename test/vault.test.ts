@@ -53,7 +53,7 @@ describe('Descent Protocol SDK Test', () => {
   }, 200000);
 
   it('should withdraw usdc from a vault', async () => {
-    const response = await descent.withdrawCollateral('50');
+    const response = await descent.withdrawCollateral('150');
 
     console.log(response, 'response');
     await waitTime(60);

@@ -18,18 +18,6 @@ const getVault = async (
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
   const vaultGettersAddress: any = getContractAddress('VaultGetters')[chainId];
 
-  /**TODO: 
-     * Should return the following:
-      healthFactor,
-      depositedCollateral,
-      collateralLocked: depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
-      borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
-      accruedFees: ethers.formatUnits(vaultData.accruedFees),
-      currentCollateralRatio: currentCollateralRatio,
-      availableCollateral: ethers.formatUnits(availableCollateral),
-      availablexNGN: ethers.formatUnits(availablexNGN),
-     * */
-
   // encode data
   let iface = internal.getInterface(VaultGetters__factory.abi);
   const getVaultData = iface.encodeFunctionData('getVault', [
@@ -89,8 +77,6 @@ const getVault = async (
 
   const returnData = (await getVaultInfo).map((item) => item.returnDatum);
 
-  console.log(returnData, 'return Data');
-
   const fnc = [
     'getVault',
     'getMaxBorrowable',
@@ -105,9 +91,50 @@ const getVault = async (
 
     formattedReturnData.push(iface.decodeFunctionResult(currentFnc, returnData[i]));
   }
+  const depositedCollateral = formattedReturnData[0][0];
+  const borrowedAmount = formattedReturnData[0][1];
+  const _accruedFees = formattedReturnData[0][2];
 
-  console.log(formattedReturnData, 'returnData');
-  return getVaultInfo;
+  const borrowableAmount = formattedReturnData[1];
+  const withdrawableCollateral = formattedReturnData[2];
+  const collateralRatio = formattedReturnData[3];
+  const healthFactor = formattedReturnData[4];
+
+  return {
+    healthFactor: healthFactor ? 'Safe' : 'Unsafe',
+    depositedCollateral: ethers.formatUnits(depositedCollateral, 6),
+    collateralLocked: depositedCollateral - Number(ethers.formatUnits(withdrawableCollateral, 6)),
+    borrowedAmount: ethers.formatUnits(borrowedAmount, 18),
+    accruedFees: ethers.formatUnits(_accruedFees, 18),
+    currentCollateralRatio: collateralRatio,
+    availableCollateral: ethers.formatUnits(withdrawableCollateral, 6),
+    availablexNGN: ethers.formatUnits(borrowableAmount, 18),
+  };
 };
 
-export { getVault };
+const getCollateralData = async (
+  collateral: ICollateral,
+  chainId: string,
+  contract: ContractManager,
+) => {
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+
+  const getCollateralInfo = (await contract.getVaultGetterContract()).getCollateralInfo(
+    vaultContractAddress,
+    collateralAddress,
+  );
+
+  const returnData = (await getCollateralInfo).map((item) => item);
+
+  return {
+    totalDepositedCollateral: ethers.parseUnits(returnData[0].toString(), 6),
+    totalBorrowedAmount: ethers.parseUnits(returnData[1].toString(), 18),
+    liquidationThreshold: `${ethers.parseUnits(returnData[2].toString(), 16)}%`,
+    debtCeiling: ethers.parseUnits(returnData[3].toString(), 18),
+    rate: ethers.parseUnits(returnData[4].toString(), 18),
+    minDeposit: ethers.parseUnits(returnData[5].toString(), 18),
+    collateralPrice: ethers.parseUnits(returnData[6].toString(), 18),
+  };
+};
+export { getVault, getCollateralData };

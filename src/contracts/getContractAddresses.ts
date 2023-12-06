@@ -2,22 +2,22 @@ import { ContractName, SupportedNetwork } from './types';
 
 const addresses: Record<ContractName, Partial<Record<SupportedNetwork | string, string>>> = {
   Vault: {
-    [SupportedNetwork.GOERLI]: '0xCaC650a8F8E71BDE3d60f0B020A4AA3874974705',
+    [SupportedNetwork.GOERLI]: '0xee2bDAE7896910c49BeA25106B9f8e9f4B671c82',
   },
   MultiStaticcall: {
-    [SupportedNetwork.GOERLI]: '0xB8747e5cce01AA5a51021989BA11aE33097db485',
+    [SupportedNetwork.GOERLI]: '0x7E04A2380bF7F024Da53e60686f2e0608E987768',
   },
   VaultGetters: {
-    [SupportedNetwork.GOERLI]: '0x3d35807343CbF4fDb16E42297F2214f62848D032',
+    [SupportedNetwork.GOERLI]: '0x3d8255F39C2DC306C05d2b503e74CCea1fD9F430',
   },
   VaultRouter: {
-    [SupportedNetwork.GOERLI]: '0xFBD26B871D55ba56B7a780eF1fF243Db7A3E81f4',
+    [SupportedNetwork.GOERLI]: '0x2d4D7b224294573d02076cea252CbBD8156A4465',
   },
   Currency: {
-    [SupportedNetwork.GOERLI]: '0xC8A88052006142d7ae0B56452e1f153BF480E341',
+    [SupportedNetwork.GOERLI]: '0xE2386C5eF4deC9d5815C60168e36c7153ba00D0C',
   },
   Feed: {
-    [SupportedNetwork.GOERLI]: '0xEdC725Db7e54C3C85EB551E859b90489d076a9Ca',
+    [SupportedNetwork.GOERLI]: '0x970066EE55DF2134D1b52451afb49034AE5Fa29a',
   },
   USDC: {
     [SupportedNetwork.GOERLI]: '0xF175520C52418dfE19C8098071a252da48Cd1C19',
