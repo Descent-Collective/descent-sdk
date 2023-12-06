@@ -134,9 +134,9 @@ const getCollateralData = async (
     totalBorrowedAmount: ethers.formatUnits(returnData[1].toString(), 18),
     liquidationThreshold: `${ethers.formatUnits(returnData[2].toString(), 16)}%`,
     debtCeiling: ethers.formatUnits(returnData[3].toString(), 18),
-    rate: ethers.formatUnits(returnData[4].toString(), 18),
+    rate: ethers.formatUnits(returnData[4].toString(), 6),
     minDeposit: ethers.formatUnits(returnData[5].toString(), 18),
-    collateralPrice: ethers.formatUnits(returnData[6].toString(), 18),
+    collateralPrice: ethers.formatUnits(returnData[6].toString(), 6),
   };
 };
 export { getVault, getCollateralData };
