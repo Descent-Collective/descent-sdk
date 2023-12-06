@@ -102,13 +102,15 @@ const getVault = async (
 
   return {
     healthFactor: healthFactor ? 'Safe' : 'Unsafe',
-    depositedCollateral: ethers.formatUnits(depositedCollateral, 6),
-    collateralLocked: depositedCollateral - Number(ethers.formatUnits(withdrawableCollateral, 6)),
-    borrowedAmount: ethers.formatUnits(borrowedAmount, 18),
-    accruedFees: ethers.formatUnits(_accruedFees, 18),
-    currentCollateralRatio: collateralRatio,
-    availableCollateral: ethers.formatUnits(withdrawableCollateral, 6),
-    availablexNGN: ethers.formatUnits(borrowableAmount, 18),
+    depositedCollateral: ethers.formatUnits(depositedCollateral.toString(), 6),
+    collateralLocked:
+      Number(ethers.formatUnits(depositedCollateral.toString(), 6)) -
+      Number(ethers.formatUnits(withdrawableCollateral.toString(), 6)),
+    borrowedAmount: ethers.formatUnits(borrowedAmount.toString(), 18),
+    accruedFees: ethers.formatUnits(_accruedFees.toString(), 18),
+    currentCollateralRatio: `${ethers.formatUnits(collateralRatio.toString(), 16)}%`,
+    availableCollateral: ethers.formatUnits(withdrawableCollateral.toString(), 6),
+    availablexNGN: ethers.formatUnits(borrowableAmount.toString(), 18),
   };
 };
 
@@ -128,13 +130,13 @@ const getCollateralData = async (
   const returnData = (await getCollateralInfo).map((item) => item);
 
   return {
-    totalDepositedCollateral: ethers.parseUnits(returnData[0].toString(), 6),
-    totalBorrowedAmount: ethers.parseUnits(returnData[1].toString(), 18),
-    liquidationThreshold: `${ethers.parseUnits(returnData[2].toString(), 16)}%`,
-    debtCeiling: ethers.parseUnits(returnData[3].toString(), 18),
-    rate: ethers.parseUnits(returnData[4].toString(), 18),
-    minDeposit: ethers.parseUnits(returnData[5].toString(), 18),
-    collateralPrice: ethers.parseUnits(returnData[6].toString(), 18),
+    totalDepositedCollateral: ethers.formatUnits(returnData[0].toString(), 6),
+    totalBorrowedAmount: ethers.formatUnits(returnData[1].toString(), 18),
+    liquidationThreshold: `${ethers.formatUnits(returnData[2].toString(), 16)}%`,
+    debtCeiling: ethers.formatUnits(returnData[3].toString(), 18),
+    rate: ethers.formatUnits(returnData[4].toString(), 18),
+    minDeposit: ethers.formatUnits(returnData[5].toString(), 18),
+    collateralPrice: ethers.formatUnits(returnData[6].toString(), 18),
   };
 };
 export { getVault, getCollateralData };

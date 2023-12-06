@@ -159,9 +159,7 @@
     "absolutePath": "src/multiStaticcall.sol",
     "id": 46091,
     "exportedSymbols": {
-      "MultiStaticcall": [
-        46090
-      ]
+      "MultiStaticcall": [46090]
     },
     "nodeType": "SourceUnit",
     "src": "33:753:44",
@@ -171,11 +169,7 @@
         "nodeType": "PragmaDirective",
         "src": "33:23:44",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".21"
-        ]
+        "literals": ["solidity", "0.8", ".21"]
       },
       {
         "id": 46090,
@@ -404,9 +398,7 @@
                             "pathNode": {
                               "id": 46036,
                               "name": "ReturnDatum",
-                              "nameLocations": [
-                                "420:11:44"
-                              ],
+                              "nameLocations": ["420:11:44"],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 46024,
                               "src": "420:11:44"
@@ -460,9 +452,7 @@
                     "src": "509:268:44",
                     "statements": [
                       {
-                        "assignments": [
-                          46057
-                        ],
+                        "assignments": [46057],
                         "declarations": [
                           {
                             "constant": false,
@@ -485,9 +475,7 @@
                               "pathNode": {
                                 "id": 46055,
                                 "name": "ReturnDatum",
-                                "nameLocations": [
-                                  "523:11:44"
-                                ],
+                                "nameLocations": ["523:11:44"],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 46024,
                                 "src": "523:11:44"
@@ -507,9 +495,7 @@
                         "src": "523:30:44"
                       },
                       {
-                        "assignments": [
-                          46061
-                        ],
+                        "assignments": [46061],
                         "declarations": [
                           {
                             "constant": false,
@@ -532,9 +518,7 @@
                               "pathNode": {
                                 "id": 46059,
                                 "name": "Staticcall",
-                                "nameLocations": [
-                                  "567:10:44"
-                                ],
+                                "nameLocations": ["567:10:44"],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 46019,
                                 "src": "567:10:44"
@@ -906,9 +890,7 @@
                   },
                   "id": 46087,
                   "initializationExpression": {
-                    "assignments": [
-                      46046
-                    ],
+                    "assignments": [46046],
                     "declarations": [
                       {
                         "constant": false,
@@ -1011,9 +993,7 @@
                       "pathNode": {
                         "id": 46025,
                         "name": "Staticcall",
-                        "nameLocations": [
-                          "274:10:44"
-                        ],
+                        "nameLocations": ["274:10:44"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 46019,
                         "src": "274:10:44"
@@ -1064,9 +1044,7 @@
                       "pathNode": {
                         "id": 46030,
                         "name": "ReturnDatum",
-                        "nameLocations": [
-                          "356:11:44"
-                        ],
+                        "nameLocations": ["356:11:44"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 46024,
                         "src": "356:11:44"
@@ -1103,9 +1081,7 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          46090
-        ],
+        "linearizedBaseContracts": [46090],
         "name": "MultiStaticcall",
         "nameLocation": "67:15:44",
         "scope": 46091,

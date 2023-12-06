@@ -801,21 +801,11 @@
     "absolutePath": "src/vaultGetters.sol",
     "id": 52216,
     "exportedSymbols": {
-      "Currency": [
-        49225
-      ],
-      "ERC20": [
-        45654
-      ],
-      "IVault": [
-        49429
-      ],
-      "Vault": [
-        51076
-      ],
-      "VaultGetters": [
-        52215
-      ]
+      "Currency": [49225],
+      "ERC20": [45654],
+      "IVault": [49429],
+      "Vault": [51076],
+      "VaultGetters": [52215]
     },
     "nodeType": "SourceUnit",
     "src": "32:14603:53",
@@ -825,11 +815,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:23:53",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".21"
-        ]
+        "literals": ["solidity", "0.8", ".21"]
       },
       {
         "id": 51359,
@@ -1164,12 +1150,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51394,
-                    51396,
-                    51398,
-                    51400
-                  ],
+                  "assignments": [51394, 51396, 51398, 51400],
                   "declarations": [
                     {
                       "constant": false,
@@ -1516,9 +1497,7 @@
                     "pathNode": {
                       "id": 51380,
                       "name": "Vault",
-                      "nameLocations": [
-                        "632:5:53"
-                      ],
+                      "nameLocations": ["632:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "632:5:53"
@@ -1553,9 +1532,7 @@
                     "pathNode": {
                       "id": 51383,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "654:5:53"
-                      ],
+                      "nameLocations": ["654:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "654:5:53"
@@ -1625,10 +1602,7 @@
                     "pathNode": {
                       "id": 51389,
                       "name": "IVault.VaultInfo",
-                      "nameLocations": [
-                        "740:6:53",
-                        "747:9:53"
-                      ],
+                      "nameLocations": ["740:6:53", "747:9:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49423,
                       "src": "740:16:53"
@@ -1662,11 +1636,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51426,
-                    51428,
-                    51430
-                  ],
+                  "assignments": [51426, 51428, 51430],
                   "declarations": [
                     {
                       "constant": false,
@@ -1936,9 +1906,7 @@
                     "pathNode": {
                       "id": 51417,
                       "name": "Vault",
-                      "nameLocations": [
-                        "1104:5:53"
-                      ],
+                      "nameLocations": ["1104:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "1104:5:53"
@@ -1980,10 +1948,7 @@
                     "pathNode": {
                       "id": 51421,
                       "name": "IVault.RateInfo",
-                      "nameLocations": [
-                        "1148:6:53",
-                        "1155:8:53"
-                      ],
+                      "nameLocations": ["1148:6:53", "1155:8:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49390,
                       "src": "1148:15:53"
@@ -2018,17 +1983,7 @@
               "statements": [
                 {
                   "assignments": [
-                    51456,
-                    51458,
-                    51460,
-                    51462,
-                    51465,
-                    51467,
-                    51469,
-                    51471,
-                    51473,
-                    51475,
-                    51477
+                    51456, 51458, 51460, 51462, 51465, 51467, 51469, 51471, 51473, 51475, 51477
                   ],
                   "declarations": [
                     {
@@ -2160,10 +2115,7 @@
                         "pathNode": {
                           "id": 51463,
                           "name": "Vault.RateInfo",
-                          "nameLocations": [
-                            "1710:5:53",
-                            "1716:8:53"
-                          ],
+                          "nameLocations": ["1710:5:53", "1716:8:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49390,
                           "src": "1710:14:53"
@@ -2672,9 +2624,7 @@
                     "pathNode": {
                       "id": 51444,
                       "name": "Vault",
-                      "nameLocations": [
-                        "1393:5:53"
-                      ],
+                      "nameLocations": ["1393:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "1393:5:53"
@@ -2709,9 +2659,7 @@
                     "pathNode": {
                       "id": 51447,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "1415:5:53"
-                      ],
+                      "nameLocations": ["1415:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "1415:5:53"
@@ -2753,10 +2701,7 @@
                     "pathNode": {
                       "id": 51451,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "1485:6:53",
-                        "1492:14:53"
-                      ],
+                      "nameLocations": ["1485:6:53", "1492:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "1485:21:53"
@@ -2790,9 +2735,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51517
-                  ],
+                  "assignments": [51517],
                   "declarations": [
                     {
                       "constant": false,
@@ -2815,10 +2758,7 @@
                         "pathNode": {
                           "id": 51515,
                           "name": "IVault.VaultInfo",
-                          "nameLocations": [
-                            "2770:6:53",
-                            "2777:9:53"
-                          ],
+                          "nameLocations": ["2770:6:53", "2777:9:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49423,
                           "src": "2770:16:53"
@@ -2919,9 +2859,7 @@
                   "src": "2770:91:53"
                 },
                 {
-                  "assignments": [
-                    51528
-                  ],
+                  "assignments": [51528],
                   "declarations": [
                     {
                       "constant": false,
@@ -2944,10 +2882,7 @@
                         "pathNode": {
                           "id": 51526,
                           "name": "IVault.CollateralInfo",
-                          "nameLocations": [
-                            "2871:6:53",
-                            "2878:14:53"
-                          ],
+                          "nameLocations": ["2871:6:53", "2878:14:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49414,
                           "src": "2871:21:53"
@@ -3102,9 +3037,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    51541
-                  ],
+                  "assignments": [51541],
                   "declarations": [
                     {
                       "constant": false,
@@ -3306,9 +3239,7 @@
                     "pathNode": {
                       "id": 51501,
                       "name": "Vault",
-                      "nameLocations": [
-                        "2641:5:53"
-                      ],
+                      "nameLocations": ["2641:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "2641:5:53"
@@ -3343,9 +3274,7 @@
                     "pathNode": {
                       "id": 51504,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "2663:5:53"
-                      ],
+                      "nameLocations": ["2663:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "2663:5:53"
@@ -3441,9 +3370,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51571
-                  ],
+                  "assignments": [51571],
                   "declarations": [
                     {
                       "constant": false,
@@ -3466,10 +3393,7 @@
                         "pathNode": {
                           "id": 51569,
                           "name": "IVault.VaultInfo",
-                          "nameLocations": [
-                            "3405:6:53",
-                            "3412:9:53"
-                          ],
+                          "nameLocations": ["3405:6:53", "3412:9:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49423,
                           "src": "3405:16:53"
@@ -3570,9 +3494,7 @@
                   "src": "3405:91:53"
                 },
                 {
-                  "assignments": [
-                    51582
-                  ],
+                  "assignments": [51582],
                   "declarations": [
                     {
                       "constant": false,
@@ -3595,10 +3517,7 @@
                         "pathNode": {
                           "id": 51580,
                           "name": "IVault.CollateralInfo",
-                          "nameLocations": [
-                            "3506:6:53",
-                            "3513:14:53"
-                          ],
+                          "nameLocations": ["3506:6:53", "3513:14:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49414,
                           "src": "3506:21:53"
@@ -3862,9 +3781,7 @@
                     "pathNode": {
                       "id": 51555,
                       "name": "Vault",
-                      "nameLocations": [
-                        "3273:5:53"
-                      ],
+                      "nameLocations": ["3273:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "3273:5:53"
@@ -3899,9 +3816,7 @@
                     "pathNode": {
                       "id": 51558,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "3295:5:53"
-                      ],
+                      "nameLocations": ["3295:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "3295:5:53"
@@ -3997,9 +3912,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51618
-                  ],
+                  "assignments": [51618],
                   "declarations": [
                     {
                       "constant": false,
@@ -4022,10 +3935,7 @@
                         "pathNode": {
                           "id": 51616,
                           "name": "IVault.VaultInfo",
-                          "nameLocations": [
-                            "4270:6:53",
-                            "4277:9:53"
-                          ],
+                          "nameLocations": ["4270:6:53", "4277:9:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49423,
                           "src": "4270:16:53"
@@ -4126,9 +4036,7 @@
                   "src": "4270:91:53"
                 },
                 {
-                  "assignments": [
-                    51629
-                  ],
+                  "assignments": [51629],
                   "declarations": [
                     {
                       "constant": false,
@@ -4151,10 +4059,7 @@
                         "pathNode": {
                           "id": 51627,
                           "name": "IVault.CollateralInfo",
-                          "nameLocations": [
-                            "4371:6:53",
-                            "4378:14:53"
-                          ],
+                          "nameLocations": ["4371:6:53", "4378:14:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49414,
                           "src": "4371:21:53"
@@ -4389,9 +4294,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    51647
-                  ],
+                  "assignments": [51647],
                   "declarations": [
                     {
                       "constant": false,
@@ -4491,9 +4394,7 @@
                   "src": "4641:87:53"
                 },
                 {
-                  "assignments": [
-                    51654
-                  ],
+                  "assignments": [51654],
                   "declarations": [
                     {
                       "constant": false,
@@ -4632,10 +4533,7 @@
                   "src": "4792:132:53"
                 },
                 {
-                  "assignments": [
-                    51664,
-                    null
-                  ],
+                  "assignments": [51664, null],
                   "declarations": [
                     {
                       "constant": false,
@@ -4752,9 +4650,7 @@
                   "src": "4971:91:53"
                 },
                 {
-                  "assignments": [
-                    51672
-                  ],
+                  "assignments": [51672],
                   "declarations": [
                     {
                       "constant": false,
@@ -4893,9 +4789,7 @@
                   "src": "5072:90:53"
                 },
                 {
-                  "assignments": [
-                    51682
-                  ],
+                  "assignments": [51682],
                   "declarations": [
                     {
                       "constant": false,
@@ -5401,9 +5295,7 @@
                     "pathNode": {
                       "id": 51602,
                       "name": "Vault",
-                      "nameLocations": [
-                        "4139:5:53"
-                      ],
+                      "nameLocations": ["4139:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "4139:5:53"
@@ -5438,9 +5330,7 @@
                     "pathNode": {
                       "id": 51605,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "4161:5:53"
-                      ],
+                      "nameLocations": ["4161:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "4161:5:53"
@@ -5536,9 +5426,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51735
-                  ],
+                  "assignments": [51735],
                   "declarations": [
                     {
                       "constant": false,
@@ -5561,10 +5449,7 @@
                         "pathNode": {
                           "id": 51733,
                           "name": "IVault.VaultInfo",
-                          "nameLocations": [
-                            "6665:6:53",
-                            "6672:9:53"
-                          ],
+                          "nameLocations": ["6665:6:53", "6672:9:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49423,
                           "src": "6665:16:53"
@@ -5665,9 +5550,7 @@
                   "src": "6665:91:53"
                 },
                 {
-                  "assignments": [
-                    51746
-                  ],
+                  "assignments": [51746],
                   "declarations": [
                     {
                       "constant": false,
@@ -5690,10 +5573,7 @@
                         "pathNode": {
                           "id": 51744,
                           "name": "IVault.CollateralInfo",
-                          "nameLocations": [
-                            "6766:6:53",
-                            "6773:14:53"
-                          ],
+                          "nameLocations": ["6766:6:53", "6773:14:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49414,
                           "src": "6766:21:53"
@@ -5848,10 +5728,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    51759,
-                    null
-                  ],
+                  "assignments": [51759, null],
                   "declarations": [
                     {
                       "constant": false,
@@ -5968,9 +5845,7 @@
                   "src": "6955:91:53"
                 },
                 {
-                  "assignments": [
-                    51767
-                  ],
+                  "assignments": [51767],
                   "declarations": [
                     {
                       "constant": false,
@@ -6109,9 +5984,7 @@
                   "src": "7056:90:53"
                 },
                 {
-                  "assignments": [
-                    51777
-                  ],
+                  "assignments": [51777],
                   "declarations": [
                     {
                       "constant": false,
@@ -6211,9 +6084,7 @@
                   "src": "7213:112:53"
                 },
                 {
-                  "assignments": [
-                    51784
-                  ],
+                  "assignments": [51784],
                   "declarations": [
                     {
                       "constant": false,
@@ -6544,9 +6415,7 @@
                     "pathNode": {
                       "id": 51719,
                       "name": "Vault",
-                      "nameLocations": [
-                        "6534:5:53"
-                      ],
+                      "nameLocations": ["6534:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "6534:5:53"
@@ -6581,9 +6450,7 @@
                     "pathNode": {
                       "id": 51722,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "6556:5:53"
-                      ],
+                      "nameLocations": ["6556:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "6556:5:53"
@@ -6679,9 +6546,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51827
-                  ],
+                  "assignments": [51827],
                   "declarations": [
                     {
                       "constant": false,
@@ -6704,10 +6569,7 @@
                         "pathNode": {
                           "id": 51825,
                           "name": "IVault.VaultInfo",
-                          "nameLocations": [
-                            "8104:6:53",
-                            "8111:9:53"
-                          ],
+                          "nameLocations": ["8104:6:53", "8111:9:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49423,
                           "src": "8104:16:53"
@@ -6808,9 +6670,7 @@
                   "src": "8104:91:53"
                 },
                 {
-                  "assignments": [
-                    51838
-                  ],
+                  "assignments": [51838],
                   "declarations": [
                     {
                       "constant": false,
@@ -6833,10 +6693,7 @@
                         "pathNode": {
                           "id": 51836,
                           "name": "IVault.CollateralInfo",
-                          "nameLocations": [
-                            "8205:6:53",
-                            "8212:14:53"
-                          ],
+                          "nameLocations": ["8205:6:53", "8212:14:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49414,
                           "src": "8205:21:53"
@@ -6921,10 +6778,7 @@
                   "src": "8205:98:53"
                 },
                 {
-                  "assignments": [
-                    51845,
-                    null
-                  ],
+                  "assignments": [51845, null],
                   "declarations": [
                     {
                       "constant": false,
@@ -7041,9 +6895,7 @@
                   "src": "8349:91:53"
                 },
                 {
-                  "assignments": [
-                    51853
-                  ],
+                  "assignments": [51853],
                   "declarations": [
                     {
                       "constant": false,
@@ -7264,9 +7116,7 @@
                     "pathNode": {
                       "id": 51807,
                       "name": "Vault",
-                      "nameLocations": [
-                        "7954:5:53"
-                      ],
+                      "nameLocations": ["7954:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "7954:5:53"
@@ -7301,9 +7151,7 @@
                     "pathNode": {
                       "id": 51810,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "7976:5:53"
-                      ],
+                      "nameLocations": ["7976:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "7976:5:53"
@@ -7453,9 +7301,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51895
-                  ],
+                  "assignments": [51895],
                   "declarations": [
                     {
                       "constant": false,
@@ -7478,10 +7324,7 @@
                         "pathNode": {
                           "id": 51893,
                           "name": "IVault.CollateralInfo",
-                          "nameLocations": [
-                            "8879:6:53",
-                            "8886:14:53"
-                          ],
+                          "nameLocations": ["8879:6:53", "8886:14:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49414,
                           "src": "8879:21:53"
@@ -7566,9 +7409,7 @@
                   "src": "8879:98:53"
                 },
                 {
-                  "assignments": [
-                    51902
-                  ],
+                  "assignments": [51902],
                   "declarations": [
                     {
                       "constant": false,
@@ -7647,9 +7488,7 @@
                   "src": "8988:41:53"
                 },
                 {
-                  "assignments": [
-                    51908
-                  ],
+                  "assignments": [51908],
                   "declarations": [
                     {
                       "constant": false,
@@ -7936,9 +7775,7 @@
                     "pathNode": {
                       "id": 51869,
                       "name": "Vault",
-                      "nameLocations": [
-                        "8709:5:53"
-                      ],
+                      "nameLocations": ["8709:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "8709:5:53"
@@ -7973,9 +7810,7 @@
                     "pathNode": {
                       "id": 51872,
                       "name": "ERC20",
-                      "nameLocations": [
-                        "8731:5:53"
-                      ],
+                      "nameLocations": ["8731:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45654,
                       "src": "8731:5:53"
@@ -8330,9 +8165,7 @@
                     "pathNode": {
                       "id": 51929,
                       "name": "Vault",
-                      "nameLocations": [
-                        "9454:5:53"
-                      ],
+                      "nameLocations": ["9454:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "9454:5:53"
@@ -8456,9 +8289,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    51960
-                  ],
+                  "assignments": [51960],
                   "declarations": [
                     {
                       "constant": false,
@@ -8640,9 +8471,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    51974
-                  ],
+                  "assignments": [51974],
                   "declarations": [
                     {
                       "constant": false,
@@ -8896,10 +8725,7 @@
                     "pathNode": {
                       "id": 51949,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "9916:6:53",
-                        "9923:14:53"
-                      ],
+                      "nameLocations": ["9916:6:53", "9923:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "9916:21:53"
@@ -8934,10 +8760,7 @@
                     "pathNode": {
                       "id": 51952,
                       "name": "IVault.VaultInfo",
-                      "nameLocations": [
-                        "9958:6:53",
-                        "9965:9:53"
-                      ],
+                      "nameLocations": ["9958:6:53", "9965:9:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49423,
                       "src": "9958:16:53"
@@ -9005,9 +8828,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    52002
-                  ],
+                  "assignments": [52002],
                   "declarations": [
                     {
                       "constant": false,
@@ -9300,10 +9121,7 @@
                     "pathNode": {
                       "id": 51991,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "11050:6:53",
-                        "11057:14:53"
-                      ],
+                      "nameLocations": ["11050:6:53", "11057:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "11050:21:53"
@@ -9338,10 +9156,7 @@
                     "pathNode": {
                       "id": 51994,
                       "name": "IVault.VaultInfo",
-                      "nameLocations": [
-                        "11092:6:53",
-                        "11099:9:53"
-                      ],
+                      "nameLocations": ["11092:6:53", "11099:9:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49423,
                       "src": "11092:16:53"
@@ -9409,9 +9224,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    52032
-                  ],
+                  "assignments": [52032],
                   "declarations": [
                     {
                       "constant": false,
@@ -9777,10 +9590,7 @@
                     "pathNode": {
                       "id": 52022,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "11651:6:53",
-                        "11658:14:53"
-                      ],
+                      "nameLocations": ["11651:6:53", "11658:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "11651:21:53"
@@ -9875,9 +9685,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    52072
-                  ],
+                  "assignments": [52072],
                   "declarations": [
                     {
                       "constant": false,
@@ -9977,9 +9785,7 @@
                   "src": "12375:105:53"
                 },
                 {
-                  "assignments": [
-                    52079
-                  ],
+                  "assignments": [52079],
                   "declarations": [
                     {
                       "constant": false,
@@ -10263,9 +10069,7 @@
                     "pathNode": {
                       "id": 52056,
                       "name": "Vault",
-                      "nameLocations": [
-                        "12207:5:53"
-                      ],
+                      "nameLocations": ["12207:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "12207:5:53"
@@ -10300,10 +10104,7 @@
                     "pathNode": {
                       "id": 52059,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "12237:6:53",
-                        "12244:14:53"
-                      ],
+                      "nameLocations": ["12237:6:53", "12244:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "12237:21:53"
@@ -10338,10 +10139,7 @@
                     "pathNode": {
                       "id": 52062,
                       "name": "IVault.VaultInfo",
-                      "nameLocations": [
-                        "12287:6:53",
-                        "12294:9:53"
-                      ],
+                      "nameLocations": ["12287:6:53", "12294:9:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49423,
                       "src": "12287:16:53"
@@ -10436,9 +10234,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    52110
-                  ],
+                  "assignments": [52110],
                   "declarations": [
                     {
                       "constant": false,
@@ -10718,9 +10514,7 @@
                   "src": "13177:180:53"
                 },
                 {
-                  "assignments": [
-                    52132
-                  ],
+                  "assignments": [52132],
                   "declarations": [
                     {
                       "constant": false,
@@ -10743,10 +10537,7 @@
                         "pathNode": {
                           "id": 52130,
                           "name": "IVault.RateInfo",
-                          "nameLocations": [
-                            "13368:6:53",
-                            "13375:8:53"
-                          ],
+                          "nameLocations": ["13368:6:53", "13375:8:53"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 49390,
                           "src": "13368:15:53"
@@ -10815,9 +10606,7 @@
                   "src": "13368:71:53"
                 },
                 {
-                  "assignments": [
-                    52138
-                  ],
+                  "assignments": [52138],
                   "declarations": [
                     {
                       "constant": false,
@@ -11134,9 +10923,7 @@
                     "pathNode": {
                       "id": 52099,
                       "name": "Vault",
-                      "nameLocations": [
-                        "12950:5:53"
-                      ],
+                      "nameLocations": ["12950:5:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 51076,
                       "src": "12950:5:53"
@@ -11171,10 +10958,7 @@
                     "pathNode": {
                       "id": 52102,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "12972:6:53",
-                        "12979:14:53"
-                      ],
+                      "nameLocations": ["12972:6:53", "12979:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "12972:21:53"
@@ -11393,10 +11177,7 @@
                     "pathNode": {
                       "id": 52160,
                       "name": "IVault.CollateralInfo",
-                      "nameLocations": [
-                        "13995:6:53",
-                        "14002:14:53"
-                      ],
+                      "nameLocations": ["13995:6:53", "14002:14:53"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 49414,
                       "src": "13995:21:53"
@@ -11548,10 +11329,7 @@
                         "id": 52191,
                         "name": "revert",
                         "nodeType": "Identifier",
-                        "overloadedDeclarations": [
-                          -19,
-                          -19
-                        ],
+                        "overloadedDeclarations": [-19, -19],
                         "referencedDeclaration": -19,
                         "src": "14551:6:53",
                         "typeDescriptions": {
@@ -11946,9 +11724,7 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          52215
-        ],
+        "linearizedBaseContracts": [52215],
         "name": "VaultGetters",
         "nameLocation": "400:12:53",
         "scope": 52216,

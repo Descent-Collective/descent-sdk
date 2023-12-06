@@ -384,15 +384,9 @@
     "absolutePath": "src/vaultRouter.sol",
     "id": 52401,
     "exportedSymbols": {
-      "ERC20": [
-        45654
-      ],
-      "Vault": [
-        51076
-      ],
-      "VaultRouter": [
-        52400
-      ]
+      "ERC20": [45654],
+      "Vault": [51076],
+      "VaultRouter": [52400]
     },
     "nodeType": "SourceUnit",
     "src": "32:2354:54",
@@ -402,11 +396,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:23:54",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".21"
-        ]
+        "literals": ["solidity", "0.8", ".21"]
       },
       {
         "id": 52219,
@@ -559,9 +549,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    52252
-                  ],
+                  "assignments": [52252],
                   "declarations": [
                     {
                       "constant": false,
@@ -1103,9 +1091,7 @@
                   }
                 },
                 {
-                  "assignments": [
-                    52293
-                  ],
+                  "assignments": [52293],
                   "declarations": [
                     {
                       "constant": false,
@@ -2389,9 +2375,7 @@
                   },
                   "id": 52397,
                   "initializationExpression": {
-                    "assignments": [
-                      52298
-                    ],
+                    "assignments": [52298],
                     "declarations": [
                       {
                         "constant": false,
@@ -2494,9 +2478,7 @@
                       "pathNode": {
                         "id": 52231,
                         "name": "Vault",
-                        "nameLocations": [
-                          "485:5:54"
-                        ],
+                        "nameLocations": ["485:5:54"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 51076,
                         "src": "485:5:54"
@@ -2540,9 +2522,7 @@
                       "pathNode": {
                         "id": 52235,
                         "name": "Operations",
-                        "nameLocations": [
-                          "527:10:54"
-                        ],
+                        "nameLocations": ["527:10:54"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 52230,
                         "src": "527:10:54"
@@ -2586,9 +2566,7 @@
                       "pathNode": {
                         "id": 52239,
                         "name": "ERC20",
-                        "nameLocations": [
-                          "570:5:54"
-                        ],
+                        "nameLocations": ["570:5:54"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 45654,
                         "src": "570:5:54"
@@ -2704,15 +2682,11 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          52400
-        ],
+        "linearizedBaseContracts": [52400],
         "name": "VaultRouter",
         "nameLocation": "249:11:54",
         "scope": 52401,
-        "usedErrors": [
-          52225
-        ],
+        "usedErrors": [52225],
         "usedEvents": []
       }
     ],

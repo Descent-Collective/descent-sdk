@@ -6,6 +6,7 @@ import {
   NonceManager,
   parseUnits,
   parseEther,
+  formatEther,
 } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import { Transaction } from '../libs/transactions';
@@ -77,19 +78,19 @@ const withdrawCollateral = async (
   const to: any = getContractAddress('VaultRouter')[chainId];
   let iface = internal.getInterface(VaultRouter__factory.abi);
 
-  // const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
-  //   vaultContractAddress,
-  //   collateralAddress,
-  //   owner,
-  // );
+  const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
+    vaultContractAddress,
+    collateralAddress,
+    owner,
+  );
 
-  // const formattedMaxWithdrawable = parseUnits((await maxWithdrawable).toString(), 6);
+  const formattedMaxWithdrawable = formatUnits((await maxWithdrawable).toString(), 6);
 
-  // console.log('formatted max withdrawable: ' + formattedMaxWithdrawable);
+  console.log('formatted max withdrawable: ' + formattedMaxWithdrawable);
 
-  // if (Number(amount) > Number((formattedMaxWithdrawable).toString())) {
-  //   throw new Error(' Withdrawal amount is more than available collateral balance');
-  // }
+  if (Number(amount) > Number(formattedMaxWithdrawable.toString())) {
+    throw new Error(' Withdrawal amount is more than available collateral balance');
+  }
 
   // build transaction object
   const data = iface.encodeFunctionData('multiInteract', [
@@ -123,13 +124,15 @@ const mintCurrency = async (
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  // const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
-  //   vaultContractAddress,
-  //   collateralAddress,
-  //   owner,
-  // );
+  const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
+    vaultContractAddress,
+    collateralAddress,
+    owner,
+  );
 
-  // const formattedmaxBorrowable =  parseEther((await maxBorrowable).toString());
+  const formattedmaxBorrowable = formatEther((await maxBorrowable).toString());
+
+  console.log(formattedmaxBorrowable, "borrowable amount")
 
   // if (Number(amount) > Number(formattedmaxBorrowable)) {
   //   throw new Error(' Borrow amount is more than available currency borrowable');
@@ -170,13 +173,15 @@ const burnCurrency = async (
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  // const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
 
-  // const formattedBalance = (await parseEther(balance.toString()));
+  const formattedBalance = await formatEther(balance.toString());
 
-  // if (Number(amount) > Number(formattedBalance.toString())) {
-  //   throw new Error('Payback xNGN: Insufficient funds');
-  // }
+  console.log(formattedBalance.toString(), 'xngn balance');
+
+  if (Number(amount) > Number(formattedBalance.toString())) {
+    throw new Error('Payback xNGN: Insufficient funds');
+  }
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];

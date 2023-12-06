@@ -1072,21 +1072,11 @@
     "absolutePath": "src/feed.sol",
     "id": 48712,
     "exportedSymbols": {
-      "AccessControl": [
-        43683
-      ],
-      "Feed": [
-        48711
-      ],
-      "IFeed": [
-        48820
-      ],
-      "IMedian": [
-        48851
-      ],
-      "Vault": [
-        50616
-      ]
+      "AccessControl": [43683],
+      "Feed": [48711],
+      "IFeed": [48820],
+      "IMedian": [48851],
+      "Vault": [50616]
     },
     "nodeType": "SourceUnit",
     "src": "36:1737:45",
@@ -1096,11 +1086,7 @@
         "nodeType": "PragmaDirective",
         "src": "36:23:45",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".21"
-        ]
+        "literals": ["solidity", "0.8", ".21"]
       },
       {
         "id": 48553,
@@ -1322,9 +1308,7 @@
               "pathNode": {
                 "id": 48570,
                 "name": "Vault",
-                "nameLocations": [
-                  "444:5:45"
-                ],
+                "nameLocations": ["444:5:45"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 50616,
                 "src": "444:5:45"
@@ -1412,9 +1396,7 @@
                 "pathNode": {
                   "id": 48576,
                   "name": "IMedian",
-                  "nameLocations": [
-                    "532:7:45"
-                  ],
+                  "nameLocations": ["532:7:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48851,
                   "src": "532:7:45"
@@ -1621,9 +1603,7 @@
                 "modifierName": {
                   "id": 48592,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "689:8:45"
-                  ],
+                  "nameLocations": ["689:8:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "689:8:45"
@@ -1731,9 +1711,7 @@
                 "modifierName": {
                   "id": 48603,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "780:8:45"
-                  ],
+                  "nameLocations": ["780:8:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "780:8:45"
@@ -1975,9 +1953,7 @@
                     "pathNode": {
                       "id": 48613,
                       "name": "Vault",
-                      "nameLocations": [
-                        "858:5:45"
-                      ],
+                      "nameLocations": ["858:5:45"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 50616,
                       "src": "858:5:45"
@@ -2123,9 +2099,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              48819
-            ],
+            "baseFunctions": [48819],
             "functionSelector": "5ab68dd8",
             "implemented": true,
             "kind": "function",
@@ -2136,9 +2110,7 @@
                 "modifierName": {
                   "id": 48639,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "1077:13:45"
-                  ],
+                  "nameLocations": ["1077:13:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48590,
                   "src": "1077:13:45"
@@ -2166,9 +2138,7 @@
                 "modifierName": {
                   "id": 48641,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1099:8:45"
-                  ],
+                  "nameLocations": ["1099:8:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1099:8:45"
@@ -2265,10 +2235,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    null,
-                    48665
-                  ],
+                  "assignments": [null, 48665],
                   "declarations": [
                     null,
                     {
@@ -2533,9 +2500,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              48812
-            ],
+            "baseFunctions": [48812],
             "functionSelector": "96e85ced",
             "implemented": true,
             "kind": "function",
@@ -2546,9 +2511,7 @@
                 "modifierName": {
                   "id": 48658,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "1305:13:45"
-                  ],
+                  "nameLocations": ["1305:13:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48590,
                   "src": "1305:13:45"
@@ -2576,9 +2539,7 @@
                 "modifierName": {
                   "id": 48660,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1319:8:45"
-                  ],
+                  "nameLocations": ["1319:8:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1319:8:45"
@@ -2814,9 +2775,7 @@
                 "modifierName": {
                   "id": 48691,
                   "name": "whenNotPaused",
-                  "nameLocations": [
-                    "1635:13:45"
-                  ],
+                  "nameLocations": ["1635:13:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48590,
                   "src": "1635:13:45"
@@ -2844,9 +2803,7 @@
                 "modifierName": {
                   "id": 48693,
                   "name": "onlyRole",
-                  "nameLocations": [
-                    "1649:8:45"
-                  ],
+                  "nameLocations": ["1649:8:45"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43428,
                   "src": "1649:8:45"
@@ -2937,9 +2894,7 @@
             "baseName": {
               "id": 48560,
               "name": "IFeed",
-              "nameLocations": [
-                "337:5:45"
-              ],
+              "nameLocations": ["337:5:45"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 48820,
               "src": "337:5:45"
@@ -2952,9 +2907,7 @@
             "baseName": {
               "id": 48562,
               "name": "AccessControl",
-              "nameLocations": [
-                "344:13:45"
-              ],
+              "nameLocations": ["344:13:45"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 43683,
               "src": "344:13:45"
@@ -2968,29 +2921,12 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          48711,
-          43683,
-          46625,
-          46637,
-          43766,
-          45302,
-          48820
-        ],
+        "linearizedBaseContracts": [48711, 43683, 46625, 46637, 43766, 45302, 48820],
         "name": "Feed",
         "nameLocation": "329:4:45",
         "scope": 48712,
-        "usedErrors": [
-          43693,
-          43696,
-          48801
-        ],
-        "usedEvents": [
-          43705,
-          43714,
-          43723,
-          48807
-        ]
+        "usedErrors": [43693, 43696, 48801],
+        "usedEvents": [43705, 43714, 43723, 48807]
       }
     ],
     "license": "GPL-3.0"
