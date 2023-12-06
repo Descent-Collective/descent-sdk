@@ -84,23 +84,6 @@ export enum VaultOperations {
 //   }
 // };
 
-const getVault = async (
-  collateral: ICollateral,
-  owner: string,
-  chainId: string,
-  contract: ContractManager,
-) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-
-  const getVaultInfo = (await contract.getVaultGetterContract()).getVault(
-    vaultContractAddress,
-    collateralAddress,
-    owner,
-  );
-
-  return getVaultInfo;
-};
 const collateralizeVault = async (
   amount: string,
   collateral: ICollateral,
@@ -274,4 +257,4 @@ const burnCurrency = async (
   return burnResult;
 };
 
-export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency, getVault };
+export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };

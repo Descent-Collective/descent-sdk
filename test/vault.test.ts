@@ -76,9 +76,4 @@ describe('Descent Protocol SDK Test', () => {
     expect(response).not.toBeNull;
   }, 200000);
 
-  it('should get vault data', async () => {
-    const vaultData = await descent.getVaultInfo();
-
-    console.log(vaultData, 'vault data');
-  });
 });

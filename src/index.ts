@@ -8,13 +8,13 @@ import { waitTime } from './libs/utils';
 import {
   burnCurrency,
   collateralizeVault,
-  getVault,
   mintCurrency,
   withdrawCollateral,
 } from './services/vault';
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { getContractAddress } from './contracts/getContractAddresses';
+import { getVault } from './services/getters';
 
 export class DescentClass {
   signer: Signer;
@@ -47,12 +47,18 @@ export class DescentClass {
 
   /**
    * @dev Gets a vault detail by it's ID
-   * @param ownerAddress Vault ID
+   * @param ownerAddress Vault owner
    * @returns The Vault information
    */
-  public async getVaultInfo() {
-    const owner = await this.signer.getAddress();
-    const result = await getVault(this.collateral, owner, this.chainId, this.contracts!);
+  public async getVaultInfo(ownerAddress: string){
+    
+    const result = await getVault(
+      this.collateral,
+      ownerAddress,
+      this.chainId,
+      this.contracts!,
+      this.internal,
+    );
 
     return result;
   }

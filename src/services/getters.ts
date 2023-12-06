@@ -1,8 +1,11 @@
+import { AddressLike, BytesLike } from 'ethers';
 import ContractManager from '../contracts';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { VaultGetters__factory } from '../generated';
 import { Internal } from '../libs/internal';
 import { ICollateral } from '../types';
+
+export type StaticcallStruct = { target: AddressLike; callData: BytesLike };
 
 const getVault = async (
   collateral: ICollateral,
@@ -58,35 +61,37 @@ const getVault = async (
     [collateralAddress],
     [owner],
   ]);
-  const multiCallData = [
+
+  const multiCallData: StaticcallStruct[] = [
     {
-      vaultGettersAddress,
-      getVaultData,
+      target: vaultGettersAddress,
+      callData: getVaultData,
     },
     {
-      vaultGettersAddress,
-      getAvailablexNGN,
+      target: vaultGettersAddress,
+      callData: getAvailablexNGN,
     },
     {
-      vaultGettersAddress,
-      getAvailableCollateral,
+      target: vaultGettersAddress,
+      callData: getAvailableCollateral,
     },
     {
-      vaultGettersAddress,
-      getCollateralRatio,
+      target: vaultGettersAddress,
+      callData: getCollateralRatio,
     },
     {
-      vaultGettersAddress,
-      getHealthFactor,
+      target: vaultGettersAddress,
+      callData: getHealthFactor,
     },
   ];
 
-  const getVaultInfo = (await contract.getMultistaticcallContract()).multiStaticcall([
-    {
-      vaultGettersAddress,
-      getHealthFactor,
-    },
-  ]);
+  const getVaultInfo = (await contract.getMultistaticcallContract()).multiStaticcall(multiCallData);
+
+  const returnData = (await getVaultInfo).map((item) => item.returnDatum);
+
+  console.log(returnData, 'return data');
+
+  console.log(getVaultInfo, 'get vault info');
 
   return getVaultInfo;
 };
