@@ -23,7 +23,7 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - name: Run tests
-        run: yarn run test --extra-time 11368000
+        run: yarn run test
 
   lint:
     name: Lint
