@@ -54,12 +54,14 @@
     "generate-types": "typechain --target ethers-v6 --out-dir src/generated 'src/contracts/abis/*.json' ",
     "start": "ts-node --files src/index.test.ts",
     "size": "size-limit",
+    "publish:local:ensjs": "yalc publish --push --up",
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build": "node esbuild.js",
     "test": "jest --coverage ./test/",
     "test:getter": "jest ./test/getters.test.ts",
-    "test:vault": "jest ./test/vault.test.ts"
+    "test:vault": "jest ./test/vault.test.ts",
+    "ver": "yarn version --no-workspaces-update"
   },
   "jest": {
     "preset": "ts-jest",
