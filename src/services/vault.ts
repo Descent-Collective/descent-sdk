@@ -6,6 +6,7 @@ import {
   NonceManager,
   parseUnits,
   parseEther,
+  formatEther,
 } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import { Transaction } from '../libs/transactions';
@@ -26,81 +27,6 @@ export enum VaultOperations {
   BurnCurrency = 3,
 }
 
-// const getVaultInfo = async (
-//   ownerAddress: string | number,
-//   collateral: ICollateral,
-//   contract: IContract,
-// ) => {
-//   let collateralAddress;
-//   if (collateral == ICollateral.USDC) {
-//     collateralAddress = Addresses.USDC;
-//   }
-
-//   try {
-//     // FIXME: Refactor with MultiStaticcall
-//     const vaultData = await contract.getVaultInfo(Addresses.VAULT, collateralAddress, ownerAddress);
-//     const depositedCollateral = Number(ethers.formatUnits(vaultData.depositedCollateral));
-//     const availableCollateral = await contract.getMaxWithdrawable(
-//       Addresses.VAULT,
-//       collateralAddress,
-//       ownerAddress,
-//     );
-//     const availablexNGN = await contract.getMaxBorrowable(
-//       Addresses.VAULT,
-//       collateralAddress,
-//       ownerAddress,
-//     );
-//     const healthFactorCheck = await contract.checkHealthFactor(
-//       Addresses.VAULT,
-//       collateralAddress,
-//       ownerAddress,
-//     );
-
-//     const healthFactor =
-//       healthFactorCheck < 1 //
-//         ? VaultHealthFactor.UNSAFE // Unsafe - Vault is Dangerous
-//         : VaultHealthFactor.SAFE; // Safe - Vault is Safe
-
-//     const price = '999';
-//     const collateralValue = depositedCollateral * Number(price);
-
-//     const currentCollateralRatio =
-//       Number(ethers.formatUnits(vaultData.borrowedAmount)) / collateralValue / (100 / 1);
-
-//     return {
-//       healthFactor,
-//       depositedCollateral,
-//       collateralLocked: depositedCollateral - Number(ethers.formatUnits(availableCollateral)),
-//       borrowedAmount: ethers.formatUnits(vaultData.borrowedAmount),
-//       accruedFees: ethers.formatUnits(vaultData.accruedFees),
-//       currentCollateralRatio: currentCollateralRatio,
-//       availableCollateral: ethers.formatUnits(availableCollateral),
-//       availablexNGN: ethers.formatUnits(availablexNGN),
-//       currentRate: ethers.formatUnits(vaultData.lastTotalAccumulatedRate),
-//     };
-//   } catch (e) {
-//     const message = createError(e);
-//     return message;
-//   }
-// };
-
-const getVault = async (
-  collateral: ICollateral,
-  owner: string,
-  chainId: string,
-  contract: ContractManager,
-) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-
-  const getVaultInfo = (await contract.getVaultGetterContract()).getVault(
-    vaultContractAddress,
-    collateralAddress,
-    owner,
-  );
-
-  return getVaultInfo;
-};
 const collateralizeVault = async (
   amount: string,
   collateral: ICollateral,
@@ -152,19 +78,19 @@ const withdrawCollateral = async (
   const to: any = getContractAddress('VaultRouter')[chainId];
   let iface = internal.getInterface(VaultRouter__factory.abi);
 
-  // const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
-  //   vaultContractAddress,
-  //   collateralAddress,
-  //   owner,
-  // );
+  const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
+    vaultContractAddress,
+    collateralAddress,
+    owner,
+  );
 
-  // const formattedMaxWithdrawable = parseUnits((await maxWithdrawable).toString(), 6);
+  const formattedMaxWithdrawable = formatUnits((await maxWithdrawable).toString(), 6);
 
-  // console.log('formatted max withdrawable: ' + formattedMaxWithdrawable);
+  console.log('formatted max withdrawable: ' + formattedMaxWithdrawable);
 
-  // if (Number(amount) > Number((formattedMaxWithdrawable).toString())) {
-  //   throw new Error(' Withdrawal amount is more than available collateral balance');
-  // }
+  if (Number(amount) > Number(formattedMaxWithdrawable.toString())) {
+    throw new Error(' Withdrawal amount is more than available collateral balance');
+  }
 
   // build transaction object
   const data = iface.encodeFunctionData('multiInteract', [
@@ -198,13 +124,15 @@ const mintCurrency = async (
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  // const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
-  //   vaultContractAddress,
-  //   collateralAddress,
-  //   owner,
-  // );
+  const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
+    vaultContractAddress,
+    collateralAddress,
+    owner,
+  );
 
-  // const formattedmaxBorrowable =  parseEther((await maxBorrowable).toString());
+  const formattedmaxBorrowable = formatEther((await maxBorrowable).toString());
+
+  console.log(formattedmaxBorrowable, "borrowable amount")
 
   // if (Number(amount) > Number(formattedmaxBorrowable)) {
   //   throw new Error(' Borrow amount is more than available currency borrowable');
@@ -245,13 +173,15 @@ const burnCurrency = async (
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  // const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
 
-  // const formattedBalance = (await parseEther(balance.toString()));
+  const formattedBalance = await formatEther(balance.toString());
 
-  // if (Number(amount) > Number(formattedBalance.toString())) {
-  //   throw new Error('Payback xNGN: Insufficient funds');
-  // }
+  console.log(formattedBalance.toString(), 'xngn balance');
+
+  if (Number(amount) > Number(formattedBalance.toString())) {
+    throw new Error('Payback xNGN: Insufficient funds');
+  }
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];
@@ -274,4 +204,4 @@ const burnCurrency = async (
   return burnResult;
 };
 
-export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency, getVault };
+export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };

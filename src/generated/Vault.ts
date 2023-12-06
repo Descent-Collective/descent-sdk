@@ -420,7 +420,7 @@ export interface Vault extends BaseContract {
         price: bigint;
         debtCeiling: bigint;
         collateralFloorPerPosition: bigint;
-        additionalCollateralPercision: bigint;
+        additionalCollateralPrecision: bigint;
         exists: boolean;
       },
     ],
@@ -598,7 +598,7 @@ export interface Vault extends BaseContract {
         price: bigint;
         debtCeiling: bigint;
         collateralFloorPerPosition: bigint;
-        additionalCollateralPercision: bigint;
+        additionalCollateralPrecision: bigint;
         exists: boolean;
       },
     ],

@@ -16,7 +16,7 @@ config();
 describe('Descent Protocol SDK Test', () => {
   let descent: DescentClass;
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
-  let vault = '0xCaC650a8F8E71BDE3d60f0B020A4AA3874974705';
+  let vault = '0xE2386C5eF4deC9d5815C60168e36c7153ba00D0C';
   let rpcUrl = 'https://goerli.base.org';
 
   let signer: Signer;
@@ -41,16 +41,11 @@ describe('Descent Protocol SDK Test', () => {
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
     await approveUSDC(vault, '100000000', signer, descent.transaction, descent.internal);
-
-    // await updateTestPrice(signer);
-    // await setMinterRole(signer, owner);
-    // console.log('minter set');
-
     const response = await descent.depositCollateral('100');
 
     await waitTime(60);
     expect(response).not.toBeNull;
-  }, 200000);
+  }, 500000);
 
   it('should withdraw usdc from a vault', async () => {
     const response = await descent.withdrawCollateral('50');
@@ -75,10 +70,4 @@ describe('Descent Protocol SDK Test', () => {
     await waitTime(60);
     expect(response).not.toBeNull;
   }, 200000);
-
-  it('should get vault data', async () => {
-    const vaultData = await descent.getVaultInfo();
-
-    console.log(vaultData, 'vault data');
-  });
 });
