@@ -50,8 +50,7 @@ export class DescentClass {
    * @param ownerAddress Vault owner
    * @returns The Vault information
    */
-  public async getVaultInfo(ownerAddress: string){
-    
+  public async getVaultInfo(ownerAddress: string) {
     const result = await getVault(
       this.collateral,
       ownerAddress,

@@ -1,4 +1,4 @@
-import { AddressLike, BytesLike } from 'ethers';
+import { AddressLike, BytesLike, ethers } from 'ethers';
 import ContractManager from '../contracts';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { VaultGetters__factory } from '../generated';
@@ -33,33 +33,33 @@ const getVault = async (
   // encode data
   let iface = internal.getInterface(VaultGetters__factory.abi);
   const getVaultData = iface.encodeFunctionData('getVault', [
-    [vaultContractAddress],
-    [collateralAddress],
-    [owner],
+    vaultContractAddress,
+    collateralAddress,
+    owner,
   ]);
 
   const getAvailablexNGN = iface.encodeFunctionData('getMaxBorrowable', [
-    [vaultContractAddress],
-    [collateralAddress],
-    [owner],
+    vaultContractAddress,
+    collateralAddress,
+    owner,
   ]);
 
   const getAvailableCollateral = iface.encodeFunctionData('getMaxWithdrawable', [
-    [vaultContractAddress],
-    [collateralAddress],
-    [owner],
+    vaultContractAddress,
+    collateralAddress,
+    owner,
   ]);
 
   const getCollateralRatio = iface.encodeFunctionData('getCollateralRatio', [
-    [vaultContractAddress],
-    [collateralAddress],
-    [owner],
+    vaultContractAddress,
+    collateralAddress,
+    owner,
   ]);
 
-  const getHealthFactor = iface.encodeFunctionData('getCollateralRatio', [
-    [vaultContractAddress],
-    [collateralAddress],
-    [owner],
+  const getHealthFactor = iface.encodeFunctionData('getHealthFactor', [
+    vaultContractAddress,
+    collateralAddress,
+    owner,
   ]);
 
   const multiCallData: StaticcallStruct[] = [
@@ -89,10 +89,24 @@ const getVault = async (
 
   const returnData = (await getVaultInfo).map((item) => item.returnDatum);
 
-  console.log(returnData, 'return data');
+  console.log(returnData, 'return Data');
 
-  console.log(getVaultInfo, 'get vault info');
+  const fnc = [
+    'getVault',
+    'getMaxBorrowable',
+    'getMaxWithdrawable',
+    'getCollateralRatio',
+    'getHealthFactor',
+  ];
 
+  let formattedReturnData: any = [];
+  for (let i = 0; i < fnc.length; i++) {
+    const currentFnc = fnc[i];
+
+    formattedReturnData.push(iface.decodeFunctionResult(currentFnc, returnData[i]));
+  }
+
+  console.log(formattedReturnData, 'returnData');
   return getVaultInfo;
 };
 

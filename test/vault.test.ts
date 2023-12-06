@@ -75,5 +75,4 @@ describe('Descent Protocol SDK Test', () => {
     await waitTime(60);
     expect(response).not.toBeNull;
   }, 200000);
-
 });
