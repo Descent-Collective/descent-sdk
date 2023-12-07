@@ -49,8 +49,6 @@ describe('Descent Protocol SDK Test', () => {
 
   it('should withdraw usdc from a vault', async () => {
     const response = await descent.withdrawCollateral('50');
-
-    console.log(response, 'response');
     await waitTime(60);
     expect(response).not.toBeNull;
   }, 200000);

@@ -2,7 +2,6 @@ import { config } from 'dotenv';
 import Descent, { DescentClass } from '../src';
 import { ICollateral } from '../src/types';
 
-
 config();
 
 describe('Descent Protocol SDK Test', () => {
@@ -19,11 +18,11 @@ describe('Descent Protocol SDK Test', () => {
   }, 200000);
 
   it('should get vault data', async () => {
-      const response = await descent.getVaultInfo(owner);
-      console.log(response, "vault info")
+    const response = await descent.getVaultInfo(owner);
+    expect(response).toBeDefined();
   });
   it('should get a collateral data', async () => {
     const response = await descent.getCollateralInfo();
-    console.log(response, 'collateral info');
+    expect(response).toBeDefined();
   });
 });

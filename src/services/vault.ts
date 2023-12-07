@@ -86,8 +86,6 @@ const withdrawCollateral = async (
 
   const formattedMaxWithdrawable = formatUnits((await maxWithdrawable).toString(), 6);
 
-  console.log('formatted max withdrawable: ' + formattedMaxWithdrawable);
-
   if (Number(amount) > Number(formattedMaxWithdrawable.toString())) {
     throw new Error(' Withdrawal amount is more than available collateral balance');
   }
@@ -132,8 +130,6 @@ const mintCurrency = async (
 
   const formattedmaxBorrowable = formatEther((await maxBorrowable).toString());
 
-  console.log(formattedmaxBorrowable, "borrowable amount")
-
   // if (Number(amount) > Number(formattedmaxBorrowable)) {
   //   throw new Error(' Borrow amount is more than available currency borrowable');
   // }
@@ -176,8 +172,6 @@ const burnCurrency = async (
   const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
 
   const formattedBalance = await formatEther(balance.toString());
-
-  console.log(formattedBalance.toString(), 'xngn balance');
 
   if (Number(amount) > Number(formattedBalance.toString())) {
     throw new Error('Payback xNGN: Insufficient funds');
