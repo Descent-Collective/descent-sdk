@@ -55,6 +55,7 @@
     "start": "ts-node --files src/index.test.ts",
     "size": "size-limit",
     "publish": "yalc publish --push --up",
+    "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build": "node esbuild.js",
     "test": "jest --coverage ./test/",
