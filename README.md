@@ -165,7 +165,7 @@ Gets detailed information about a vault specified by the owner's address.
       accruedFees: '0.115509259026984',
       currentCollateralRatio: '0.9090924378872408%',
       availableCollateral: '296.363496',
-      availablexNGN: '290000.000000000000000001'
+     availablexNGN: '244499.769094051707348'
     }
 ```
 

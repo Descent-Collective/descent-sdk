@@ -13,7 +13,7 @@ import type {
   ContractRunner,
   ContractMethod,
   Listener,
-} from 'ethers';
+} from "ethers";
 import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
@@ -21,7 +21,7 @@ import type {
   TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from './common';
+} from "./common";
 
 export declare namespace IVault {
   export type RateInfoStruct = {
@@ -33,156 +33,289 @@ export declare namespace IVault {
   export type RateInfoStructOutput = [
     rate: bigint,
     accumulatedRate: bigint,
-    lastUpdateTime: bigint,
+    lastUpdateTime: bigint
   ] & { rate: bigint; accumulatedRate: bigint; lastUpdateTime: bigint };
 }
 
 export interface VaultInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | 'CURRENCY_TOKEN'
-      | 'DEFAULT_ADMIN_ROLE'
-      | 'accruedFees'
-      | 'baseRateInfo'
-      | 'burnCurrency'
-      | 'collateralMapping'
-      | 'createCollateralType'
-      | 'debt'
-      | 'deny'
-      | 'depositCollateral'
-      | 'getRoleAdmin'
-      | 'grantRole'
-      | 'hasRole'
-      | 'liquidate'
-      | 'mintCurrency'
-      | 'paidFees'
-      | 'pause'
-      | 'recoverToken'
-      | 'rely'
-      | 'relyMapping'
-      | 'renounceRole'
-      | 'revokeRole'
-      | 'status'
-      | 'supportsInterface'
-      | 'unpause'
-      | 'updateBaseRate'
-      | 'updateCollateralData'
-      | 'updateCollateralRate'
-      | 'updateFeedContract'
-      | 'updatePrice'
-      | 'updateStabilityModule'
-      | 'vaultMapping'
-      | 'withdrawCollateral'
-      | 'withdrawFees',
+      | "CURRENCY_TOKEN"
+      | "DEFAULT_ADMIN_ROLE"
+      | "accruedFees"
+      | "baseRateInfo"
+      | "burnCurrency"
+      | "collateralMapping"
+      | "createCollateralType"
+      | "debt"
+      | "deny"
+      | "depositCollateral"
+      | "getRoleAdmin"
+      | "grantRole"
+      | "hasRole"
+      | "liquidate"
+      | "mintCurrency"
+      | "paidFees"
+      | "pause"
+      | "recoverToken"
+      | "rely"
+      | "relyMapping"
+      | "renounceRole"
+      | "revokeRole"
+      | "status"
+      | "supportsInterface"
+      | "unpause"
+      | "updateBaseRate"
+      | "updateCollateralData"
+      | "updateCollateralRate"
+      | "updateFeedContract"
+      | "updatePrice"
+      | "updateStabilityModule"
+      | "vaultMapping"
+      | "withdrawCollateral"
+      | "withdrawFees"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
-      | 'CollateralDeposited'
-      | 'CollateralTypeAdded'
-      | 'CollateralWithdrawn'
-      | 'CurrencyBurned'
-      | 'CurrencyMinted'
-      | 'FeesPaid'
-      | 'Liquidated'
-      | 'RoleAdminChanged'
-      | 'RoleGranted'
-      | 'RoleRevoked',
+      | "CollateralDeposited"
+      | "CollateralTypeAdded"
+      | "CollateralWithdrawn"
+      | "CurrencyBurned"
+      | "CurrencyMinted"
+      | "FeesPaid"
+      | "Liquidated"
+      | "RoleAdminChanged"
+      | "RoleGranted"
+      | "RoleRevoked"
   ): EventFragment;
 
-  encodeFunctionData(functionFragment: 'CURRENCY_TOKEN', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'accruedFees', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'baseRateInfo', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'burnCurrency',
-    values: [AddressLike, AddressLike, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'collateralMapping', values: [AddressLike]): string;
-  encodeFunctionData(
-    functionFragment: 'createCollateralType',
-    values: [AddressLike, BigNumberish, BigNumberish, BigNumberish, BigNumberish, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'debt', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'deny', values: [AddressLike]): string;
-  encodeFunctionData(
-    functionFragment: 'depositCollateral',
-    values: [AddressLike, AddressLike, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(
-    functionFragment: 'liquidate',
-    values: [AddressLike, AddressLike, AddressLike, BigNumberish],
+    functionFragment: "CURRENCY_TOKEN",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: 'mintCurrency',
-    values: [AddressLike, AddressLike, AddressLike, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'paidFees', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'pause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'recoverToken', values: [AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'rely', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'relyMapping', values: [AddressLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, AddressLike]): string;
-  encodeFunctionData(functionFragment: 'status', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'updateBaseRate', values: [BigNumberish]): string;
-  encodeFunctionData(
-    functionFragment: 'updateCollateralData',
-    values: [AddressLike, BigNumberish, BigNumberish],
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: 'updateCollateralRate',
-    values: [AddressLike, BigNumberish],
+    functionFragment: "accruedFees",
+    values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: 'updateFeedContract', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'updatePrice', values: [AddressLike, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateStabilityModule', values: [AddressLike]): string;
-  encodeFunctionData(functionFragment: 'vaultMapping', values: [AddressLike, AddressLike]): string;
   encodeFunctionData(
-    functionFragment: 'withdrawCollateral',
-    values: [AddressLike, AddressLike, AddressLike, BigNumberish],
+    functionFragment: "baseRateInfo",
+    values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: 'withdrawFees', values: [AddressLike, BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "burnCurrency",
+    values: [AddressLike, AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "collateralMapping",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createCollateralType",
+    values: [
+      AddressLike,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(functionFragment: "debt", values?: undefined): string;
+  encodeFunctionData(functionFragment: "deny", values: [AddressLike]): string;
+  encodeFunctionData(
+    functionFragment: "depositCollateral",
+    values: [AddressLike, AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleAdmin",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "liquidate",
+    values: [AddressLike, AddressLike, AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "mintCurrency",
+    values: [AddressLike, AddressLike, AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(functionFragment: "paidFees", values?: undefined): string;
+  encodeFunctionData(functionFragment: "pause", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "recoverToken",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(functionFragment: "rely", values: [AddressLike]): string;
+  encodeFunctionData(
+    functionFragment: "relyMapping",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceRole",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(functionFragment: "status", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "supportsInterface",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "updateBaseRate",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateCollateralData",
+    values: [AddressLike, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateCollateralRate",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateFeedContract",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updatePrice",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateStabilityModule",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "vaultMapping",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawCollateral",
+    values: [AddressLike, AddressLike, AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawFees",
+    values: [AddressLike, BigNumberish]
+  ): string;
 
-  decodeFunctionResult(functionFragment: 'CURRENCY_TOKEN', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'accruedFees', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'baseRateInfo', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'burnCurrency', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'collateralMapping', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'createCollateralType', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'debt', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'deny', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'depositCollateral', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'liquidate', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'mintCurrency', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'paidFees', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'recoverToken', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'rely', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'relyMapping', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'status', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateBaseRate', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateCollateralData', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateCollateralRate', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateFeedContract', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updatePrice', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateStabilityModule', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'vaultMapping', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'withdrawCollateral', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'withdrawFees', data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "CURRENCY_TOKEN",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "accruedFees",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "baseRateInfo",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "burnCurrency",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "collateralMapping",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createCollateralType",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "debt", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deny", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "depositCollateral",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleAdmin",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "liquidate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mintCurrency",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "paidFees", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "recoverToken",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "rely", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "relyMapping",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceRole",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "supportsInterface",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "updateBaseRate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateCollateralData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateCollateralRate",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateFeedContract",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updatePrice",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateStabilityModule",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "vaultMapping",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawCollateral",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawFees",
+    data: BytesLike
+  ): Result;
 }
 
 export namespace CollateralDepositedEvent {
@@ -211,7 +344,11 @@ export namespace CollateralTypeAddedEvent {
 }
 
 export namespace CollateralWithdrawnEvent {
-  export type InputTuple = [owner: AddressLike, to: AddressLike, amount: BigNumberish];
+  export type InputTuple = [
+    owner: AddressLike,
+    to: AddressLike,
+    amount: BigNumberish
+  ];
   export type OutputTuple = [owner: string, to: string, amount: bigint];
   export interface OutputObject {
     owner: string;
@@ -268,13 +405,13 @@ export namespace LiquidatedEvent {
     owner: AddressLike,
     liquidator: AddressLike,
     currencyAmountPaid: BigNumberish,
-    collateralAmountCovered: BigNumberish,
+    collateralAmountCovered: BigNumberish
   ];
   export type OutputTuple = [
     owner: string,
     liquidator: string,
     currencyAmountPaid: bigint,
-    collateralAmountCovered: bigint,
+    collateralAmountCovered: bigint
   ];
   export interface OutputObject {
     owner: string;
@@ -289,8 +426,16 @@ export namespace LiquidatedEvent {
 }
 
 export namespace RoleAdminChangedEvent {
-  export type InputTuple = [role: BytesLike, previousAdminRole: BytesLike, newAdminRole: BytesLike];
-  export type OutputTuple = [role: string, previousAdminRole: string, newAdminRole: string];
+  export type InputTuple = [
+    role: BytesLike,
+    previousAdminRole: BytesLike,
+    newAdminRole: BytesLike
+  ];
+  export type OutputTuple = [
+    role: string,
+    previousAdminRole: string,
+    newAdminRole: string
+  ];
   export interface OutputObject {
     role: string;
     previousAdminRole: string;
@@ -303,7 +448,11 @@ export namespace RoleAdminChangedEvent {
 }
 
 export namespace RoleGrantedEvent {
-  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
   export type OutputTuple = [role: string, account: string, sender: string];
   export interface OutputObject {
     role: string;
@@ -317,7 +466,11 @@ export namespace RoleGrantedEvent {
 }
 
 export namespace RoleRevokedEvent {
-  export type InputTuple = [role: BytesLike, account: AddressLike, sender: AddressLike];
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
   export type OutputTuple = [role: string, account: string, sender: string];
   export interface OutputObject {
     role: string;
@@ -339,43 +492,45 @@ export interface Vault extends BaseContract {
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEventLog<TCEvent>>>;
   queryFilter<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEventLog<TCEvent>>>;
 
   on<TCEvent extends TypedContractEvent>(
     event: TCEvent,
-    listener: TypedListener<TCEvent>,
+    listener: TypedListener<TCEvent>
   ): Promise<this>;
   on<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
+    listener: TypedListener<TCEvent>
   ): Promise<this>;
 
   once<TCEvent extends TypedContractEvent>(
     event: TCEvent,
-    listener: TypedListener<TCEvent>,
+    listener: TypedListener<TCEvent>
   ): Promise<this>;
   once<TCEvent extends TypedContractEvent>(
     filter: TypedDeferredTopicFilter<TCEvent>,
-    listener: TypedListener<TCEvent>,
+    listener: TypedListener<TCEvent>
   ): Promise<this>;
 
   listeners<TCEvent extends TypedContractEvent>(
-    event: TCEvent,
+    event: TCEvent
   ): Promise<Array<TypedListener<TCEvent>>>;
   listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+  removeAllListeners<TCEvent extends TypedContractEvent>(
+    event?: TCEvent
+  ): Promise<this>;
 
-  CURRENCY_TOKEN: TypedContractMethod<[], [string], 'view'>;
+  CURRENCY_TOKEN: TypedContractMethod<[], [string], "view">;
 
-  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], 'view'>;
+  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
 
-  accruedFees: TypedContractMethod<[], [bigint], 'view'>;
+  accruedFees: TypedContractMethod<[], [bigint], "view">;
 
   baseRateInfo: TypedContractMethod<
     [],
@@ -384,15 +539,15 @@ export interface Vault extends BaseContract {
         rate: bigint;
         accumulatedRate: bigint;
         lastUpdateTime: bigint;
-      },
+      }
     ],
-    'view'
+    "view"
   >;
 
   burnCurrency: TypedContractMethod<
     [_collateralToken: AddressLike, _owner: AddressLike, _amount: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
   collateralMapping: TypedContractMethod<
@@ -409,7 +564,7 @@ export interface Vault extends BaseContract {
         bigint,
         bigint,
         bigint,
-        boolean,
+        boolean
       ] & {
         totalDepositedCollateral: bigint;
         totalBorrowedAmount: bigint;
@@ -422,9 +577,9 @@ export interface Vault extends BaseContract {
         collateralFloorPerPosition: bigint;
         additionalCollateralPrecision: bigint;
         exists: boolean;
-      },
+      }
     ],
-    'view'
+    "view"
   >;
 
   createCollateralType: TypedContractMethod<
@@ -434,96 +589,133 @@ export interface Vault extends BaseContract {
       _liquidationThreshold: BigNumberish,
       _liquidationBonus: BigNumberish,
       _debtCeiling: BigNumberish,
-      _collateralFloorPerPosition: BigNumberish,
+      _collateralFloorPerPosition: BigNumberish
     ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  debt: TypedContractMethod<[], [bigint], 'view'>;
+  debt: TypedContractMethod<[], [bigint], "view">;
 
-  deny: TypedContractMethod<[_reliedUpon: AddressLike], [void], 'nonpayable'>;
+  deny: TypedContractMethod<[_reliedUpon: AddressLike], [void], "nonpayable">;
 
   depositCollateral: TypedContractMethod<
     [_collateralToken: AddressLike, _owner: AddressLike, _amount: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], 'view'>;
+  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
 
-  grantRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  grantRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
-  hasRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
+  hasRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
+  >;
 
   liquidate: TypedContractMethod<
     [
       _collateralToken: AddressLike,
       _owner: AddressLike,
       _to: AddressLike,
-      _currencyAmountToPay: BigNumberish,
+      _currencyAmountToPay: BigNumberish
     ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
   mintCurrency: TypedContractMethod<
-    [_collateralToken: AddressLike, _owner: AddressLike, _to: AddressLike, _amount: BigNumberish],
+    [
+      _collateralToken: AddressLike,
+      _owner: AddressLike,
+      _to: AddressLike,
+      _amount: BigNumberish
+    ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  paidFees: TypedContractMethod<[], [bigint], 'view'>;
+  paidFees: TypedContractMethod<[], [bigint], "view">;
 
-  pause: TypedContractMethod<[], [void], 'nonpayable'>;
+  pause: TypedContractMethod<[], [void], "nonpayable">;
 
   recoverToken: TypedContractMethod<
     [_tokenAddress: AddressLike, _to: AddressLike],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  rely: TypedContractMethod<[_relyUpon: AddressLike], [void], 'nonpayable'>;
+  rely: TypedContractMethod<[_relyUpon: AddressLike], [void], "nonpayable">;
 
-  relyMapping: TypedContractMethod<[arg0: AddressLike, arg1: AddressLike], [boolean], 'view'>;
+  relyMapping: TypedContractMethod<
+    [arg0: AddressLike, arg1: AddressLike],
+    [boolean],
+    "view"
+  >;
 
   renounceRole: TypedContractMethod<
     [role: BytesLike, callerConfirmation: AddressLike],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  revokeRole: TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+  revokeRole: TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
-  status: TypedContractMethod<[], [bigint], 'view'>;
+  status: TypedContractMethod<[], [bigint], "view">;
 
-  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
+  supportsInterface: TypedContractMethod<
+    [interfaceId: BytesLike],
+    [boolean],
+    "view"
+  >;
 
-  unpause: TypedContractMethod<[], [void], 'nonpayable'>;
+  unpause: TypedContractMethod<[], [void], "nonpayable">;
 
-  updateBaseRate: TypedContractMethod<[_baseRate: BigNumberish], [void], 'nonpayable'>;
+  updateBaseRate: TypedContractMethod<
+    [_baseRate: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
 
   updateCollateralData: TypedContractMethod<
     [_collateralToken: AddressLike, _param: BigNumberish, _data: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
   updateCollateralRate: TypedContractMethod<
     [_collateralToken: AddressLike, _rate: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  updateFeedContract: TypedContractMethod<[_feedContract: AddressLike], [void], 'nonpayable'>;
+  updateFeedContract: TypedContractMethod<
+    [_feedContract: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
   updatePrice: TypedContractMethod<
     [_collateralAddress: AddressLike, _price: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  updateStabilityModule: TypedContractMethod<[_stabilityModule: AddressLike], [void], 'nonpayable'>;
+  updateStabilityModule: TypedContractMethod<
+    [_stabilityModule: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
   vaultMapping: TypedContractMethod<
     [arg0: AddressLike, arg1: AddressLike],
@@ -533,47 +725,64 @@ export interface Vault extends BaseContract {
         borrowedAmount: bigint;
         accruedFees: bigint;
         lastTotalAccumulatedRate: bigint;
-      },
+      }
     ],
-    'view'
+    "view"
   >;
 
   withdrawCollateral: TypedContractMethod<
-    [_collateralToken: AddressLike, _owner: AddressLike, _to: AddressLike, _amount: BigNumberish],
+    [
+      _collateralToken: AddressLike,
+      _owner: AddressLike,
+      _to: AddressLike,
+      _amount: BigNumberish
+    ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
   withdrawFees: TypedContractMethod<
     [_collateralToken: AddressLike, _amount: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
-  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+  getFunction<T extends ContractMethod = ContractMethod>(
+    key: string | FunctionFragment
+  ): T;
 
-  getFunction(nameOrSignature: 'CURRENCY_TOKEN'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'DEFAULT_ADMIN_ROLE'): TypedContractMethod<[], [string], 'view'>;
-  getFunction(nameOrSignature: 'accruedFees'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'baseRateInfo'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: "CURRENCY_TOKEN"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "DEFAULT_ADMIN_ROLE"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "accruedFees"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "baseRateInfo"
+  ): TypedContractMethod<
     [],
     [
       [bigint, bigint, bigint] & {
         rate: bigint;
         accumulatedRate: bigint;
         lastUpdateTime: bigint;
-      },
+      }
     ],
-    'view'
+    "view"
   >;
   getFunction(
-    nameOrSignature: 'burnCurrency',
+    nameOrSignature: "burnCurrency"
   ): TypedContractMethod<
     [_collateralToken: AddressLike, _owner: AddressLike, _amount: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
-  getFunction(nameOrSignature: 'collateralMapping'): TypedContractMethod<
+  getFunction(
+    nameOrSignature: "collateralMapping"
+  ): TypedContractMethod<
     [arg0: AddressLike],
     [
       [
@@ -587,7 +796,7 @@ export interface Vault extends BaseContract {
         bigint,
         bigint,
         bigint,
-        boolean,
+        boolean
       ] & {
         totalDepositedCollateral: bigint;
         totalBorrowedAmount: bigint;
@@ -600,12 +809,12 @@ export interface Vault extends BaseContract {
         collateralFloorPerPosition: bigint;
         additionalCollateralPrecision: bigint;
         exists: boolean;
-      },
+      }
     ],
-    'view'
+    "view"
   >;
   getFunction(
-    nameOrSignature: 'createCollateralType',
+    nameOrSignature: "createCollateralType"
   ): TypedContractMethod<
     [
       _collateralToken: AddressLike,
@@ -613,103 +822,144 @@ export interface Vault extends BaseContract {
       _liquidationThreshold: BigNumberish,
       _liquidationBonus: BigNumberish,
       _debtCeiling: BigNumberish,
-      _collateralFloorPerPosition: BigNumberish,
+      _collateralFloorPerPosition: BigNumberish
     ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
-  getFunction(nameOrSignature: 'debt'): TypedContractMethod<[], [bigint], 'view'>;
   getFunction(
-    nameOrSignature: 'deny',
-  ): TypedContractMethod<[_reliedUpon: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: "debt"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: 'depositCollateral',
+    nameOrSignature: "deny"
+  ): TypedContractMethod<[_reliedUpon: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "depositCollateral"
   ): TypedContractMethod<
     [_collateralToken: AddressLike, _owner: AddressLike, _amount: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: 'getRoleAdmin',
-  ): TypedContractMethod<[role: BytesLike], [string], 'view'>;
+    nameOrSignature: "getRoleAdmin"
+  ): TypedContractMethod<[role: BytesLike], [string], "view">;
   getFunction(
-    nameOrSignature: 'grantRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: "grantRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
-    nameOrSignature: 'hasRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [boolean], 'view'>;
+    nameOrSignature: "hasRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
+  >;
   getFunction(
-    nameOrSignature: 'liquidate',
+    nameOrSignature: "liquidate"
   ): TypedContractMethod<
     [
       _collateralToken: AddressLike,
       _owner: AddressLike,
       _to: AddressLike,
-      _currencyAmountToPay: BigNumberish,
+      _currencyAmountToPay: BigNumberish
     ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: 'mintCurrency',
+    nameOrSignature: "mintCurrency"
   ): TypedContractMethod<
-    [_collateralToken: AddressLike, _owner: AddressLike, _to: AddressLike, _amount: BigNumberish],
+    [
+      _collateralToken: AddressLike,
+      _owner: AddressLike,
+      _to: AddressLike,
+      _amount: BigNumberish
+    ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
-  getFunction(nameOrSignature: 'paidFees'): TypedContractMethod<[], [bigint], 'view'>;
-  getFunction(nameOrSignature: 'pause'): TypedContractMethod<[], [void], 'nonpayable'>;
   getFunction(
-    nameOrSignature: 'recoverToken',
-  ): TypedContractMethod<[_tokenAddress: AddressLike, _to: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: "paidFees"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: 'rely',
-  ): TypedContractMethod<[_relyUpon: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: "pause"
+  ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: 'relyMapping',
-  ): TypedContractMethod<[arg0: AddressLike, arg1: AddressLike], [boolean], 'view'>;
+    nameOrSignature: "recoverToken"
+  ): TypedContractMethod<
+    [_tokenAddress: AddressLike, _to: AddressLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
-    nameOrSignature: 'renounceRole',
-  ): TypedContractMethod<[role: BytesLike, callerConfirmation: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: "rely"
+  ): TypedContractMethod<[_relyUpon: AddressLike], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: 'revokeRole',
-  ): TypedContractMethod<[role: BytesLike, account: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'status'): TypedContractMethod<[], [bigint], 'view'>;
+    nameOrSignature: "relyMapping"
+  ): TypedContractMethod<
+    [arg0: AddressLike, arg1: AddressLike],
+    [boolean],
+    "view"
+  >;
   getFunction(
-    nameOrSignature: 'supportsInterface',
-  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], 'view'>;
-  getFunction(nameOrSignature: 'unpause'): TypedContractMethod<[], [void], 'nonpayable'>;
+    nameOrSignature: "renounceRole"
+  ): TypedContractMethod<
+    [role: BytesLike, callerConfirmation: AddressLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
-    nameOrSignature: 'updateBaseRate',
-  ): TypedContractMethod<[_baseRate: BigNumberish], [void], 'nonpayable'>;
+    nameOrSignature: "revokeRole"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
-    nameOrSignature: 'updateCollateralData',
+    nameOrSignature: "status"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "supportsInterface"
+  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "unpause"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "updateBaseRate"
+  ): TypedContractMethod<[_baseRate: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "updateCollateralData"
   ): TypedContractMethod<
     [_collateralToken: AddressLike, _param: BigNumberish, _data: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: 'updateCollateralRate',
+    nameOrSignature: "updateCollateralRate"
   ): TypedContractMethod<
     [_collateralToken: AddressLike, _rate: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: 'updateFeedContract',
-  ): TypedContractMethod<[_feedContract: AddressLike], [void], 'nonpayable'>;
+    nameOrSignature: "updateFeedContract"
+  ): TypedContractMethod<[_feedContract: AddressLike], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: 'updatePrice',
+    nameOrSignature: "updatePrice"
   ): TypedContractMethod<
     [_collateralAddress: AddressLike, _price: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: 'updateStabilityModule',
-  ): TypedContractMethod<[_stabilityModule: AddressLike], [void], 'nonpayable'>;
-  getFunction(nameOrSignature: 'vaultMapping'): TypedContractMethod<
+    nameOrSignature: "updateStabilityModule"
+  ): TypedContractMethod<[_stabilityModule: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "vaultMapping"
+  ): TypedContractMethod<
     [arg0: AddressLike, arg1: AddressLike],
     [
       [bigint, bigint, bigint, bigint] & {
@@ -717,90 +967,95 @@ export interface Vault extends BaseContract {
         borrowedAmount: bigint;
         accruedFees: bigint;
         lastTotalAccumulatedRate: bigint;
-      },
+      }
     ],
-    'view'
+    "view"
   >;
   getFunction(
-    nameOrSignature: 'withdrawCollateral',
+    nameOrSignature: "withdrawCollateral"
   ): TypedContractMethod<
-    [_collateralToken: AddressLike, _owner: AddressLike, _to: AddressLike, _amount: BigNumberish],
+    [
+      _collateralToken: AddressLike,
+      _owner: AddressLike,
+      _to: AddressLike,
+      _amount: BigNumberish
+    ],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: 'withdrawFees',
+    nameOrSignature: "withdrawFees"
   ): TypedContractMethod<
     [_collateralToken: AddressLike, _amount: BigNumberish],
     [void],
-    'nonpayable'
+    "nonpayable"
   >;
 
   getEvent(
-    key: 'CollateralDeposited',
+    key: "CollateralDeposited"
   ): TypedContractEvent<
     CollateralDepositedEvent.InputTuple,
     CollateralDepositedEvent.OutputTuple,
     CollateralDepositedEvent.OutputObject
   >;
   getEvent(
-    key: 'CollateralTypeAdded',
+    key: "CollateralTypeAdded"
   ): TypedContractEvent<
     CollateralTypeAddedEvent.InputTuple,
     CollateralTypeAddedEvent.OutputTuple,
     CollateralTypeAddedEvent.OutputObject
   >;
   getEvent(
-    key: 'CollateralWithdrawn',
+    key: "CollateralWithdrawn"
   ): TypedContractEvent<
     CollateralWithdrawnEvent.InputTuple,
     CollateralWithdrawnEvent.OutputTuple,
     CollateralWithdrawnEvent.OutputObject
   >;
   getEvent(
-    key: 'CurrencyBurned',
+    key: "CurrencyBurned"
   ): TypedContractEvent<
     CurrencyBurnedEvent.InputTuple,
     CurrencyBurnedEvent.OutputTuple,
     CurrencyBurnedEvent.OutputObject
   >;
   getEvent(
-    key: 'CurrencyMinted',
+    key: "CurrencyMinted"
   ): TypedContractEvent<
     CurrencyMintedEvent.InputTuple,
     CurrencyMintedEvent.OutputTuple,
     CurrencyMintedEvent.OutputObject
   >;
   getEvent(
-    key: 'FeesPaid',
+    key: "FeesPaid"
   ): TypedContractEvent<
     FeesPaidEvent.InputTuple,
     FeesPaidEvent.OutputTuple,
     FeesPaidEvent.OutputObject
   >;
   getEvent(
-    key: 'Liquidated',
+    key: "Liquidated"
   ): TypedContractEvent<
     LiquidatedEvent.InputTuple,
     LiquidatedEvent.OutputTuple,
     LiquidatedEvent.OutputObject
   >;
   getEvent(
-    key: 'RoleAdminChanged',
+    key: "RoleAdminChanged"
   ): TypedContractEvent<
     RoleAdminChangedEvent.InputTuple,
     RoleAdminChangedEvent.OutputTuple,
     RoleAdminChangedEvent.OutputObject
   >;
   getEvent(
-    key: 'RoleGranted',
+    key: "RoleGranted"
   ): TypedContractEvent<
     RoleGrantedEvent.InputTuple,
     RoleGrantedEvent.OutputTuple,
     RoleGrantedEvent.OutputObject
   >;
   getEvent(
-    key: 'RoleRevoked',
+    key: "RoleRevoked"
   ): TypedContractEvent<
     RoleRevokedEvent.InputTuple,
     RoleRevokedEvent.OutputTuple,
@@ -808,7 +1063,7 @@ export interface Vault extends BaseContract {
   >;
 
   filters: {
-    'CollateralDeposited(address,uint256)': TypedContractEvent<
+    "CollateralDeposited(address,uint256)": TypedContractEvent<
       CollateralDepositedEvent.InputTuple,
       CollateralDepositedEvent.OutputTuple,
       CollateralDepositedEvent.OutputObject
@@ -819,7 +1074,7 @@ export interface Vault extends BaseContract {
       CollateralDepositedEvent.OutputObject
     >;
 
-    'CollateralTypeAdded(address)': TypedContractEvent<
+    "CollateralTypeAdded(address)": TypedContractEvent<
       CollateralTypeAddedEvent.InputTuple,
       CollateralTypeAddedEvent.OutputTuple,
       CollateralTypeAddedEvent.OutputObject
@@ -830,7 +1085,7 @@ export interface Vault extends BaseContract {
       CollateralTypeAddedEvent.OutputObject
     >;
 
-    'CollateralWithdrawn(address,address,uint256)': TypedContractEvent<
+    "CollateralWithdrawn(address,address,uint256)": TypedContractEvent<
       CollateralWithdrawnEvent.InputTuple,
       CollateralWithdrawnEvent.OutputTuple,
       CollateralWithdrawnEvent.OutputObject
@@ -841,7 +1096,7 @@ export interface Vault extends BaseContract {
       CollateralWithdrawnEvent.OutputObject
     >;
 
-    'CurrencyBurned(address,uint256)': TypedContractEvent<
+    "CurrencyBurned(address,uint256)": TypedContractEvent<
       CurrencyBurnedEvent.InputTuple,
       CurrencyBurnedEvent.OutputTuple,
       CurrencyBurnedEvent.OutputObject
@@ -852,7 +1107,7 @@ export interface Vault extends BaseContract {
       CurrencyBurnedEvent.OutputObject
     >;
 
-    'CurrencyMinted(address,uint256)': TypedContractEvent<
+    "CurrencyMinted(address,uint256)": TypedContractEvent<
       CurrencyMintedEvent.InputTuple,
       CurrencyMintedEvent.OutputTuple,
       CurrencyMintedEvent.OutputObject
@@ -863,7 +1118,7 @@ export interface Vault extends BaseContract {
       CurrencyMintedEvent.OutputObject
     >;
 
-    'FeesPaid(address,uint256)': TypedContractEvent<
+    "FeesPaid(address,uint256)": TypedContractEvent<
       FeesPaidEvent.InputTuple,
       FeesPaidEvent.OutputTuple,
       FeesPaidEvent.OutputObject
@@ -874,7 +1129,7 @@ export interface Vault extends BaseContract {
       FeesPaidEvent.OutputObject
     >;
 
-    'Liquidated(address,address,uint256,uint256)': TypedContractEvent<
+    "Liquidated(address,address,uint256,uint256)": TypedContractEvent<
       LiquidatedEvent.InputTuple,
       LiquidatedEvent.OutputTuple,
       LiquidatedEvent.OutputObject
@@ -885,7 +1140,7 @@ export interface Vault extends BaseContract {
       LiquidatedEvent.OutputObject
     >;
 
-    'RoleAdminChanged(bytes32,bytes32,bytes32)': TypedContractEvent<
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
       RoleAdminChangedEvent.InputTuple,
       RoleAdminChangedEvent.OutputTuple,
       RoleAdminChangedEvent.OutputObject
@@ -896,7 +1151,7 @@ export interface Vault extends BaseContract {
       RoleAdminChangedEvent.OutputObject
     >;
 
-    'RoleGranted(bytes32,address,address)': TypedContractEvent<
+    "RoleGranted(bytes32,address,address)": TypedContractEvent<
       RoleGrantedEvent.InputTuple,
       RoleGrantedEvent.OutputTuple,
       RoleGrantedEvent.OutputObject
@@ -907,7 +1162,7 @@ export interface Vault extends BaseContract {
       RoleGrantedEvent.OutputObject
     >;
 
-    'RoleRevoked(bytes32,address,address)': TypedContractEvent<
+    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
       RoleRevokedEvent.InputTuple,
       RoleRevokedEvent.OutputTuple,
       RoleRevokedEvent.OutputObject
