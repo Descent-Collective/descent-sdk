@@ -1,6 +1,6 @@
 {
-  "name": "descent-js",
-  "version": "0.1.1",
+  "name": "descent-sdk",
+  "version": "0.1.2",
   "description": "A Typescript library for interacting with the Descent Protocol",
   "keywords": [
     "xNGN",
@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Descent-Collective/descent-js"
+    "url": "git+https://github.com/Descent-Collective/descent-sdk"
   },
   "license": "MIT",
   "author": "Njoku Emmanuel",
@@ -54,6 +54,7 @@
     "generate-types": "typechain --target ethers-v6 --out-dir src/generated 'src/contracts/abis/*.json' ",
     "start": "ts-node --files src/index.test.ts",
     "size": "size-limit",
+    "publish": "yalc publish --push --up",
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build": "node esbuild.js",
