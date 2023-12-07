@@ -130,9 +130,9 @@ const mintCurrency = async (
 
   const formattedmaxBorrowable = formatEther((await maxBorrowable).toString());
 
-  // if (Number(amount) > Number(formattedmaxBorrowable)) {
-  //   throw new Error(' Borrow amount is more than available currency borrowable');
-  // }
+  if (Number(amount) > Number(formattedmaxBorrowable)) {
+    throw new Error(' Borrow amount is more than available currency borrowable');
+  }
 
   // build transaction object
   const to: any = getContractAddress('VaultRouter')[chainId];

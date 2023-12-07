@@ -12,7 +12,7 @@ export * as factories from "./factories";
 export { Currency__factory } from "./factories/Currency__factory";
 export { Feed__factory } from "./factories/Feed__factory";
 export { MultiStaticcall__factory } from "./factories/MultiStaticcall__factory";
-export { USDC__factory } from "./factories/Usdc__factory";
+export { USDC__factory } from "./factories/USDC__factory";
 export { Vault__factory } from "./factories/Vault__factory";
 export { VaultGetters__factory } from "./factories/VaultGetters__factory";
 export { VaultRouter__factory } from "./factories/VaultRouter__factory";
