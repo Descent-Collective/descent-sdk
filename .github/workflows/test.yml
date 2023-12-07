@@ -18,12 +18,12 @@ jobs:
   #         uses: actions/setup-node@v3
   #         with:
   #           node-version: ${{ matrix.node-version }}
-  #           cache: 'yarn'
+  #           cache: 'npm'
 
-  #       - run: yarn install --frozen-lockfile
+  #       - run: npm install --frozen-lockfile
 
   #       - name: Run tests
-  #         run: yarn run test
+  #         run: npm run test
 
   lint:
     name: Lint
@@ -37,9 +37,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: 'npm'
 
-      - run: yarn install --frozen-lockfile
+      - run: npm install --frozen-lockfile
 
       - name: Lint
-        run: yarn run format
+        run: npm run format
