@@ -27,15 +27,15 @@ TODO
 Install the package with npm in your terminal:
 
 ```tsx
-npm install descent-sdk
+npm install @descent-protocol/sdk
 ```
 
 Once it's installed, import the module into your project as shown below.
 
 ```tsx
-import Descent from 'descent-sdk';
+import Descent from '@descent-protocol/sdk';
 // or
-const Descent = require('descent-sdk');
+const Descent = require('@descent-protocol/sdk');
 ```
 
 ### UMD
