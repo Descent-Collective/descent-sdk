@@ -1,6 +1,6 @@
 {
-  "name": "@descent-protocol/sdk",
-  "version": "0.1.4",
+  "name": "descent-sdk",
+  "version": "0.1.6",
   "description": "A Typescript library for interacting with the Descent Protocol",
   "keywords": [
     "xNGN",
@@ -54,7 +54,7 @@
     "generate-types": "typechain --target ethers-v6 --out-dir src/generated 'src/contracts/abis/*.json' ",
     "start": "ts-node --files src/index.test.ts",
     "size": "size-limit",
-    "publish": "yalc publish --push --up",
+    "publish:sdk": "yalc publish --push --up",
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build": "node esbuild.js",
@@ -86,6 +86,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@size-limit/preset-small-lib": "^9.0.0",
     "@typechain/ethers-v6": "^0.5.1",
+    "@types/jest": "^29.5.11",
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.8",
     "fs": "^0.0.1-security",

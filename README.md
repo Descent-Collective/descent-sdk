@@ -14,10 +14,10 @@ Descent's entire suite of contracts will eventually be accessible through this l
 
 TODO
 
-- [x] Improve presets and configuration settings
-- [x] Make configuration services oriented
-- [x] Perform getters using MultiStaticCall in the [protocol-periphery](<[https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/mutliStaticcall.sol)>) contract to interact with the VaultGetter contract
-- [x] Perform state change calls using the VaultRouter [protocol-periphery](<[https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/vaultRouter.sol)>) contract
+- ✅ Improve presets and configuration settings
+- ✅ Make configuration services oriented
+- ✅ Perform getters using MultiStaticCall in the [protocol-periphery](<[https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/mutliStaticcall.sol)>) contract to interact with the VaultGetter contract
+- ✅ Perform state change calls using the VaultRouter [protocol-periphery](<[https://github.com/Descent-Collective/protocol-periphery](https://github.com/Descent-Collective/protocol-periphery/blob/main/src/vaultRouter.sol)>) contract
 - [ ] Enable listening of events for state changes
 - [ ] Add functionality for automated token conversions (V2)
 - [ ] Add functionality for buying and selling of $DSN and $xNGN in DEXs (V2)
@@ -27,15 +27,15 @@ TODO
 Install the package with npm in your terminal:
 
 ```tsx
-npm install @descent-protocol/sdk
+npm install descent-sdk
 ```
 
 Once it's installed, import the module into your project as shown below.
 
 ```tsx
-import Descent from '@descent-protocol/sdk';
+import Descent from 'descent-sdk';
 // or
-const Descent = require('@descent-protocol/sdk');
+const Descent = require('descent-sdk');
 ```
 
 ### UMD
