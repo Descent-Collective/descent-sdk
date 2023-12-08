@@ -1,9 +1,4 @@
 {
-  // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types"],
-  "ts-node": {
-    "esm": true
-  },
   "compilerOptions": {
     "target": "ES5",
     "module": "ESNext",
@@ -16,5 +11,6 @@
     "noImplicitAny": true,
     "noImplicitThis": true
   },
+  "include": ["src/index.ts"],
   "exclude": ["node_modules"]
 }
