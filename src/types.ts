@@ -9,11 +9,6 @@ export type IDescentClass = DescentClass;
 
 export type IContractFactory = ethers.ContractFactory;
 
-export enum ICollateral {
-  USDC = 'USDC',
-}
-export enum IMode {
-  https = 'https',
-  browser = 'browser',
-  simulation = 'simulation',
-}
+export type ICollateral = 'USDC';
+
+export type IMode = 'https' | 'browser';
