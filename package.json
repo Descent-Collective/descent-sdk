@@ -15,15 +15,59 @@
   "license": "MIT",
   "author": "Njoku Emmanuel",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "browser": "dist/index.bundle.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*.js": {
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.js",
+      "default": "./dist/esm/*.mjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./*.mjs": {
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.js",
+      "default": "./dist/esm/*.mjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/esm/*.mjs",
+      "require": "./dist/cjs/*.js",
+      "default": "./dist/esm/*.mjs",
+      "types": "./dist/types/*.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "static": [
+        "./dist/types/static.d.ts"
+      ],
+      "contracts/*": [
+        "./dist/types/contracts/*"
+      ],
+      "functions/*": [
+        "./dist/types/functions/*"
+      ],
+      "utils/*": [
+        "./dist/types/utils/*"
+      ],
+      "generated/*": [
+        "./dist/types/generated/*"
+      ]
+    }
+  },
   "files": [
-    "dist",
-    "src",
-    "README.md"
+    "dist/",
+    "src/",
+    "!src/tests"
   ],
-  "types": "./dist/types.d.ts",
   "scripts": {
     "analyze": "size-limit --why",
     "format": "prettier --write .",
@@ -33,7 +77,8 @@
     "publish:sdk": "yalc publish --push --up",
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
-    "build": "rollup -c",
+    "build:types": "tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "build": "node esbuild.js",
     "test": "jest --coverage ./test/",
     "test:getter": "jest ./test/getters.test.ts",
     "test:vault": "jest ./test/vault.test.ts",
@@ -46,6 +91,9 @@
     "transform": {
       "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "node_modules"
+    ],
     "moduleFileExtension": [
       "js",
       "mjs",

@@ -1,11 +1,11 @@
 import { config } from 'dotenv';
-import Descent from '../../dist';
-import { ICollateral, IDescentClass } from '../../dist/types';
+import Descent from '../../dist/esm/index.mjs';
+import type { IDescentClass } from '../../dist/types/types';
 
 config();
 
 describe('Descent Protocol SDK Test', () => {
-  let descent: IDescentClass;
+  let descent: any;
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
   let rpcUrl = 'https://goerli.base.org';
 
@@ -13,7 +13,7 @@ describe('Descent Protocol SDK Test', () => {
     descent = await Descent.create('https', {
       rpcUrl: rpcUrl,
       privateKey: process.env.PRIVATE_KEY,
-      collateral: ICollateral.USDC,
+      collateral: 'USDC',
     });
   }, 200000);
   it('should test initialization of Descent', async () => {

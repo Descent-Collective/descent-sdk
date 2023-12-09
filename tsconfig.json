@@ -1,17 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ES5",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "sourceMap": true,
-    "lib": [],
-    "esModuleInterop": true,
-    "strict": true,
-    "declaration": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "typeRoots": ["./node_modules/@types", "./**/*.d.ts", "./scripts/custom_matchers.ts"]
+  "ts-node": {
+    "compilerOptions": {
+      "target": "es2018",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true
+    }
   },
-  "include": ["src/index.ts", "./dist/types.d.ts"],
-  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "types": ["jest"],
+    "outDir": "./dist",
+    "declaration": true,
+    "importsNotUsedAsValues": "remove",
+    "lib": ["ES2021", "DOM"],
+    "module": "ES2020",
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.ts"]
 }

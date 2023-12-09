@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground</title>
+  </head>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+  <body>
+    Open console for testing
+    
+    <!-- Usage in modern browsers -->
+    <script type="module">
+      import Descent from '/dist/index.es.js'
+
+      InitWeb3()
+      // window.dsa = new DSA(window.web3)
+      $(window).on( "load", async function(e) {
+        e.preventDefault();
+        await InitWeb3()
+        window.descent = await Descent.create('browser', {
+        ethereum: window.ethereum,
+        collateral: 'USDC',
+    });
+    console.log(window.descent, window.ethereum, "here")
+      });
+
+    </script>
+
+    <!-- Usage for old browsers (nomodule can be omitted) -->
+    <script src="/dist/index.bundle.js"></script>
+    <script nomodule>
+
+      $(window).on( "load", async function(e) {
+        e.preventDefault();
+        await InitWeb3()
+          window.descent = await Descent.create('browser', {
+        ethereum: window.ethereum,
+        collateral: 'USDC',
+    });
+    console.log(window.ethereum, "here")
+      });
+
+    </script>
+    
+  </body>
+</html>
