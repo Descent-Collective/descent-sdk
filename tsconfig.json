@@ -1,20 +1,20 @@
 {
-  // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types"],
   "ts-node": {
-    "esm": true
+    "compilerOptions": {
+      "target": "es2018",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true
+    }
   },
   "compilerOptions": {
-    "target": "ES5",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "sourceMap": true,
-    "lib": [],
-    "esModuleInterop": true,
-    "strict": true,
+    "types": ["jest"],
+    "outDir": "./dist",
     "declaration": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true
+    "importsNotUsedAsValues": "remove",
+    "lib": ["ES2021", "DOM"],
+    "module": "ES2020",
+    "moduleResolution": "node"
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"]
 }

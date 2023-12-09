@@ -41,7 +41,7 @@ const Descent = require('@descent-protocol/sdk');
 
 ### UMD
 
-This library is also usable as a UMD module, which you can build with `npm run build:frontend.`
+This library is also usable as a browser module
 
 ```html
 <script src="./descent.js" />

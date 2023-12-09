@@ -6,7 +6,7 @@ const base = {
   entryPoints: [
     ...glob.sync('./src/**/!(*.test.ts)', {
       nodir: true,
-      ignore: ['./src/@types/**/*', './src/tests/**/*', './src/ABIs/**/*'],
+      ignore: ['./src/tests/**/*', './src/contracts/abis/**/*'],
     }),
   ],
   bundle: false,
@@ -23,7 +23,6 @@ for (let i = 0; i < esmDeclarations.length; i++) {
 esbuild.build({
   ...base,
   bundle: true,
-
   plugins: [
     {
       name: 'add-mjs',

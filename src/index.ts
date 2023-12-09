@@ -173,12 +173,12 @@ async function create(
   let provider: any;
   let signer: any;
 
-  if (mode == IMode.https) {
+  if (mode == 'https') {
     provider = new ethers.JsonRpcProvider(options?.rpcUrl);
 
     signer = new ethers.Wallet(options.privateKey, provider);
   }
-  if (mode == IMode.browser) {
+  if (mode == 'browser') {
     provider = new ethers.BrowserProvider(options?.ethereum);
     signer = await provider?.getSigner();
   }
