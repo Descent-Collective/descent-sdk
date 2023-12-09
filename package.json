@@ -23,7 +23,7 @@
     "src",
     "README.md"
   ],
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types.d.ts",
   "scripts": {
     "analyze": "size-limit --why",
     "format": "prettier --write .",

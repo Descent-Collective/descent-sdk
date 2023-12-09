@@ -9,8 +9,9 @@
     "strict": true,
     "declaration": true,
     "noImplicitAny": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    "typeRoots": ["./node_modules/@types", "./**/*.d.ts", "./scripts/custom_matchers.ts"]
   },
-  "include": ["src/index.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src/index.ts", "./dist/types.d.ts"],
+  "exclude": ["node_modules"],
 }
