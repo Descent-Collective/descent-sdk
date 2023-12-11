@@ -91,7 +91,7 @@ You can configure the behavior of descent.js by passing different arguments to D
 ### Presets
 
 - `'browser'`
-  Use this preset when using the library in a browser environment. It will attempt to connect using window.ethereum or window.web3.
+  Use this preset when using the library in a browser environment. It will attempt to connect using window.ethereum or window.web3. Make sure you pass in the connected browser provider instance
 
 - `'https'`
   Connect to a JSON-RPC node. Requires url to be set in the options.
@@ -133,11 +133,12 @@ const descent = await Descent.create('https', {
 
 1. [Methods](#methods)
    - [1. getVaultInfo(ownerAddress: string)](#getvaultinfo)
-   - [2. depositCollateral(collateralAmount: string)](#depositcollateral)
-   - [3. borrowCurrency(borrowAmount: string)](#borrowcurrency)
-   - [4. repayCurrency(amount: string)](#repaycurrency)
-   - [5. withdrawCollateral(collateralAmount: string)](#withdrawcollateral)
-   - [6. getCollateralInfo()](#getcollateralinfo)
+   - [2. setupVault()](#setupVault)
+   - [3. depositCollateral(collateralAmount: string)](#depositcollateral)
+   - [4. borrowCurrency(borrowAmount: string)](#borrowcurrency)
+   - [5. repayCurrency(amount: string)](#repaycurrency)
+   - [6. withdrawCollateral(collateralAmount: string)](#withdrawcollateral)
+   - [7. getCollateralInfo()](#getcollateralinfo)
 
 ### methods
 
@@ -169,6 +170,18 @@ Gets detailed information about a vault specified by the owner's address.
      availablexNGN: '244499.769094051707348'
     }
 ```
+
+#### setupVault
+
+```ts
+descent.setupVault(): Promise<{}>
+```
+
+Initializes a vault for a first time user and sets up the appropriate configuration for the vault on the ssmart contract
+
+**Returns:**
+
+- A promise resolving to the transaction object.
 
 #### depositCollateral
 

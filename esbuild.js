@@ -34,9 +34,6 @@ esbuild.build({
                 path: args.path.replace('/lib/', '/lib.esm/') + '.js',
                 external: true,
               };
-            if (args.path.startsWith('./') || args.path.startsWith('../'))
-              return { path: args.path + '.mjs', external: true };
-            return { path: args.path, external: true };
           }
         });
       },

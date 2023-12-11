@@ -13,7 +13,7 @@ describe('Descent Protocol SDK Test', () => {
     descent = await Descent.create('https', {
       rpcUrl: rpcUrl,
       privateKey: process.env.PRIVATE_KEY,
-      collateral: ICollateral.USDC,
+      collateral: 'USDC',
     });
   }, 200000);
 

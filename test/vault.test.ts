@@ -1,14 +1,7 @@
 import { config } from 'dotenv';
 import Descent, { DescentClass } from '../src';
 import { ICollateral } from '../src/types';
-import {
-  approveUSDC,
-  approvexNGN,
-  getxNGNBalance,
-  setMinterRole,
-  updateTestPrice,
-  waitTime,
-} from '../src/libs/utils';
+import { approveUSDC, approvexNGN, getxNGNBalance, waitTime } from '../src/libs/utils';
 import { Signer, ethers } from 'ethers';
 
 config();

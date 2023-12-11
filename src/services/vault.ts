@@ -7,14 +7,20 @@ import {
   parseUnits,
   parseEther,
   formatEther,
+  Signer,
 } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { Internal } from '../libs/internal';
-import { VaultRouter__factory } from '../generated/factories';
-import ContractManager from '../contracts';
+import {
+  Currency__factory,
+  VaultGetters__factory,
+  VaultRouter__factory,
+  Vault__factory,
+} from '../generated/factories';
 import { getxNGNBalance } from '../libs/utils';
+import { Contract } from '../contracts';
 
 export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
@@ -26,6 +32,29 @@ export enum VaultOperations {
   MintCurrency = 2,
   BurnCurrency = 3,
 }
+const setupVault = async (
+  owner: string,
+  chainId: string,
+  transaction: Transaction,
+  internal: Internal,
+) => {
+  const vaultRouterAddress: any = getContractAddress('VaultRouter')[chainId];
+
+  // build transaction object
+  const to: any = getContractAddress('Vault')[chainId];
+  let iface = internal.getInterface(Vault__factory.abi);
+  const data = iface.encodeFunctionData('rely', [vaultRouterAddress]);
+
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+  });
+
+  const relyResult = await transaction.send(txConfig, {});
+
+  return relyResult;
+};
 
 const collateralizeVault = async (
   amount: string,
@@ -68,17 +97,20 @@ const withdrawCollateral = async (
   chainId: string,
   transaction: Transaction,
   internal: Internal,
-  contract: ContractManager,
+  signer: Signer,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const vaultGetterAddress: any = getContractAddress('VaultGetters')[chainId];
+
+  const vaultGetterContract = Contract(vaultGetterAddress, VaultGetters__factory.abi, signer);
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
   const to: any = getContractAddress('VaultRouter')[chainId];
   let iface = internal.getInterface(VaultRouter__factory.abi);
 
-  const maxWithdrawable = (await contract.getVaultGetterContract()).getMaxWithdrawable(
+  const maxWithdrawable = await vaultGetterContract.getMaxWithdrawable(
     vaultContractAddress,
     collateralAddress,
     owner,
@@ -115,14 +147,17 @@ const mintCurrency = async (
   chainId: string,
   transaction: Transaction,
   internal: Internal,
-  contract: ContractManager,
+  signer: Signer,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const vaultGetterAddress: any = getContractAddress('VaultGetters')[chainId];
+
+  const vaultGetterContract = Contract(vaultGetterAddress, VaultGetters__factory.abi, signer);
 
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  const maxBorrowable = (await contract.getVaultGetterContract()).getMaxBorrowable(
+  const maxBorrowable = await vaultGetterContract.getMaxBorrowable(
     vaultContractAddress,
     collateralAddress,
     owner,
@@ -162,14 +197,18 @@ const burnCurrency = async (
   chainId: string,
   transaction: Transaction,
   internal: Internal,
-  contract: ContractManager,
+  signer: Signer,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
 
+  const currencyContractAddress: any = getContractAddress('Currency')[chainId];
+
+  const currencyContract = Contract(currencyContractAddress, Currency__factory.abi, signer);
+
   const _amount = BigInt(amount) * BigInt(1e18);
 
-  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+  const balance = await currencyContract.balanceOf(owner);
 
   const formattedBalance = await formatEther(balance.toString());
 
@@ -198,4 +237,4 @@ const burnCurrency = async (
   return burnResult;
 };
 
-export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };
+export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency, setupVault };
