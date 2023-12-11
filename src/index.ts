@@ -14,7 +14,7 @@ import {
 import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { getContractAddress } from './contracts/getContractAddresses';
-import { getCollateralData, getVault } from './services/getters';
+import { checkVaultSetupStatus, getCollateralData, getVault } from './services/getters';
 
 export class DescentClass {
   signer: Signer;
@@ -156,6 +156,17 @@ export class DescentClass {
   public async setupVault() {
     const owner = await this.signer.getAddress();
     const result = await setupVault(owner, this.chainId, this.transaction, this.internal);
+
+    return result;
+  }
+
+  /**
+   * @dev Check if a vault has been initialized
+   * @returns boolean
+   */
+  public async getVaultSetupStatus() {
+    const owner = await this.signer.getAddress();
+    const result = await checkVaultSetupStatus(owner, this.chainId, this.signer);
 
     return result;
   }

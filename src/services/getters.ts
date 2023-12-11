@@ -1,6 +1,6 @@
 import { AddressLike, BytesLike, Signer, ethers } from 'ethers';
 import { getContractAddress } from '../contracts/getContractAddresses';
-import { MultiStaticcall__factory, VaultGetters__factory } from '../generated';
+import { MultiStaticcall__factory, VaultGetters__factory, Vault__factory } from '../generated';
 import { Internal } from '../libs/internal';
 import { ICollateral, IContract, ISigner } from '../types';
 import { Contract } from '../contracts';
@@ -121,6 +121,17 @@ const getVault = async (
   };
 };
 
+const checkVaultSetupStatus = async (owner: string, chainId: string, signer: Signer) => {
+  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const vaultRouterAddress: any = getContractAddress('VaultRouter')[chainId];
+
+  const vaultContract = Contract(vaultContractAddress, Vault__factory.abi, signer);
+
+  const getVaultSetupStatus = await vaultContract.relyMapping(owner, vaultRouterAddress);
+
+  return getVaultSetupStatus;
+};
+
 const getCollateralData = async (collateral: ICollateral, chainId: string, signer: Signer) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
@@ -145,4 +156,4 @@ const getCollateralData = async (collateral: ICollateral, chainId: string, signe
     collateralPrice: ethers.formatUnits(returnData[6].toString(), 6),
   };
 };
-export { getVault, getCollateralData };
+export { getVault, getCollateralData, checkVaultSetupStatus };

@@ -27,4 +27,9 @@ describe('Descent Protocol SDK Test', () => {
     console.log(response);
     expect(response).toBeDefined();
   });
+  it('should check a vault router status', async () => {
+    const response = await descent.getVaultSetupStatus();
+    console.log(response);
+    expect(response).toBeDefined();
+  });
 });
