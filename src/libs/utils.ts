@@ -5,11 +5,11 @@
  */
 
 import { Signer, ethers } from 'ethers';
-import ContractManager from '../contracts';
 import { Transaction } from './transactions';
 import { Internal } from './internal';
 import { getContractAddress } from '../contracts/getContractAddresses';
 import { Currency__factory, USDC__factory } from '../generated';
+import { Contract } from '../contracts';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createError = (message?: any) => {
@@ -59,39 +59,43 @@ const approveUSDC = async (
 
 const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 
-const updateTestPrice = async (signer: Signer) => {
-  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
+// const updateTestPrice = async (signer: Signer) => {
+//   const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-  const collateralAddress: any = getContractAddress('USDC')[chainId!];
-  const feedContractAddress: any = getContractAddress('Feed')[chainId!];
-  const contract = new ContractManager(signer);
+//   const collateralAddress: any = getContractAddress('USDC')[chainId!];
+//   const feedContractAddress: any = getContractAddress('Feed')[chainId!];
+//   const contract = new ContractManager(signer);
 
-  await (await contract.getVaultContract()).updateFeedContract(feedContractAddress);
+//   await (await contract.getVaultContract()).updateFeedContract(feedContractAddress);
 
-  await waitTime(50);
+//   await waitTime(50);
 
-  const price = BigInt(1100) * BigInt(1e6);
+//   const price = BigInt(1100) * BigInt(1e6);
 
-  const priceUpdate = (await contract.getFeedContract()).mockUpdatePrice(collateralAddress, price);
-  (await priceUpdate).wait();
+//   const priceUpdate = (await contract.getFeedContract()).mockUpdatePrice(collateralAddress, price);
+//   (await priceUpdate).wait();
 
-  await waitTime(50);
-};
+//   await waitTime(50);
+// };
 
-const setMinterRole = async (signer: Signer, owner: string) => {
-  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
+// const setMinterRole = async (signer: Signer, owner: string) => {
+//   const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId!];
-  const contract = new ContractManager(signer);
+//   const vaultContractAddress: any = getContractAddress('Vault')[chainId!];
+//   const contract = new ContractManager(signer);
 
-  await (await contract.getCurrencyContract()).setMinterRole(vaultContractAddress);
+//   await (await contract.getCurrencyContract()).setMinterRole(vaultContractAddress);
 
-  await waitTime(50);
-};
+//   await waitTime(50);
+// };
 
 const getxNGNBalance = async (owner: any, signer?: Signer) => {
-  const contract = new ContractManager(signer!);
-  const balance = await (await contract.getCurrencyContract()).balanceOf(owner);
+  const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
+
+  const currencyContractAddress: any = getContractAddress('Currency')[chainId];
+
+  const currencyContract = Contract(currencyContractAddress, Currency__factory.abi, signer);
+  const balance = await currencyContract.balanceOf(owner);
 
   await waitTime(50);
 
@@ -129,8 +133,8 @@ export {
   createError,
   approveUSDC,
   waitTime,
-  updateTestPrice,
+  //  updateTestPrice,
   getxNGNBalance,
-  setMinterRole,
+  // setMinterRole,
   approvexNGN,
 };

@@ -8,6 +8,7 @@ import {
   burnCurrency,
   collateralizeVault,
   mintCurrency,
+  setupVault,
   withdrawCollateral,
 } from './services/vault';
 import { Transaction } from './libs/transactions';
@@ -147,7 +148,19 @@ export class DescentClass {
 
     return result;
   }
+
+  /**
+   * @dev initializes a vault for a an address
+   * @returns transaction obj
+   */
+  public async setupVault() {
+    const owner = await this.signer.getAddress();
+    const result = await setupVault(owner, this.chainId, this.transaction, this.internal);
+
+    return result;
+  }
 }
+
 async function create(
   mode: string,
   options: {
@@ -180,15 +193,6 @@ async function create(
   }
 
   const descent = new DescentClass(signer, provider, options.collateral, mode, chainId);
-
-  // approve router to talk to vault on behalf of user
-  // MOVE THIS TO IT'S OWN METHOD
-  // const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
-
-  // const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
-  // (await relyResponse).wait();
-
-  // await waitTime(50);
 
   return descent;
 }

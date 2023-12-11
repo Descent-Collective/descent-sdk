@@ -17,6 +17,7 @@ import {
   Currency__factory,
   VaultGetters__factory,
   VaultRouter__factory,
+  Vault__factory,
 } from '../generated/factories';
 import { getxNGNBalance } from '../libs/utils';
 import { Contract } from '../contracts';
@@ -31,6 +32,29 @@ export enum VaultOperations {
   MintCurrency = 2,
   BurnCurrency = 3,
 }
+const setupVault = async (
+  owner: string,
+  chainId: string,
+  transaction: Transaction,
+  internal: Internal,
+) => {
+  const vaultRouterAddress: any = getContractAddress('VaultRouter')[chainId];
+
+  // build transaction object
+  const to: any = getContractAddress('Vault')[chainId];
+  let iface = internal.getInterface(Vault__factory.abi);
+  const data = iface.encodeFunctionData('rely', [vaultRouterAddress]);
+
+  const txConfig = await internal.getTransactionConfig({
+    from: owner,
+    to,
+    data: data,
+  });
+
+  const relyResult = await transaction.send(txConfig, {});
+
+  return relyResult;
+};
 
 const collateralizeVault = async (
   amount: string,
@@ -213,4 +237,4 @@ const burnCurrency = async (
   return burnResult;
 };
 
-export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency };
+export { collateralizeVault, withdrawCollateral, mintCurrency, burnCurrency, setupVault };
