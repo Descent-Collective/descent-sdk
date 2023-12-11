@@ -1,9 +1,8 @@
 import { Eip1193Provider, SigningKey, ethers } from 'ethers';
-import { ICollateral, IMode, ISigner } from './types';
+import { ICollateral, IContract, IMode, ISigner } from './types';
 import { Signer, Provider } from 'ethers';
 
 import { SupportedNetwork } from './contracts/types';
-import ContractManager from './contracts';
 import { waitTime } from './libs/utils';
 import {
   burnCurrency,
@@ -21,7 +20,6 @@ export class DescentClass {
   protected provider: Provider;
   private collateral: ICollateral;
 
-  contracts?: ContractManager;
   configMode: IMode | string;
   chainId: string;
 
@@ -33,14 +31,12 @@ export class DescentClass {
     signer: Signer,
     provider: Provider,
     collateral: ICollateral,
-    contracts: ContractManager,
     configMode: IMode | string,
     chainId: string,
   ) {
     this.provider = provider;
     this.signer = signer;
     this.collateral = collateral;
-    this.contracts = contracts;
     this.configMode = configMode;
     this.chainId = chainId;
   }
@@ -55,8 +51,8 @@ export class DescentClass {
       this.collateral,
       ownerAddress,
       this.chainId,
-      this.contracts!,
       this.internal,
+      this.signer,
     );
 
     return result;
@@ -67,12 +63,7 @@ export class DescentClass {
    * @returns The collateral information
    */
   public async getCollateralInfo() {
-    const result = await getCollateralData(
-      this.collateral,
-
-      this.chainId,
-      this.contracts!,
-    );
+    const result = await getCollateralData(this.collateral, this.chainId, this.signer);
 
     return result;
   }
@@ -91,7 +82,7 @@ export class DescentClass {
       this.chainId,
       this.transaction,
       this.internal,
-      this.contracts!,
+      this.signer,
     );
 
     return result;
@@ -111,7 +102,7 @@ export class DescentClass {
       this.chainId,
       this.transaction,
       this.internal,
-      this.contracts!,
+      this.signer,
     );
 
     return result;
@@ -131,7 +122,7 @@ export class DescentClass {
       this.chainId,
       this.transaction,
       this.internal,
-      this.contracts!,
+      this.signer,
     );
 
     return result;
@@ -188,18 +179,16 @@ async function create(
     throw new Error(`chainId '${chainId}' is not supported.`);
   }
 
-  const contracts = new ContractManager(signer);
-
-  const descent = new DescentClass(signer, provider, options.collateral, contracts, mode, chainId);
+  const descent = new DescentClass(signer, provider, options.collateral, mode, chainId);
 
   // approve router to talk to vault on behalf of user
+  // MOVE THIS TO IT'S OWN METHOD
+  // const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
 
-  const vaultRouter: any = getContractAddress('VaultRouter')[chainId];
+  // const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
+  // (await relyResponse).wait();
 
-  const relyResponse = (await contracts.getVaultContract()).rely(vaultRouter);
-  (await relyResponse).wait();
-
-  await waitTime(50);
+  // await waitTime(50);
 
   return descent;
 }

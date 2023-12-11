@@ -1,9 +1,9 @@
-import { AddressLike, BytesLike, ethers } from 'ethers';
-import ContractManager from '../contracts';
+import { AddressLike, BytesLike, Signer, ethers } from 'ethers';
 import { getContractAddress } from '../contracts/getContractAddresses';
-import { VaultGetters__factory } from '../generated';
+import { MultiStaticcall__factory, VaultGetters__factory } from '../generated';
 import { Internal } from '../libs/internal';
-import { ICollateral } from '../types';
+import { ICollateral, IContract, ISigner } from '../types';
+import { Contract } from '../contracts';
 
 export type StaticcallStruct = { target: AddressLike; callData: BytesLike };
 
@@ -11,12 +11,19 @@ const getVault = async (
   collateral: ICollateral,
   owner: string,
   chainId: string,
-  contract: ContractManager,
   internal: Internal,
+  signer: Signer,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
   const vaultGettersAddress: any = getContractAddress('VaultGetters')[chainId];
+  const multiStaticcallAddress: any = getContractAddress('MultiStaticcall')[chainId];
+
+  const multiStaticcallContract = Contract(
+    multiStaticcallAddress,
+    MultiStaticcall__factory.abi,
+    signer,
+  );
 
   // encode data
   let iface = internal.getInterface(VaultGetters__factory.abi);
@@ -73,7 +80,7 @@ const getVault = async (
     },
   ];
 
-  const getVaultInfo = (await contract.getMultistaticcallContract()).multiStaticcall(multiCallData);
+  const getVaultInfo = await multiStaticcallContract.multiStaticcall(multiCallData);
 
   const returnData = (await getVaultInfo).map((item) => item.returnDatum);
 
@@ -114,15 +121,14 @@ const getVault = async (
   };
 };
 
-const getCollateralData = async (
-  collateral: ICollateral,
-  chainId: string,
-  contract: ContractManager,
-) => {
+const getCollateralData = async (collateral: ICollateral, chainId: string, signer: Signer) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const vaultGetterAddress: any = getContractAddress('VaultGetters')[chainId];
 
-  const getCollateralInfo = (await contract.getVaultGetterContract()).getCollateralInfo(
+  const vaultGetterContract = Contract(vaultGetterAddress, VaultGetters__factory.abi, signer);
+
+  const getCollateralInfo = await vaultGetterContract.getCollateralInfo(
     vaultContractAddress,
     collateralAddress,
   );

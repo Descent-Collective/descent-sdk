@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import Descent from '../../dist/esm/index.mjs';
+import Descent from '../../dist/index.es';
 import type { IDescentClass } from '../../dist/types/types';
 
 config();
