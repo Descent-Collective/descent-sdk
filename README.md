@@ -134,11 +134,12 @@ const descent = await Descent.create('https', {
 1. [Methods](#methods)
    - [1. getVaultInfo(ownerAddress: string)](#getvaultinfo)
    - [2. setupVault()](#setupVault)
-   - [3. depositCollateral(collateralAmount: string)](#depositcollateral)
-   - [4. borrowCurrency(borrowAmount: string)](#borrowcurrency)
-   - [5. repayCurrency(amount: string)](#repaycurrency)
-   - [6. withdrawCollateral(collateralAmount: string)](#withdrawcollateral)
-   - [7. getCollateralInfo()](#getcollateralinfo)
+   - [3. getVaultSetupStatus()](#getVaultSetupStatus)
+   - [4. depositCollateral(collateralAmount: string)](#depositcollateral)
+   - [5. borrowCurrency(borrowAmount: string)](#borrowcurrency)
+   - [6. repayCurrency(amount: string)](#repaycurrency)
+   - [7. withdrawCollateral(collateralAmount: string)](#withdrawcollateral)
+   - [8. getCollateralInfo()](#getcollateralinfo)
 
 ### methods
 
@@ -182,6 +183,18 @@ Initializes a vault for a first time user and sets up the appropriate configurat
 **Returns:**
 
 - A promise resolving to the transaction object.
+
+#### getVaultSetupStatus
+
+```ts
+descent.getVaultSetupStatus(): Promise<{}>
+```
+
+Checks if a vault has already been initialized for the connected address or owner.
+
+**Returns:**
+
+- A boolean.
 
 #### depositCollateral
 
