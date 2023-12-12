@@ -1,6 +1,6 @@
 {
   "name": "@descent-protocol/sdk",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "A Typescript library for interacting with the Descent Protocol",
   "keywords": [
     "xNGN",
@@ -84,6 +84,7 @@
     "test": "jest --coverage ./test/",
     "test:getter": "jest ./test/getters.test.ts",
     "test:vault": "jest ./test/vault.test.ts",
+    "test:utility": "jest ./test/utility.test.ts",
     "test:integration": "jest ./test/integration/descent.spec.ts",
     "ver": "yarn version --no-workspaces-update"
   },

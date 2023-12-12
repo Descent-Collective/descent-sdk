@@ -15,6 +15,12 @@ import { Transaction } from './libs/transactions';
 import { Internal } from './libs/internal';
 import { getContractAddress } from './contracts/getContractAddresses';
 import { checkVaultSetupStatus, getCollateralData, getVault } from './services/getters';
+import {
+  approveCollateralToken,
+  approveCurrencyToken,
+  getCollateralTokenBalance,
+  getCurrencyTokenBalance,
+} from './services/utility';
 
 export class DescentClass {
   signer: Signer;
@@ -167,6 +173,70 @@ export class DescentClass {
   public async getVaultSetupStatus() {
     const owner = await this.signer.getAddress();
     const result = await checkVaultSetupStatus(owner, this.chainId, this.signer);
+
+    return result;
+  }
+  // UTILITY HELPER FUNCTIONS FUNCTIONS
+  /**
+   * @dev gets the collateral token balance of an address
+   * @param owner address of the owner
+   * @returns balance
+   */
+  public async getCollateralTokenBalance(owner: string) {
+    const result = await getCollateralTokenBalance(
+      this.collateral,
+      owner,
+      this.chainId,
+      this.signer,
+    );
+
+    return result;
+  }
+
+  /**
+   * @dev approve the vault to take a certain amount of collateral
+   * @param amount amount of allowance
+   * @returns tx object
+   */
+  public async approveCollateral(amount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await approveCollateralToken(
+      this.collateral,
+      owner,
+      amount,
+      this.chainId,
+      this.internal,
+      this.transaction,
+    );
+
+    return result;
+  }
+
+  /**
+   * @dev gets the xNGN balalnce of an address
+   * @param owner address of the owner
+   * @returns balance
+   */
+  public async getxNGNBalance(owner: string) {
+    const result = await getCurrencyTokenBalance(owner, this.chainId, this.signer);
+
+    return result;
+  }
+
+  /**
+   * @dev approve the vault to take a certain amount of xNGN
+   * @param amount amount of allowance
+   * @returns tx object
+   */
+  public async approvexNGN(amount: string) {
+    const owner = await this.signer.getAddress();
+    const result = await approveCurrencyToken(
+      owner,
+      amount,
+      this.chainId,
+      this.internal,
+      this.transaction,
+    );
 
     return result;
   }
