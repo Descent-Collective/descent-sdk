@@ -141,6 +141,12 @@ const descent = await Descent.create('https', {
    - [7. withdrawCollateral(collateralAmount: string)](#withdrawcollateral)
    - [8. getCollateralInfo()](#getcollateralinfo)
 
+2. [UTILITY METHODS](#utilities)
+   - [1. getCollateralTokenBalance(ownerAddress: string)](#getCollateralTokenBalance)
+   - [2. approveCollateral(amount: string)](#approveCollateral)
+   - [3. getxNGNBalance(ownerAddress: string)](#getxNGNBalance)
+   - [4. approvexNGN(amount: string)](#approvexNGN)
+
 ### methods
 
 #### getVaultInfo
@@ -283,3 +289,73 @@ Gets information about the collateral initialized in `create()`.
       collateralPrice: '1100.0'
     }
 ```
+
+### utilities
+Helper functions to ease interaction with different token contracts.
+
+#### getCollateralTokenBalance
+
+```ts
+descent.getCollateralTokenBalance(ownerAddress: string): Promise<{}>
+```
+
+Gets the balance of USDC for an address
+
+**Parameters**
+
+- `ownerAddress`: The address of the account connected
+
+**Returns:**
+
+- The usdc balance of the account
+
+
+#### approveCollateral
+
+```ts
+descent.approveCollateral('100'): Promise<{}>
+```
+
+Approves the vault contract to get allowance of specified amount for the USDC token
+
+**Parameters**
+
+- `amount`: The amount of allowance to give
+
+**Returns:**
+
+- Returns transaction object
+
+
+#### getxNGNBalance
+
+```ts
+descent.getxNGNBalance(ownerAddress: string): Promise<{}>
+```
+
+Gets the balance of xNGN for an address
+
+**Parameters**
+
+- `ownerAddress`: The address of the account connected
+
+**Returns:**
+
+- The xNGN balance of the account
+
+
+#### approvexNGN
+
+```ts
+descent.approvexNGN('100'): Promise<{}>
+```
+
+Approves the vault contract to get allowance of specified amount for the xNGN token
+
+**Parameters**
+
+- `amount`: The amount of allowance to give
+
+**Returns:**
+
+- Returns transaction object
