@@ -5,13 +5,13 @@ const addresses: Record<ContractName, Partial<Record<SupportedNetwork | string, 
     [SupportedNetwork.GOERLI]: '0xE2386C5eF4deC9d5815C60168e36c7153ba00D0C',
   },
   MultiStaticcall: {
-    [SupportedNetwork.GOERLI]: '0x16d8d245188f80081CC1B55Cd662fe37C26953D3',
+    [SupportedNetwork.GOERLI]: '0x5226c32C94acdd44743FC5c376582d6782FA7592',
   },
   VaultGetters: {
-    [SupportedNetwork.GOERLI]: '0x7e2A9d40F4A580cef62D542beF3a7Cf38A13a76A',
+    [SupportedNetwork.GOERLI]: '0x63642E2E49922DA2095cFDB0781cFf01a0d69786',
   },
   VaultRouter: {
-    [SupportedNetwork.GOERLI]: '0x3B5137c6f458AfC8Ef02D18Edb213e678e314C54',
+    [SupportedNetwork.GOERLI]: '0x7FCF3897429Af4e5f3A397330AD638D819e53328',
   },
   Currency: {
     [SupportedNetwork.GOERLI]: '0xee2bDAE7896910c49BeA25106B9f8e9f4B671c82',

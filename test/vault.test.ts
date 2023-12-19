@@ -54,8 +54,6 @@ describe('Descent Protocol SDK Test', () => {
   }, 200000);
 
   it('should payback xNGN', async () => {
-    await approvexNGN(vault, '9000', signer, descent.transaction, descent.internal);
-
     const response = await descent.repayCurrency('9000');
 
     await waitTime(60);

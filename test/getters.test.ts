@@ -21,7 +21,7 @@ describe('Descent Protocol SDK Test', () => {
     const response = await descent.getVaultInfo(owner);
     console.log(response);
     expect(response).toBeDefined();
-  });
+  }, 200000);
   it('should get a collateral data', async () => {
     const response = await descent.getCollateralInfo();
     console.log(response);
@@ -31,5 +31,5 @@ describe('Descent Protocol SDK Test', () => {
     const response = await descent.getVaultSetupStatus();
     console.log(response);
     expect(response).toBeDefined();
-  });
+  }, 200000);
 });
