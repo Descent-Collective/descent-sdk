@@ -1,6 +1,6 @@
 {
   "name": "@descent-protocol/sdk",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "A Typescript library for interacting with the Descent Protocol",
   "keywords": [
     "xNGN",
