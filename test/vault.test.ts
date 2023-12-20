@@ -25,6 +25,10 @@ describe('Descent Protocol SDK Test', () => {
     const provider = new ethers.JsonRpcProvider(rpcUrl);
 
     signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+
+    const response = await descent.setupVault();
+
+    console.log('Vault setup');
   }, 120000);
 
   it('should deposit usdc into a vault', async () => {
