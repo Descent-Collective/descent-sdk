@@ -1,14 +1,12 @@
+import { ethers, formatUnits, formatEther, Signer } from 'ethers';
 import {
-  ethers,
-  BigNumberish,
-  AddressLike,
-  formatUnits,
-  NonceManager,
-  parseUnits,
-  parseEther,
-  formatEther,
-  Signer,
-} from 'ethers';
+  AllowanceProvider,
+  AllowanceTransfer,
+  PERMIT2_ADDRESS,
+  MaxAllowanceTransferAmount,
+  PermitSingle,
+} from '@uniswap/Permit2-sdk';
+import { Provider } from '@ethersproject/abstract-provider';
 import { ICollateral, IContract } from '../types';
 import { Transaction } from '../libs/transactions';
 import { getContractAddress } from '../contracts/getContractAddresses';
@@ -26,6 +24,16 @@ export enum VaultHealthFactor {
   UNSAFE = 'UNSAFE',
   SAFE = 'SAFE',
 }
+
+/**
+ * Converts an expiration (in milliseconds) to a deadline (in seconds) suitable for the EVM.
+ * Permit2 expresses expirations as deadlines, but JavaScript usually uses milliseconds,
+ * so this is provided as a convenience function.
+ */
+function toDeadline(expiration: number): number {
+  return Math.floor((Date.now() + expiration) / 1000);
+}
+
 export enum VaultOperations {
   DepositCollateral = 0,
   WithdrawCollateral = 1,
@@ -63,14 +71,50 @@ const collateralizeVault = async (
   chainId: string,
   transaction: Transaction,
   internal: Internal,
+  provider: Provider,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
   const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const vaultRouterAddress: any = getContractAddress('VaultRouter')[chainId];
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
+  // check if token has approved permit
+  // permit 2 signature
+  const allowanceProvider = new AllowanceProvider(signer, PERMIT2_ADDRESS);
+  const {
+    amount: permitAmount,
+    expiration,
+    nonce,
+  } = await allowanceProvider.getAllowanceData(owner, collateralAddress, vaultRouterAddress);
+
+  console.log(permitAmount, 'permit amount');
+
+  const permitSingle: PermitSingle = {
+    details: {
+      token: collateralAddress,
+      amount: _amount,
+      // You may set your own deadline - we use 30 days.
+      expiration: toDeadline(/* 30 days= */ 1000 * 60 * 60 * 24 * 30),
+      nonce,
+    },
+    spender: vaultRouterAddress,
+    // You may set your own deadline - we use 30 minutes.
+    sigDeadline: toDeadline(/* 30 minutes= */ 1000 * 60 * 60 * 30),
+  };
+
+  const { domain, types, values } = await AllowanceTransfer.getPermitData(
+    permitSingle,
+    PERMIT2_ADDRESS,
+    Number(chainId),
+  );
+
+  const signature = await transaction.signTypedData(domain, types, values);
+
+  console.log(signature, 'signature');
+
   // build transaction object
-  const to: any = getContractAddress('VaultRouter')[chainId];
+  const to = vaultRouterAddress;
   let iface = internal.getInterface(VaultRouter__factory.abi);
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],

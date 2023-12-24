@@ -1,5 +1,5 @@
 import { DescentClass } from '../index';
-import { TransactionReceipt, TransactionRequest } from 'ethers';
+import { BigNumberish, BytesLike, TransactionReceipt, TransactionRequest } from 'ethers';
 
 export interface TransactionCallbacks {
   onReceipt?: (receipt: TransactionReceipt) => void;
@@ -8,6 +8,13 @@ export interface TransactionCallbacks {
     receipt: TransactionReceipt | null,
     latestBlockHash?: string,
   ) => void;
+}
+export interface TypedDataDomain {
+  name?: string;
+  version?: string;
+  chainId?: BigNumberish;
+  verifyingContract?: string;
+  salt?: BytesLike;
 }
 
 export class Transaction {
@@ -58,5 +65,16 @@ export class Transaction {
     const transactionCount = await this.descent.signer.provider?.getTransactionCount(address);
 
     return transactionCount;
+  };
+
+  /**
+   * Signs typed data
+   *
+   * @returns Signature
+   */
+  signTypedData = async (domain: any, types: any, value: any) => {
+    const signature = await this.descent.signer.signTypedData(domain, types, value);
+
+    return signature;
   };
 }

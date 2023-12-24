@@ -1,6 +1,6 @@
-import { Eip1193Provider, SigningKey, ethers } from 'ethers';
+import { Eip1193Provider, SigningKey, ethers, Signer } from 'ethers';
 import { ICollateral, IContract, IMode, ISigner } from './types';
-import { Signer, Provider } from 'ethers';
+import { Provider } from '@ethersproject/abstract-provider';
 
 import { SupportedNetwork } from './contracts/types';
 import { waitTime } from './libs/utils';
@@ -150,6 +150,7 @@ export class DescentClass {
       this.chainId,
       this.transaction,
       this.internal,
+      this.provider,
     );
 
     return result;

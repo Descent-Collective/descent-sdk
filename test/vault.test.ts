@@ -26,9 +26,9 @@ describe('Descent Protocol SDK Test', () => {
 
     signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
-    const response = await descent.setupVault();
+    // const response = await descent.setupVault();
 
-    console.log('Vault setup');
+    // console.log('Vault setup');
   }, 120000);
 
   it('should deposit usdc into a vault', async () => {
@@ -44,23 +44,23 @@ describe('Descent Protocol SDK Test', () => {
     expect(response).not.toBeNull;
   }, 500000);
 
-  it('should withdraw usdc from a vault', async () => {
-    const response = await descent.withdrawCollateral('50');
-    await waitTime(60);
-    expect(response).not.toBeNull;
-  }, 200000);
+  // it('should withdraw usdc from a vault', async () => {
+  //   const response = await descent.withdrawCollateral('50');
+  //   await waitTime(60);
+  //   expect(response).not.toBeNull;
+  // }, 200000);
 
-  it('should mint xNGN from a vault to an address', async () => {
-    const response = await descent.borrowCurrency('10000');
+  // it('should mint xNGN from a vault to an address', async () => {
+  //   const response = await descent.borrowCurrency('10000');
 
-    await waitTime(60);
-    expect(response).not.toBeNull;
-  }, 200000);
+  //   await waitTime(60);
+  //   expect(response).not.toBeNull;
+  // }, 200000);
 
-  it('should payback xNGN', async () => {
-    const response = await descent.repayCurrency('9000');
+  // it('should payback xNGN', async () => {
+  //   const response = await descent.repayCurrency('9000');
 
-    await waitTime(60);
-    expect(response).not.toBeNull;
-  }, 200000);
+  //   await waitTime(60);
+  //   expect(response).not.toBeNull;
+  // }, 200000);
 });

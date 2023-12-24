@@ -115,6 +115,7 @@
     }
   },
   "dependencies": {
+    "@uniswap/permit2-sdk": "^1.2.0",
     "ethers": "^6.9.1",
     "ganache": "^7.9.1"
   },
