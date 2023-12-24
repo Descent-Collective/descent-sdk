@@ -168,13 +168,13 @@ Gets detailed information about a vault specified by the owner's address.
 ```ts
     {
       healthFactor: 'Safe',
-      depositedCollateral: '300.0',
-      collateralLocked: 3.636504000000002,
-      borrowedAmount: '3000.0',
-      accruedFees: '0.115509259026984',
-      currentCollateralRatio: '0.9090924378872408%',
-      availableCollateral: '296.363496',
-     availablexNGN: '244499.769094051707348'
+      depositedCollateral: 670000000n,  // returns in 6 decimals - 1e6
+      collateralLocked: 227255070n,  // returns in 6 decimals - 1e6
+      borrowedAmount: 187391000000000000000000n,  // returns in 18 decimals - 1e18
+      accruedFees: 94431149147375637960n,  // returns in 18 decimals - 1e18
+      currentCollateralRatio: 25439000155922303400n,  // returns in 18 decimals - 1e18
+      availableCollateral: 442744930n,  // returns in 6 decimals - 1e6
+      availablexNGN: 365264568850852624362040n  // returns in 18 decimals - 1e18
     }
 ```
 
@@ -280,13 +280,13 @@ Gets information about the collateral initialized in `create()`.
 
 ```ts
 {
-      totalDepositedCollateral: '300.0',
-      totalBorrowedAmount: '3000.0',
-      liquidationThreshold: '75.0%',
-      debtCeiling: '115792089237316195423570985008687907853269984665640564039457.584007913129639935',
-      rate: '475.646879',
-      minDeposit: '0.0',
-      collateralPrice: '1100.0'
+      totalDepositedCollateral: 4004000000n, // returns in 6 decimals - 1e6
+      totalBorrowedAmount: 1668492000000000000000000n,  // returns in 18 decimals - 1e18
+      liquidationThreshold: '75000000000000000000',  // returns in 18 decimals - 1e18 - should be represented in percentage
+      debtCeiling: 115792089237316195423570985008687907853269984665640564039457584007913129639935n,  // returns in 18 decimals - 1e18
+      rate: 2499999994972800000n,  // returns in 18 decimals - 1e18
+      minDeposit: 0n,  // returns in 18 decimals - 1e18
+      collateralPrice: 1100000000n  // returns in 6 decimals - 1e6
     }
 ```
 

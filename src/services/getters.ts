@@ -109,15 +109,13 @@ const getVault = async (
 
   return {
     healthFactor: healthFactor ? 'Safe' : 'Unsafe',
-    depositedCollateral: ethers.formatUnits(depositedCollateral.toString(), 6),
-    collateralLocked:
-      Number(ethers.formatUnits(depositedCollateral.toString(), 6)) -
-      Number(ethers.formatUnits(withdrawableCollateral.toString(), 6)),
-    borrowedAmount: ethers.formatUnits(borrowedAmount.toString(), 18),
-    accruedFees: ethers.formatUnits(_accruedFees.toString(), 18),
-    currentCollateralRatio: `${ethers.formatUnits(collateralRatio.toString(), 16)}`,
-    availableCollateral: ethers.formatUnits(withdrawableCollateral.toString(), 6),
-    availablexNGN: ethers.formatUnits(borrowableAmount.toString(), 18),
+    depositedCollateral: depositedCollateral,
+    collateralLocked: BigInt(depositedCollateral) - BigInt(withdrawableCollateral),
+    borrowedAmount: borrowedAmount,
+    accruedFees: _accruedFees,
+    currentCollateralRatio: collateralRatio[0],
+    availableCollateral: withdrawableCollateral[0],
+    availablexNGN: borrowableAmount[0],
   };
 };
 
@@ -147,13 +145,13 @@ const getCollateralData = async (collateral: ICollateral, chainId: string, signe
   const returnData = (await getCollateralInfo).map((item) => item);
 
   return {
-    totalDepositedCollateral: ethers.formatUnits(returnData[0].toString(), 6),
-    totalBorrowedAmount: ethers.formatUnits(returnData[1].toString(), 18),
-    liquidationThreshold: `${ethers.formatUnits(returnData[2].toString(), 16)}`,
-    debtCeiling: ethers.formatUnits(returnData[3].toString(), 18),
-    rate: ethers.formatUnits(BigInt(returnData[4].toString()), 16),
-    minDeposit: ethers.formatUnits(returnData[5].toString(), 18),
-    collateralPrice: ethers.formatUnits(returnData[6].toString(), 6),
+    totalDepositedCollateral: returnData[0],
+    totalBorrowedAmount: returnData[1],
+    liquidationThreshold: returnData[2],
+    debtCeiling: returnData[3],
+    rate: returnData[4],
+    minDeposit: returnData[5],
+    collateralPrice: returnData[6],
   };
 };
 export { getVault, getCollateralData, checkVaultSetupStatus };

@@ -96,9 +96,25 @@ const getCollateralTokenBalance = async (
   const formattedBalance = formatUnits(balance, 6);
   return formattedBalance;
 };
+
+const getCollateralTokenAllowance = async (
+  collateral: ICollateral,
+  owner: string,
+  spender: string,
+  chainId: string,
+  signer: Signer,
+) => {
+  const collateralAddress: any = getContractAddress(collateral)[chainId];
+
+  const collateralContract = Contract(collateralAddress, USDC__factory.abi, signer);
+  const allowance = await collateralContract.allowance(owner, spender);
+  const formattedAllowance = formatUnits(allowance, 6);
+  return formattedAllowance;
+};
 export {
   getCollateralTokenBalance,
   getCurrencyTokenBalance,
+  getCollateralTokenAllowance,
   approveCollateralToken,
   approveCurrencyToken,
 };
