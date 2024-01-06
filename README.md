@@ -282,9 +282,9 @@ Gets information about the collateral initialized in `create()`.
 {
       totalDepositedCollateral: 4004000000n, // returns in 6 decimals - 1e6
       totalBorrowedAmount: 1668492000000000000000000n,  // returns in 18 decimals - 1e18
-      liquidationThreshold: '75000000000000000000',  // returns in 18 decimals - 1e18 - should be represented in percentage
+      liquidationThreshold: '750000000000000000',  // returns in 18 decimals - 1e16 - should be represented in percentage
       debtCeiling: 115792089237316195423570985008687907853269984665640564039457584007913129639935n,  // returns in 18 decimals - 1e18
-      rate: 2499999994972800000n,  // returns in 18 decimals - 1e18
+      rate: 24999999949728000n,  // returns in 18 decimals - 1e16
       minDeposit: 0n,  // returns in 18 decimals - 1e18
       collateralPrice: 1100000000n  // returns in 6 decimals - 1e6
     }
