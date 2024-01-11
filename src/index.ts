@@ -20,6 +20,7 @@ import {
   approveCurrencyToken,
   getCollateralTokenBalance,
   getCurrencyTokenBalance,
+  getCollateralTokenAllowance,
 } from './services/utility';
 
 export class DescentClass {
@@ -207,6 +208,22 @@ export class DescentClass {
       this.chainId,
       this.internal,
       this.transaction,
+    );
+
+    return result;
+  }
+
+  /**
+   * @dev approve the vault to take a certain amount of collateral
+   * @param amount amount of allowance
+   * @returns tx object
+   */
+  public async collateralTokenAllowance(approver: string) {
+    const result = await getCollateralTokenAllowance(
+      this.collateral,
+      approver,
+      this.chainId,
+      this.signer,
     );
 
     return result;

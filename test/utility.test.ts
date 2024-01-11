@@ -39,4 +39,11 @@ describe('Descent Protocol Utility Test', () => {
     console.log(response);
     expect(response).toBeDefined();
   }, 2000000);
+
+  it('should check for token allowance on vault', async () => {
+    const response = await descent.collateralTokenAllowance(owner);
+    console.log(response);
+
+    expect(response).toBeDefined();
+  });
 });

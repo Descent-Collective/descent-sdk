@@ -100,14 +100,14 @@ const getCollateralTokenBalance = async (
 const getCollateralTokenAllowance = async (
   collateral: ICollateral,
   owner: string,
-  spender: string,
   chainId: string,
   signer: Signer,
 ) => {
   const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const vaultAddress: any = getContractAddress('Vault')[chainId];
 
   const collateralContract = Contract(collateralAddress, USDC__factory.abi, signer);
-  const allowance = await collateralContract.allowance(owner, spender);
+  const allowance = await collateralContract.allowance(owner, vaultAddress);
   const formattedAllowance = formatUnits(allowance, 6);
   return formattedAllowance;
 };
