@@ -1,6 +1,6 @@
 {
   "name": "@descent-protocol/sdk",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "A Typescript library for interacting with the Descent Protocol",
   "keywords": [
     "xNGN",
@@ -79,8 +79,7 @@
     "prepublishOnly": "npm ci && npm run build",
     "dev": "concurrently -c yellow,blue -n RLP,SRV \"npm:build:watch\" \"npm:serve\"",
     "build:types": "tsc --emitDeclarationOnly --project tsconfig.build.json",
-    "build": "node esbuild.js",
-    "build:rollup": "rollup -c",
+    "build": "rollup -c",
     "test": "jest --coverage ./test/",
     "test:getter": "jest ./test/getters.test.ts",
     "test:vault": "jest ./test/vault.test.ts",
