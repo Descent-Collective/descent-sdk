@@ -5,4 +5,5 @@ export default {
   VaultRouterAbi: require('./VaultRouter.json'),
   VaultGetterAbi: require('./VaultGetter.json'),
   VaultAbi: require('./Vault.json'),
+  RateAbi: require('./Rate.json'),
 };

@@ -14,10 +14,10 @@ const getVault = async (
   internal: Internal,
   signer: Signer,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-  const vaultGettersAddress: any = getContractAddress('VaultGetters')[chainId];
-  const multiStaticcallAddress: any = getContractAddress('MultiStaticcall')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
+  const vaultGettersAddress: any = getContractAddress('VaultGetters', chainId);
+  const multiStaticcallAddress: any = getContractAddress('MultiStaticcall', chainId);
 
   const multiStaticcallContract = Contract(
     multiStaticcallAddress,
@@ -120,8 +120,8 @@ const getVault = async (
 };
 
 const checkVaultSetupStatus = async (owner: string, chainId: string, signer: Signer) => {
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-  const vaultRouterAddress: any = getContractAddress('VaultRouter')[chainId];
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
+  const vaultRouterAddress: any = getContractAddress('VaultRouter', chainId);
 
   const vaultContract = Contract(vaultContractAddress, Vault__factory.abi, signer);
 
@@ -131,9 +131,9 @@ const checkVaultSetupStatus = async (owner: string, chainId: string, signer: Sig
 };
 
 const getCollateralData = async (collateral: ICollateral, chainId: string, signer: Signer) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-  const vaultGetterAddress: any = getContractAddress('VaultGetters')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
+  const vaultGetterAddress: any = getContractAddress('VaultGetters', chainId);
 
   const vaultGetterContract = Contract(vaultGetterAddress, VaultGetters__factory.abi, signer);
 

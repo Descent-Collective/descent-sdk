@@ -4,6 +4,7 @@
 export { Currency__factory } from "./Currency__factory";
 export { Feed__factory } from "./Feed__factory";
 export { MultiStaticcall__factory } from "./MultiStaticcall__factory";
+export { Rate__factory } from "./Rate__factory";
 export { USDC__factory } from "./USDC__factory";
 export { Vault__factory } from "./Vault__factory";
 export { VaultGetters__factory } from "./VaultGetters__factory";

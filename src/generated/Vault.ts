@@ -41,35 +41,39 @@ export interface VaultInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "CURRENCY_TOKEN"
-      | "DEFAULT_ADMIN_ROLE"
-      | "accruedFees"
       | "baseRateInfo"
       | "burnCurrency"
+      | "cancelOwnershipHandover"
       | "collateralMapping"
+      | "completeOwnershipHandover"
       | "createCollateralType"
       | "debt"
+      | "debtCeiling"
       | "deny"
       | "depositCollateral"
-      | "getRoleAdmin"
-      | "grantRole"
-      | "hasRole"
+      | "feedModule"
       | "liquidate"
       | "mintCurrency"
+      | "owner"
+      | "ownershipHandoverExpiresAt"
       | "paidFees"
       | "pause"
+      | "rateModule"
       | "recoverToken"
       | "rely"
       | "relyMapping"
-      | "renounceRole"
-      | "revokeRole"
+      | "renounceOwnership"
+      | "requestOwnershipHandover"
+      | "stabilityModule"
       | "status"
-      | "supportsInterface"
+      | "transferOwnership"
       | "unpause"
       | "updateBaseRate"
       | "updateCollateralData"
-      | "updateCollateralRate"
-      | "updateFeedContract"
+      | "updateDebtCeiling"
+      | "updateFeedModule"
       | "updatePrice"
+      | "updateRateModule"
       | "updateStabilityModule"
       | "vaultMapping"
       | "withdrawCollateral"
@@ -85,21 +89,13 @@ export interface VaultInterface extends Interface {
       | "CurrencyMinted"
       | "FeesPaid"
       | "Liquidated"
-      | "RoleAdminChanged"
-      | "RoleGranted"
-      | "RoleRevoked"
+      | "OwnershipHandoverCanceled"
+      | "OwnershipHandoverRequested"
+      | "OwnershipTransferred"
   ): EventFragment;
 
   encodeFunctionData(
     functionFragment: "CURRENCY_TOKEN",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "accruedFees",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -111,7 +107,15 @@ export interface VaultInterface extends Interface {
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "cancelOwnershipHandover",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "collateralMapping",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "completeOwnershipHandover",
     values: [AddressLike]
   ): string;
   encodeFunctionData(
@@ -126,22 +130,18 @@ export interface VaultInterface extends Interface {
     ]
   ): string;
   encodeFunctionData(functionFragment: "debt", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "debtCeiling",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "deny", values: [AddressLike]): string;
   encodeFunctionData(
     functionFragment: "depositCollateral",
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [BytesLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "feedModule",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "liquidate",
@@ -151,8 +151,17 @@ export interface VaultInterface extends Interface {
     functionFragment: "mintCurrency",
     values: [AddressLike, AddressLike, AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "ownershipHandoverExpiresAt",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(functionFragment: "paidFees", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "rateModule",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "recoverToken",
     values: [AddressLike, AddressLike]
@@ -163,17 +172,21 @@ export interface VaultInterface extends Interface {
     values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "renounceOwnership",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "requestOwnershipHandover",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "stabilityModule",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
+    functionFragment: "transferOwnership",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
   encodeFunctionData(
@@ -185,16 +198,20 @@ export interface VaultInterface extends Interface {
     values: [AddressLike, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "updateCollateralRate",
-    values: [AddressLike, BigNumberish]
+    functionFragment: "updateDebtCeiling",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "updateFeedContract",
+    functionFragment: "updateFeedModule",
     values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "updatePrice",
     values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateRateModule",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "updateStabilityModule",
@@ -210,19 +227,11 @@ export interface VaultInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawFees",
-    values: [AddressLike, BigNumberish]
+    values?: undefined
   ): string;
 
   decodeFunctionResult(
     functionFragment: "CURRENCY_TOKEN",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "accruedFees",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -234,7 +243,15 @@ export interface VaultInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "cancelOwnershipHandover",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "collateralMapping",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "completeOwnershipHandover",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -242,24 +259,29 @@ export interface VaultInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "debt", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "debtCeiling",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "deny", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "depositCollateral",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "feedModule", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "liquidate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "mintCurrency",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ownershipHandoverExpiresAt",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "paidFees", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "rateModule", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "recoverToken",
     data: BytesLike
@@ -270,13 +292,20 @@ export interface VaultInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "renounceRole",
+    functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "requestOwnershipHandover",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "stabilityModule",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "supportsInterface",
+    functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
@@ -289,15 +318,19 @@ export interface VaultInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "updateCollateralRate",
+    functionFragment: "updateDebtCeiling",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "updateFeedContract",
+    functionFragment: "updateFeedModule",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "updatePrice",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateRateModule",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -425,21 +458,11 @@ export namespace LiquidatedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RoleAdminChangedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    previousAdminRole: BytesLike,
-    newAdminRole: BytesLike
-  ];
-  export type OutputTuple = [
-    role: string,
-    previousAdminRole: string,
-    newAdminRole: string
-  ];
+export namespace OwnershipHandoverCanceledEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
   export interface OutputObject {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
+    pendingOwner: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -447,17 +470,11 @@ export namespace RoleAdminChangedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RoleGrantedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
-  ];
-  export type OutputTuple = [role: string, account: string, sender: string];
+export namespace OwnershipHandoverRequestedEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
   export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
+    pendingOwner: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -465,17 +482,12 @@ export namespace RoleGrantedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RoleRevokedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
-  ];
-  export type OutputTuple = [role: string, account: string, sender: string];
+export namespace OwnershipTransferredEvent {
+  export type InputTuple = [oldOwner: AddressLike, newOwner: AddressLike];
+  export type OutputTuple = [oldOwner: string, newOwner: string];
   export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
+    oldOwner: string;
+    newOwner: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -528,10 +540,6 @@ export interface Vault extends BaseContract {
 
   CURRENCY_TOKEN: TypedContractMethod<[], [string], "view">;
 
-  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
-
-  accruedFees: TypedContractMethod<[], [bigint], "view">;
-
   baseRateInfo: TypedContractMethod<
     [],
     [
@@ -550,6 +558,8 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
 
+  cancelOwnershipHandover: TypedContractMethod<[], [void], "payable">;
+
   collateralMapping: TypedContractMethod<
     [arg0: AddressLike],
     [
@@ -562,24 +572,26 @@ export interface Vault extends BaseContract {
         bigint,
         bigint,
         bigint,
-        bigint,
-        bigint,
-        boolean
+        bigint
       ] & {
         totalDepositedCollateral: bigint;
         totalBorrowedAmount: bigint;
         liquidationThreshold: bigint;
         liquidationBonus: bigint;
         rateInfo: IVault.RateInfoStructOutput;
-        paidFees: bigint;
         price: bigint;
         debtCeiling: bigint;
         collateralFloorPerPosition: bigint;
         additionalCollateralPrecision: bigint;
-        exists: boolean;
       }
     ],
     "view"
+  >;
+
+  completeOwnershipHandover: TypedContractMethod<
+    [pendingOwner: AddressLike],
+    [void],
+    "payable"
   >;
 
   createCollateralType: TypedContractMethod<
@@ -597,6 +609,8 @@ export interface Vault extends BaseContract {
 
   debt: TypedContractMethod<[], [bigint], "view">;
 
+  debtCeiling: TypedContractMethod<[], [bigint], "view">;
+
   deny: TypedContractMethod<[_reliedUpon: AddressLike], [void], "nonpayable">;
 
   depositCollateral: TypedContractMethod<
@@ -605,19 +619,7 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
 
-  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
-
-  grantRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-
-  hasRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [boolean],
-    "view"
-  >;
+  feedModule: TypedContractMethod<[], [string], "view">;
 
   liquidate: TypedContractMethod<
     [
@@ -641,9 +643,19 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
 
+  owner: TypedContractMethod<[], [string], "view">;
+
+  ownershipHandoverExpiresAt: TypedContractMethod<
+    [pendingOwner: AddressLike],
+    [bigint],
+    "view"
+  >;
+
   paidFees: TypedContractMethod<[], [bigint], "view">;
 
   pause: TypedContractMethod<[], [void], "nonpayable">;
+
+  rateModule: TypedContractMethod<[], [string], "view">;
 
   recoverToken: TypedContractMethod<
     [_tokenAddress: AddressLike, _to: AddressLike],
@@ -659,24 +671,18 @@ export interface Vault extends BaseContract {
     "view"
   >;
 
-  renounceRole: TypedContractMethod<
-    [role: BytesLike, callerConfirmation: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  renounceOwnership: TypedContractMethod<[], [void], "payable">;
 
-  revokeRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  requestOwnershipHandover: TypedContractMethod<[], [void], "payable">;
+
+  stabilityModule: TypedContractMethod<[], [string], "view">;
 
   status: TypedContractMethod<[], [bigint], "view">;
 
-  supportsInterface: TypedContractMethod<
-    [interfaceId: BytesLike],
-    [boolean],
-    "view"
+  transferOwnership: TypedContractMethod<
+    [newOwner: AddressLike],
+    [void],
+    "payable"
   >;
 
   unpause: TypedContractMethod<[], [void], "nonpayable">;
@@ -693,20 +699,26 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
 
-  updateCollateralRate: TypedContractMethod<
-    [_collateralToken: AddressLike, _rate: BigNumberish],
+  updateDebtCeiling: TypedContractMethod<
+    [_debtCeiling: BigNumberish],
     [void],
     "nonpayable"
   >;
 
-  updateFeedContract: TypedContractMethod<
-    [_feedContract: AddressLike],
+  updateFeedModule: TypedContractMethod<
+    [_feedModule: AddressLike],
     [void],
     "nonpayable"
   >;
 
   updatePrice: TypedContractMethod<
     [_collateralAddress: AddressLike, _price: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateRateModule: TypedContractMethod<
+    [_rateModule: AddressLike],
     [void],
     "nonpayable"
   >;
@@ -741,11 +753,7 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
 
-  withdrawFees: TypedContractMethod<
-    [_collateralToken: AddressLike, _amount: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
+  withdrawFees: TypedContractMethod<[], [void], "nonpayable">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -754,12 +762,6 @@ export interface Vault extends BaseContract {
   getFunction(
     nameOrSignature: "CURRENCY_TOKEN"
   ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "DEFAULT_ADMIN_ROLE"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "accruedFees"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "baseRateInfo"
   ): TypedContractMethod<
@@ -781,6 +783,9 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "cancelOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
     nameOrSignature: "collateralMapping"
   ): TypedContractMethod<
     [arg0: AddressLike],
@@ -794,25 +799,24 @@ export interface Vault extends BaseContract {
         bigint,
         bigint,
         bigint,
-        bigint,
-        bigint,
-        boolean
+        bigint
       ] & {
         totalDepositedCollateral: bigint;
         totalBorrowedAmount: bigint;
         liquidationThreshold: bigint;
         liquidationBonus: bigint;
         rateInfo: IVault.RateInfoStructOutput;
-        paidFees: bigint;
         price: bigint;
         debtCeiling: bigint;
         collateralFloorPerPosition: bigint;
         additionalCollateralPrecision: bigint;
-        exists: boolean;
       }
     ],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "completeOwnershipHandover"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [void], "payable">;
   getFunction(
     nameOrSignature: "createCollateralType"
   ): TypedContractMethod<
@@ -831,6 +835,9 @@ export interface Vault extends BaseContract {
     nameOrSignature: "debt"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
+    nameOrSignature: "debtCeiling"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "deny"
   ): TypedContractMethod<[_reliedUpon: AddressLike], [void], "nonpayable">;
   getFunction(
@@ -841,22 +848,8 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "getRoleAdmin"
-  ): TypedContractMethod<[role: BytesLike], [string], "view">;
-  getFunction(
-    nameOrSignature: "grantRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "hasRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [boolean],
-    "view"
-  >;
+    nameOrSignature: "feedModule"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "liquidate"
   ): TypedContractMethod<
@@ -882,11 +875,20 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "owner"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "ownershipHandoverExpiresAt"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [bigint], "view">;
+  getFunction(
     nameOrSignature: "paidFees"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "pause"
   ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "rateModule"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "recoverToken"
   ): TypedContractMethod<
@@ -905,25 +907,20 @@ export interface Vault extends BaseContract {
     "view"
   >;
   getFunction(
-    nameOrSignature: "renounceRole"
-  ): TypedContractMethod<
-    [role: BytesLike, callerConfirmation: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "renounceOwnership"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "revokeRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "requestOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "stabilityModule"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "status"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "supportsInterface"
-  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "payable">;
   getFunction(
     nameOrSignature: "unpause"
   ): TypedContractMethod<[], [void], "nonpayable">;
@@ -938,15 +935,11 @@ export interface Vault extends BaseContract {
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "updateCollateralRate"
-  ): TypedContractMethod<
-    [_collateralToken: AddressLike, _rate: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "updateDebtCeiling"
+  ): TypedContractMethod<[_debtCeiling: BigNumberish], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "updateFeedContract"
-  ): TypedContractMethod<[_feedContract: AddressLike], [void], "nonpayable">;
+    nameOrSignature: "updateFeedModule"
+  ): TypedContractMethod<[_feedModule: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "updatePrice"
   ): TypedContractMethod<
@@ -954,6 +947,9 @@ export interface Vault extends BaseContract {
     [void],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "updateRateModule"
+  ): TypedContractMethod<[_rateModule: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "updateStabilityModule"
   ): TypedContractMethod<[_stabilityModule: AddressLike], [void], "nonpayable">;
@@ -985,11 +981,7 @@ export interface Vault extends BaseContract {
   >;
   getFunction(
     nameOrSignature: "withdrawFees"
-  ): TypedContractMethod<
-    [_collateralToken: AddressLike, _amount: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
+  ): TypedContractMethod<[], [void], "nonpayable">;
 
   getEvent(
     key: "CollateralDeposited"
@@ -1041,25 +1033,25 @@ export interface Vault extends BaseContract {
     LiquidatedEvent.OutputObject
   >;
   getEvent(
-    key: "RoleAdminChanged"
+    key: "OwnershipHandoverCanceled"
   ): TypedContractEvent<
-    RoleAdminChangedEvent.InputTuple,
-    RoleAdminChangedEvent.OutputTuple,
-    RoleAdminChangedEvent.OutputObject
+    OwnershipHandoverCanceledEvent.InputTuple,
+    OwnershipHandoverCanceledEvent.OutputTuple,
+    OwnershipHandoverCanceledEvent.OutputObject
   >;
   getEvent(
-    key: "RoleGranted"
+    key: "OwnershipHandoverRequested"
   ): TypedContractEvent<
-    RoleGrantedEvent.InputTuple,
-    RoleGrantedEvent.OutputTuple,
-    RoleGrantedEvent.OutputObject
+    OwnershipHandoverRequestedEvent.InputTuple,
+    OwnershipHandoverRequestedEvent.OutputTuple,
+    OwnershipHandoverRequestedEvent.OutputObject
   >;
   getEvent(
-    key: "RoleRevoked"
+    key: "OwnershipTransferred"
   ): TypedContractEvent<
-    RoleRevokedEvent.InputTuple,
-    RoleRevokedEvent.OutputTuple,
-    RoleRevokedEvent.OutputObject
+    OwnershipTransferredEvent.InputTuple,
+    OwnershipTransferredEvent.OutputTuple,
+    OwnershipTransferredEvent.OutputObject
   >;
 
   filters: {
@@ -1140,37 +1132,37 @@ export interface Vault extends BaseContract {
       LiquidatedEvent.OutputObject
     >;
 
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
-      RoleAdminChangedEvent.InputTuple,
-      RoleAdminChangedEvent.OutputTuple,
-      RoleAdminChangedEvent.OutputObject
+    "OwnershipHandoverCanceled(address)": TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
     >;
-    RoleAdminChanged: TypedContractEvent<
-      RoleAdminChangedEvent.InputTuple,
-      RoleAdminChangedEvent.OutputTuple,
-      RoleAdminChangedEvent.OutputObject
-    >;
-
-    "RoleGranted(bytes32,address,address)": TypedContractEvent<
-      RoleGrantedEvent.InputTuple,
-      RoleGrantedEvent.OutputTuple,
-      RoleGrantedEvent.OutputObject
-    >;
-    RoleGranted: TypedContractEvent<
-      RoleGrantedEvent.InputTuple,
-      RoleGrantedEvent.OutputTuple,
-      RoleGrantedEvent.OutputObject
+    OwnershipHandoverCanceled: TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
     >;
 
-    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
-      RoleRevokedEvent.InputTuple,
-      RoleRevokedEvent.OutputTuple,
-      RoleRevokedEvent.OutputObject
+    "OwnershipHandoverRequested(address)": TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
     >;
-    RoleRevoked: TypedContractEvent<
-      RoleRevokedEvent.InputTuple,
-      RoleRevokedEvent.OutputTuple,
-      RoleRevokedEvent.OutputObject
+    OwnershipHandoverRequested: TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+
+    "OwnershipTransferred(address,address)": TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+    OwnershipTransferred: TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
     >;
   };
 }

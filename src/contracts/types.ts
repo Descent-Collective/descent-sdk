@@ -5,8 +5,10 @@ export type ContractName =
   | 'MultiStaticcall'
   | 'VaultGetters'
   | 'VaultRouter'
-  | 'Feed';
+  | 'Feed'
+  | 'Rate';
 
 export enum SupportedNetwork {
-  GOERLI = '84531',
+  BASE_GOERLI = '84531',
+  BASE_SEPOLIA = '84532',
 }

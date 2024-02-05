@@ -3,11 +3,11 @@
 /* eslint-disable */
 import type {
   BaseContract,
-  BigNumberish,
   BytesLike,
   FunctionFragment,
   Result,
   Interface,
+  EventFragment,
   AddressLike,
   ContractRunner,
   ContractMethod,
@@ -17,28 +17,136 @@ import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
+  TypedLogDescription,
   TypedListener,
   TypedContractMethod,
 } from "./common";
 
 export interface VaultRouterInterface extends Interface {
-  getFunction(nameOrSignature: "multiInteract"): FunctionFragment;
+  getFunction(
+    nameOrSignature:
+      | "approveTokenForVault"
+      | "cancelOwnershipHandover"
+      | "completeOwnershipHandover"
+      | "multiInteract"
+      | "owner"
+      | "ownershipHandoverExpiresAt"
+      | "renounceOwnership"
+      | "requestOwnershipHandover"
+      | "transferOwnership"
+  ): FunctionFragment;
+
+  getEvent(
+    nameOrSignatureOrTopic:
+      | "OwnershipHandoverCanceled"
+      | "OwnershipHandoverRequested"
+      | "OwnershipTransferred"
+  ): EventFragment;
 
   encodeFunctionData(
+    functionFragment: "approveTokenForVault",
+    values: [AddressLike, AddressLike, boolean]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "cancelOwnershipHandover",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "completeOwnershipHandover",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "multiInteract",
-    values: [
-      AddressLike[],
-      BigNumberish[],
-      AddressLike[],
-      AddressLike[],
-      BigNumberish[]
-    ]
+    values: [BytesLike, BytesLike[]]
+  ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "ownershipHandoverExpiresAt",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "requestOwnershipHandover",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [AddressLike]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "approveTokenForVault",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "cancelOwnershipHandover",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "completeOwnershipHandover",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "multiInteract",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ownershipHandoverExpiresAt",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "requestOwnershipHandover",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+}
+
+export namespace OwnershipHandoverCanceledEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
+  export interface OutputObject {
+    pendingOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipHandoverRequestedEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
+  export interface OutputObject {
+    pendingOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipTransferredEvent {
+  export type InputTuple = [oldOwner: AddressLike, newOwner: AddressLike];
+  export type OutputTuple = [oldOwner: string, newOwner: string];
+  export interface OutputObject {
+    oldOwner: string;
+    newOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export interface VaultRouter extends BaseContract {
@@ -84,16 +192,42 @@ export interface VaultRouter extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  multiInteract: TypedContractMethod<
-    [
-      _vaultContracts: AddressLike[],
-      _operations: BigNumberish[],
-      _collateralTokens: AddressLike[],
-      _tos: AddressLike[],
-      _amounts: BigNumberish[]
-    ],
+  approveTokenForVault: TypedContractMethod<
+    [_token: AddressLike, _vaultAddress: AddressLike, isMax: boolean],
     [void],
     "nonpayable"
+  >;
+
+  cancelOwnershipHandover: TypedContractMethod<[], [void], "payable">;
+
+  completeOwnershipHandover: TypedContractMethod<
+    [pendingOwner: AddressLike],
+    [void],
+    "payable"
+  >;
+
+  multiInteract: TypedContractMethod<
+    [_packedOperations: BytesLike, _encodedParameters: BytesLike[]],
+    [void],
+    "nonpayable"
+  >;
+
+  owner: TypedContractMethod<[], [string], "view">;
+
+  ownershipHandoverExpiresAt: TypedContractMethod<
+    [pendingOwner: AddressLike],
+    [bigint],
+    "view"
+  >;
+
+  renounceOwnership: TypedContractMethod<[], [void], "payable">;
+
+  requestOwnershipHandover: TypedContractMethod<[], [void], "payable">;
+
+  transferOwnership: TypedContractMethod<
+    [newOwner: AddressLike],
+    [void],
+    "payable"
   >;
 
   getFunction<T extends ContractMethod = ContractMethod>(
@@ -101,18 +235,95 @@ export interface VaultRouter extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "multiInteract"
+    nameOrSignature: "approveTokenForVault"
   ): TypedContractMethod<
-    [
-      _vaultContracts: AddressLike[],
-      _operations: BigNumberish[],
-      _collateralTokens: AddressLike[],
-      _tos: AddressLike[],
-      _amounts: BigNumberish[]
-    ],
+    [_token: AddressLike, _vaultAddress: AddressLike, isMax: boolean],
     [void],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "cancelOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "completeOwnershipHandover"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [void], "payable">;
+  getFunction(
+    nameOrSignature: "multiInteract"
+  ): TypedContractMethod<
+    [_packedOperations: BytesLike, _encodedParameters: BytesLike[]],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "owner"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "ownershipHandoverExpiresAt"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "renounceOwnership"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "requestOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "payable">;
 
-  filters: {};
+  getEvent(
+    key: "OwnershipHandoverCanceled"
+  ): TypedContractEvent<
+    OwnershipHandoverCanceledEvent.InputTuple,
+    OwnershipHandoverCanceledEvent.OutputTuple,
+    OwnershipHandoverCanceledEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipHandoverRequested"
+  ): TypedContractEvent<
+    OwnershipHandoverRequestedEvent.InputTuple,
+    OwnershipHandoverRequestedEvent.OutputTuple,
+    OwnershipHandoverRequestedEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipTransferred"
+  ): TypedContractEvent<
+    OwnershipTransferredEvent.InputTuple,
+    OwnershipTransferredEvent.OutputTuple,
+    OwnershipTransferredEvent.OutputObject
+  >;
+
+  filters: {
+    "OwnershipHandoverCanceled(address)": TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
+    >;
+    OwnershipHandoverCanceled: TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
+    >;
+
+    "OwnershipHandoverRequested(address)": TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+    OwnershipHandoverRequested: TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+
+    "OwnershipTransferred(address,address)": TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+    OwnershipTransferred: TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+  };
 }

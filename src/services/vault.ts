@@ -38,10 +38,10 @@ const setupVault = async (
   transaction: Transaction,
   internal: Internal,
 ) => {
-  const vaultRouterAddress: any = getContractAddress('VaultRouter')[chainId];
+  const vaultRouterAddress: any = getContractAddress('VaultRouter', chainId);
 
   // build transaction object
-  const to: any = getContractAddress('Vault')[chainId];
+  const to: any = getContractAddress('Vault', chainId);
   let iface = internal.getInterface(Vault__factory.abi);
   const data = iface.encodeFunctionData('rely', [vaultRouterAddress]);
 
@@ -64,13 +64,13 @@ const collateralizeVault = async (
   transaction: Transaction,
   internal: Internal,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
   // build transaction object
-  const to: any = getContractAddress('VaultRouter')[chainId];
+  const to: any = getContractAddress('VaultRouter', chainId);
   let iface = internal.getInterface(VaultRouter__factory.abi);
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],
@@ -99,15 +99,15 @@ const withdrawCollateral = async (
   internal: Internal,
   signer: Signer,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-  const vaultGetterAddress: any = getContractAddress('VaultGetters')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
+  const vaultGetterAddress: any = getContractAddress('VaultGetters', chainId);
 
   const vaultGetterContract = Contract(vaultGetterAddress, VaultGetters__factory.abi, signer);
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
-  const to: any = getContractAddress('VaultRouter')[chainId];
+  const to: any = getContractAddress('VaultRouter', chainId);
   let iface = internal.getInterface(VaultRouter__factory.abi);
 
   const maxWithdrawable = await vaultGetterContract.getMaxWithdrawable(
@@ -149,9 +149,9 @@ const mintCurrency = async (
   internal: Internal,
   signer: Signer,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
-  const vaultGetterAddress: any = getContractAddress('VaultGetters')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
+  const vaultGetterAddress: any = getContractAddress('VaultGetters', chainId);
 
   const vaultGetterContract = Contract(vaultGetterAddress, VaultGetters__factory.abi, signer);
 
@@ -170,7 +170,7 @@ const mintCurrency = async (
   }
 
   // build transaction object
-  const to: any = getContractAddress('VaultRouter')[chainId];
+  const to: any = getContractAddress('VaultRouter', chainId);
   let iface = internal.getInterface(VaultRouter__factory.abi);
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],
@@ -199,10 +199,10 @@ const burnCurrency = async (
   internal: Internal,
   signer: Signer,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultContractAddress: any = getContractAddress('Vault')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultContractAddress: any = getContractAddress('Vault', chainId);
 
-  const currencyContractAddress: any = getContractAddress('Currency')[chainId];
+  const currencyContractAddress: any = getContractAddress('Currency', chainId);
 
   const currencyContract = Contract(currencyContractAddress, Currency__factory.abi, signer);
 
@@ -217,7 +217,7 @@ const burnCurrency = async (
   }
 
   // build transaction object
-  const to: any = getContractAddress('VaultRouter')[chainId];
+  const to: any = getContractAddress('VaultRouter', chainId);
   let iface = internal.getInterface(VaultRouter__factory.abi);
   const data = iface.encodeFunctionData('multiInteract', [
     [vaultContractAddress],

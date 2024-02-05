@@ -286,7 +286,10 @@ async function create(
   }
   const chainId = (await provider.getNetwork()).chainId.toString(10);
 
-  if (![chainId].includes(SupportedNetwork.GOERLI)) {
+  if (
+    ![chainId].includes(SupportedNetwork.BASE_GOERLI) ||
+    ![chainId].includes(SupportedNetwork.BASE_SEPOLIA)
+  ) {
     throw new Error(`chainId '${chainId}' is not supported.`);
   }
 
