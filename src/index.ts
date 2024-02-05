@@ -268,6 +268,8 @@ async function create(
     collateral: ICollateral;
   },
 ) {
+  const supportedNetworks = [SupportedNetwork.BASE_GOERLI, SupportedNetwork.BASE_SEPOLIA];
+
   // Validate required options
   if (!options.collateral) {
     throw new Error('Missing required options');
@@ -286,10 +288,7 @@ async function create(
   }
   const chainId = (await provider.getNetwork()).chainId.toString(10);
 
-  if (
-    ![chainId].includes(SupportedNetwork.BASE_GOERLI) ||
-    ![chainId].includes(SupportedNetwork.BASE_SEPOLIA)
-  ) {
+  if (!supportedNetworks.includes(chainId)) {
     throw new Error(`chainId '${chainId}' is not supported.`);
   }
 
