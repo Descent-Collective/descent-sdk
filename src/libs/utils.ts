@@ -43,7 +43,7 @@ const approveUSDC = async (
   const owner = await signer.getAddress();
 
   // build transaction object
-  const to: any = getContractAddress('USDC')[chainId!];
+  const to: any = getContractAddress('USDC', chainId);
   let iface = internal.getInterface(USDC__factory.abi);
   const data = iface.encodeFunctionData('approve', [spender, amount]);
 
@@ -62,8 +62,8 @@ const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolv
 // const updateTestPrice = async (signer: Signer) => {
 //   const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-//   const collateralAddress: any = getContractAddress('USDC')[chainId!];
-//   const feedContractAddress: any = getContractAddress('Feed')[chainId!];
+//   const collateralAddress: any = getContractAddress('USDC', chainId);
+//   const feedContractAddress: any = getContractAddress('Feed', chainId);
 //   const contract = new ContractManager(signer);
 
 //   await (await contract.getVaultContract()).updateFeedContract(feedContractAddress);
@@ -81,7 +81,7 @@ const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolv
 // const setMinterRole = async (signer: Signer, owner: string) => {
 //   const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-//   const vaultContractAddress: any = getContractAddress('Vault')[chainId!];
+//   const vaultContractAddress: any = getContractAddress('Vault', chainId);
 //   const contract = new ContractManager(signer);
 
 //   await (await contract.getCurrencyContract()).setMinterRole(vaultContractAddress);
@@ -92,7 +92,7 @@ const waitTime = (seconds: number) => new Promise((resolve) => setTimeout(resolv
 const getxNGNBalance = async (owner: any, signer?: Signer) => {
   const chainId = (await signer?.provider?.getNetwork())?.chainId.toString();
 
-  const currencyContractAddress: any = getContractAddress('Currency')[chainId];
+  const currencyContractAddress: any = getContractAddress('Currency', chainId);
 
   const currencyContract = Contract(currencyContractAddress, Currency__factory.abi, signer);
   const balance = await currencyContract.balanceOf(owner);
@@ -115,7 +115,7 @@ const approvexNGN = async (
   const _amount = BigInt(amount) * BigInt(10e18);
 
   // build transaction object
-  const to: any = getContractAddress('Currency')[chainId!];
+  const to: any = getContractAddress('Currency', chainId);
   let iface = internal.getInterface(Currency__factory.abi);
   const data = iface.encodeFunctionData('approve', [spender, _amount]);
 

@@ -8,6 +8,7 @@ import {
   parseEther,
   formatEther,
   Signer,
+  AbiCoder,
 } from 'ethers';
 import { ICollateral, IContract } from '../types';
 import { Transaction } from '../libs/transactions';
@@ -27,10 +28,19 @@ export enum VaultHealthFactor {
   SAFE = 'SAFE',
 }
 export enum VaultOperations {
-  DepositCollateral = 0,
-  WithdrawCollateral = 1,
-  MintCurrency = 2,
-  BurnCurrency = 3,
+  Invalid = 0,
+  // Vault operations
+  DepositCollateral = 1,
+  WithdrawCollateral = 2,
+  MintCurrency = 3,
+  BurnCurrency = 4,
+  // Permit2 operations
+  Permit2_PermitTransferFrom = 5,
+  Permit2_Permit = 5,
+  Permit2_TransferFrom = 6,
+  /// ERC20 Operations
+  ERC20_Permit = 7,
+  ERC20_TransferFrom = 8,
 }
 const setupVault = async (
   owner: string,
@@ -64,21 +74,34 @@ const collateralizeVault = async (
   transaction: Transaction,
   internal: Internal,
 ) => {
+  const abiCoder = AbiCoder.defaultAbiCoder();
   const collateralAddress: any = getContractAddress(collateral, chainId);
   const vaultContractAddress: any = getContractAddress('Vault', chainId);
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
+  // encode
   // build transaction object
   const to: any = getContractAddress('VaultRouter', chainId);
   let iface = internal.getInterface(VaultRouter__factory.abi);
-  const data = iface.encodeFunctionData('multiInteract', [
-    [vaultContractAddress],
-    [VaultOperations.DepositCollateral],
-    [collateralAddress],
-    [ethers.ZeroAddress],
-    [_amount],
-  ]);
+
+  const packedOperations = ethers.solidityPacked(
+    ['uint8', 'uint8'],
+    [VaultOperations.ERC20_TransferFrom, VaultOperations.DepositCollateral],
+  );
+  let encodedParameters = [];
+
+  encodedParameters.push(
+    abiCoder.encode(
+      ['address', 'address', 'uint256'],
+      [vaultContractAddress, collateralAddress, _amount],
+    ),
+  );
+  encodedParameters.push(abiCoder.encode(['address', 'uint256'], [collateralAddress, _amount]));
+
+  console.log(encodedParameters, 'encoded parameters');
+
+  const data = iface.encodeFunctionData('multiInteract', [packedOperations, encodedParameters]);
 
   const txConfig = await internal.getTransactionConfig({
     from: owner,

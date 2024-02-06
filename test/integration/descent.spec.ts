@@ -1,11 +1,11 @@
 import { config } from 'dotenv';
 import Descent from '../../dist/index.es';
-import type { IDescentClass } from '../../dist/types/types';
+import type { IDescentClass } from '../../dist/types';
 
 config();
 
 describe('Descent Protocol SDK Test', () => {
-  let descent: any;
+  let descent: IDescentClass;
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
   let rpcUrl = 'https://goerli.base.org';
 
