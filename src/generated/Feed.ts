@@ -26,18 +26,18 @@ import type {
 export interface FeedInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "DEFAULT_ADMIN_ROLE"
+      | "cancelOwnershipHandover"
       | "collaterals"
-      | "getRoleAdmin"
-      | "grantRole"
-      | "hasRole"
+      | "completeOwnershipHandover"
       | "mockUpdatePrice"
+      | "owner"
+      | "ownershipHandoverExpiresAt"
       | "pause"
-      | "renounceRole"
-      | "revokeRole"
-      | "setPriceOracleContract"
+      | "renounceOwnership"
+      | "requestOwnershipHandover"
+      | "setCollateralOSM"
       | "status"
-      | "supportsInterface"
+      | "transferOwnership"
       | "unpause"
       | "updatePrice"
       | "vault"
@@ -45,14 +45,14 @@ export interface FeedInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
+      | "OwnershipHandoverCanceled"
+      | "OwnershipHandoverRequested"
+      | "OwnershipTransferred"
       | "Read"
-      | "RoleAdminChanged"
-      | "RoleGranted"
-      | "RoleRevoked"
   ): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
+    functionFragment: "cancelOwnershipHandover",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -60,38 +60,35 @@ export interface FeedInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [BytesLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "completeOwnershipHandover",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "mockUpdatePrice",
     values: [AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "ownershipHandoverExpiresAt",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "renounceOwnership",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "requestOwnershipHandover",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "setPriceOracleContract",
+    functionFragment: "setCollateralOSM",
     values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
+    functionFragment: "transferOwnership",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
   encodeFunctionData(
@@ -101,7 +98,7 @@ export interface FeedInterface extends Interface {
   encodeFunctionData(functionFragment: "vault", values?: undefined): string;
 
   decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
+    functionFragment: "cancelOwnershipHandover",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -109,28 +106,34 @@ export interface FeedInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
+    functionFragment: "completeOwnershipHandover",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "mockUpdatePrice",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "renounceRole",
+    functionFragment: "ownershipHandoverExpiresAt",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setPriceOracleContract",
+    functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "requestOwnershipHandover",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setCollateralOSM",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "supportsInterface",
+    functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
@@ -141,70 +144,49 @@ export interface FeedInterface extends Interface {
   decodeFunctionResult(functionFragment: "vault", data: BytesLike): Result;
 }
 
+export namespace OwnershipHandoverCanceledEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
+  export interface OutputObject {
+    pendingOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipHandoverRequestedEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
+  export interface OutputObject {
+    pendingOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipTransferredEvent {
+  export type InputTuple = [oldOwner: AddressLike, newOwner: AddressLike];
+  export type OutputTuple = [oldOwner: string, newOwner: string];
+  export interface OutputObject {
+    oldOwner: string;
+    newOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
 export namespace ReadEvent {
   export type InputTuple = [collateral: AddressLike, price: BigNumberish];
   export type OutputTuple = [collateral: string, price: bigint];
   export interface OutputObject {
     collateral: string;
     price: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RoleAdminChangedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    previousAdminRole: BytesLike,
-    newAdminRole: BytesLike
-  ];
-  export type OutputTuple = [
-    role: string,
-    previousAdminRole: string,
-    newAdminRole: string
-  ];
-  export interface OutputObject {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RoleGrantedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
-  ];
-  export type OutputTuple = [role: string, account: string, sender: string];
-  export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RoleRevokedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
-  ];
-  export type OutputTuple = [role: string, account: string, sender: string];
-  export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -255,22 +237,14 @@ export interface Feed extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
+  cancelOwnershipHandover: TypedContractMethod<[], [void], "payable">;
 
   collaterals: TypedContractMethod<[arg0: AddressLike], [string], "view">;
 
-  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
-
-  grantRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
+  completeOwnershipHandover: TypedContractMethod<
+    [pendingOwner: AddressLike],
     [void],
-    "nonpayable"
-  >;
-
-  hasRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [boolean],
-    "view"
+    "payable"
   >;
 
   mockUpdatePrice: TypedContractMethod<
@@ -279,32 +253,32 @@ export interface Feed extends BaseContract {
     "nonpayable"
   >;
 
+  owner: TypedContractMethod<[], [string], "view">;
+
+  ownershipHandoverExpiresAt: TypedContractMethod<
+    [pendingOwner: AddressLike],
+    [bigint],
+    "view"
+  >;
+
   pause: TypedContractMethod<[], [void], "nonpayable">;
 
-  renounceRole: TypedContractMethod<
-    [role: BytesLike, callerConfirmation: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  renounceOwnership: TypedContractMethod<[], [void], "payable">;
 
-  revokeRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  requestOwnershipHandover: TypedContractMethod<[], [void], "payable">;
 
-  setPriceOracleContract: TypedContractMethod<
-    [oracle: AddressLike, collateral: AddressLike],
+  setCollateralOSM: TypedContractMethod<
+    [collateral: AddressLike, oracle: AddressLike],
     [void],
     "nonpayable"
   >;
 
   status: TypedContractMethod<[], [bigint], "view">;
 
-  supportsInterface: TypedContractMethod<
-    [interfaceId: BytesLike],
-    [boolean],
-    "view"
+  transferOwnership: TypedContractMethod<
+    [newOwner: AddressLike],
+    [void],
+    "payable"
   >;
 
   unpause: TypedContractMethod<[], [void], "nonpayable">;
@@ -322,28 +296,14 @@ export interface Feed extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "DEFAULT_ADMIN_ROLE"
-  ): TypedContractMethod<[], [string], "view">;
+    nameOrSignature: "cancelOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
     nameOrSignature: "collaterals"
   ): TypedContractMethod<[arg0: AddressLike], [string], "view">;
   getFunction(
-    nameOrSignature: "getRoleAdmin"
-  ): TypedContractMethod<[role: BytesLike], [string], "view">;
-  getFunction(
-    nameOrSignature: "grantRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "hasRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [boolean],
-    "view"
-  >;
+    nameOrSignature: "completeOwnershipHandover"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [void], "payable">;
   getFunction(
     nameOrSignature: "mockUpdatePrice"
   ): TypedContractMethod<
@@ -352,26 +312,24 @@ export interface Feed extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "owner"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "ownershipHandoverExpiresAt"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [bigint], "view">;
+  getFunction(
     nameOrSignature: "pause"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "renounceRole"
-  ): TypedContractMethod<
-    [role: BytesLike, callerConfirmation: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "renounceOwnership"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "revokeRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "requestOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "setPriceOracleContract"
+    nameOrSignature: "setCollateralOSM"
   ): TypedContractMethod<
-    [oracle: AddressLike, collateral: AddressLike],
+    [collateral: AddressLike, oracle: AddressLike],
     [void],
     "nonpayable"
   >;
@@ -379,8 +337,8 @@ export interface Feed extends BaseContract {
     nameOrSignature: "status"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "supportsInterface"
-  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "payable">;
   getFunction(
     nameOrSignature: "unpause"
   ): TypedContractMethod<[], [void], "nonpayable">;
@@ -392,35 +350,68 @@ export interface Feed extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
 
   getEvent(
+    key: "OwnershipHandoverCanceled"
+  ): TypedContractEvent<
+    OwnershipHandoverCanceledEvent.InputTuple,
+    OwnershipHandoverCanceledEvent.OutputTuple,
+    OwnershipHandoverCanceledEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipHandoverRequested"
+  ): TypedContractEvent<
+    OwnershipHandoverRequestedEvent.InputTuple,
+    OwnershipHandoverRequestedEvent.OutputTuple,
+    OwnershipHandoverRequestedEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipTransferred"
+  ): TypedContractEvent<
+    OwnershipTransferredEvent.InputTuple,
+    OwnershipTransferredEvent.OutputTuple,
+    OwnershipTransferredEvent.OutputObject
+  >;
+  getEvent(
     key: "Read"
   ): TypedContractEvent<
     ReadEvent.InputTuple,
     ReadEvent.OutputTuple,
     ReadEvent.OutputObject
   >;
-  getEvent(
-    key: "RoleAdminChanged"
-  ): TypedContractEvent<
-    RoleAdminChangedEvent.InputTuple,
-    RoleAdminChangedEvent.OutputTuple,
-    RoleAdminChangedEvent.OutputObject
-  >;
-  getEvent(
-    key: "RoleGranted"
-  ): TypedContractEvent<
-    RoleGrantedEvent.InputTuple,
-    RoleGrantedEvent.OutputTuple,
-    RoleGrantedEvent.OutputObject
-  >;
-  getEvent(
-    key: "RoleRevoked"
-  ): TypedContractEvent<
-    RoleRevokedEvent.InputTuple,
-    RoleRevokedEvent.OutputTuple,
-    RoleRevokedEvent.OutputObject
-  >;
 
   filters: {
+    "OwnershipHandoverCanceled(address)": TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
+    >;
+    OwnershipHandoverCanceled: TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
+    >;
+
+    "OwnershipHandoverRequested(address)": TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+    OwnershipHandoverRequested: TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+
+    "OwnershipTransferred(address,address)": TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+    OwnershipTransferred: TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+
     "Read(address,uint256)": TypedContractEvent<
       ReadEvent.InputTuple,
       ReadEvent.OutputTuple,
@@ -430,39 +421,6 @@ export interface Feed extends BaseContract {
       ReadEvent.InputTuple,
       ReadEvent.OutputTuple,
       ReadEvent.OutputObject
-    >;
-
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
-      RoleAdminChangedEvent.InputTuple,
-      RoleAdminChangedEvent.OutputTuple,
-      RoleAdminChangedEvent.OutputObject
-    >;
-    RoleAdminChanged: TypedContractEvent<
-      RoleAdminChangedEvent.InputTuple,
-      RoleAdminChangedEvent.OutputTuple,
-      RoleAdminChangedEvent.OutputObject
-    >;
-
-    "RoleGranted(bytes32,address,address)": TypedContractEvent<
-      RoleGrantedEvent.InputTuple,
-      RoleGrantedEvent.OutputTuple,
-      RoleGrantedEvent.OutputObject
-    >;
-    RoleGranted: TypedContractEvent<
-      RoleGrantedEvent.InputTuple,
-      RoleGrantedEvent.OutputTuple,
-      RoleGrantedEvent.OutputObject
-    >;
-
-    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
-      RoleRevokedEvent.InputTuple,
-      RoleRevokedEvent.OutputTuple,
-      RoleRevokedEvent.OutputObject
-    >;
-    RoleRevoked: TypedContractEvent<
-      RoleRevokedEvent.InputTuple,
-      RoleRevokedEvent.OutputTuple,
-      RoleRevokedEvent.OutputObject
     >;
   };
 }

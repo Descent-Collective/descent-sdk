@@ -31,8 +31,8 @@ const approveCollateralToken = async (
   internal: Internal,
   transaction: Transaction,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultAddress: any = getContractAddress('Vault')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultAddress: any = getContractAddress('Vault', chainId);
   const _amount = parseUnits(amount, 6);
 
   // build transaction object
@@ -56,8 +56,8 @@ const approveCurrencyToken = async (
   internal: Internal,
   transaction: Transaction,
 ) => {
-  const currnecyAddress: any = getContractAddress('Currency')[chainId];
-  const vaultAddress: any = getContractAddress('Vault')[chainId];
+  const currnecyAddress: any = getContractAddress('Currency', chainId);
+  const vaultAddress: any = getContractAddress('Vault', chainId);
   const _amount = parseEther(amount);
 
   // build transaction object
@@ -75,7 +75,7 @@ const approveCurrencyToken = async (
 };
 
 const getCurrencyTokenBalance = async (owner: string, chainId: string, signer: Signer) => {
-  const currencyContractAddress: any = getContractAddress('Currency')[chainId];
+  const currencyContractAddress: any = getContractAddress('Currency', chainId);
 
   const currencyContract = Contract(currencyContractAddress, Currency__factory.abi, signer);
   const balance = await currencyContract.balanceOf(owner);
@@ -89,7 +89,7 @@ const getCollateralTokenBalance = async (
   chainId: string,
   signer: Signer,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
 
   const collateralContract = Contract(collateralAddress, USDC__factory.abi, signer);
   const balance = await collateralContract.balanceOf(owner);
@@ -103,8 +103,8 @@ const getCollateralTokenAllowance = async (
   chainId: string,
   signer: Signer,
 ) => {
-  const collateralAddress: any = getContractAddress(collateral)[chainId];
-  const vaultAddress: any = getContractAddress('Vault')[chainId];
+  const collateralAddress: any = getContractAddress(collateral, chainId);
+  const vaultAddress: any = getContractAddress('Vault', chainId);
 
   const collateralContract = Contract(collateralAddress, USDC__factory.abi, signer);
   const allowance = await collateralContract.allowance(owner, vaultAddress);

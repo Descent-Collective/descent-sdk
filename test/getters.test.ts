@@ -7,7 +7,7 @@ config();
 describe('Descent Protocol SDK Test', () => {
   let descent: DescentClass;
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
-  let rpcUrl = 'https://goerli.base.org';
+  let rpcUrl = 'https://sepolia.base.org';
 
   beforeAll(async () => {
     descent = await Descent.create('https', {

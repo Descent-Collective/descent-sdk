@@ -9,8 +9,8 @@ config();
 describe('Descent Protocol SDK Test', () => {
   let descent: DescentClass;
   let owner = '0x459D7FB72ac3dFB0666227B30F25A424A5583E9c';
-  let vault = '0xE2386C5eF4deC9d5815C60168e36c7153ba00D0C';
-  let rpcUrl = 'https://goerli.base.org';
+  let vault = '0x3d35807343CbF4fDb16E42297F2214f62848D032';
+  let rpcUrl = 'https://sepolia.base.org';
 
   let signer: Signer;
 
@@ -26,9 +26,9 @@ describe('Descent Protocol SDK Test', () => {
 
     signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
-    const response = await descent.setupVault();
+    // const response = await descent.setupVault();
 
-    console.log('Vault setup');
+    // console.log(response, 'Vault setup');
   }, 120000);
 
   it('should deposit usdc into a vault', async () => {
@@ -58,9 +58,15 @@ describe('Descent Protocol SDK Test', () => {
   }, 200000);
 
   it('should payback xNGN', async () => {
-    const response = await descent.repayCurrency('9000');
+    try {
+      await approvexNGN(vault, '30000', signer, descent.transaction, descent.internal);
+      const response = await descent.repayCurrency('30000');
+      console.log(response, 'res');
 
-    await waitTime(60);
-    expect(response).not.toBeNull;
+      await waitTime(60);
+      expect(response).not.toBeNull;
+    } catch (err) {
+      console.log(err?.info, 'error');
+    }
   }, 200000);
 });

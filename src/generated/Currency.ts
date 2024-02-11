@@ -26,50 +26,45 @@ import type {
 export interface CurrencyInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "DEFAULT_ADMIN_ROLE"
       | "DOMAIN_SEPARATOR"
       | "PERMIT2"
       | "allowance"
       | "approve"
       | "balanceOf"
       | "burn"
+      | "cancelOwnershipHandover"
+      | "completeOwnershipHandover"
       | "decimals"
-      | "eip712Domain"
-      | "getRoleAdmin"
-      | "grantRole"
-      | "hasRole"
       | "mint"
+      | "minterRole"
       | "name"
       | "nonces"
+      | "owner"
+      | "ownershipHandoverExpiresAt"
       | "permit"
       | "permit2Enabled"
       | "recoverToken"
-      | "renounceRole"
-      | "revokeRole"
+      | "renounceOwnership"
+      | "requestOwnershipHandover"
       | "setMinterRole"
-      | "supportsInterface"
       | "symbol"
       | "totalSupply"
       | "transfer"
       | "transferFrom"
+      | "transferOwnership"
       | "updatePermit2Allowance"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
       | "Approval"
-      | "EIP712DomainChanged"
+      | "OwnershipHandoverCanceled"
+      | "OwnershipHandoverRequested"
+      | "OwnershipTransferred"
       | "Permit2AllowanceUpdated"
-      | "RoleAdminChanged"
-      | "RoleGranted"
-      | "RoleRevoked"
       | "Transfer"
   ): EventFragment;
 
-  encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "DOMAIN_SEPARATOR",
     values?: undefined
@@ -91,29 +86,30 @@ export interface CurrencyInterface extends Interface {
     functionFragment: "burn",
     values: [AddressLike, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "eip712Domain",
+    functionFragment: "cancelOwnershipHandover",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [BytesLike]
+    functionFragment: "completeOwnershipHandover",
+    values: [AddressLike]
   ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [BytesLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [BytesLike, AddressLike]
-  ): string;
+  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "minterRole",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "nonces", values: [AddressLike]): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "ownershipHandoverExpiresAt",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "permit",
     values: [
@@ -135,20 +131,16 @@ export interface CurrencyInterface extends Interface {
     values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "renounceOwnership",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [BytesLike, AddressLike]
+    functionFragment: "requestOwnershipHandover",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "setMinterRole",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
+    values: [AddressLike, boolean]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
@@ -164,14 +156,14 @@ export interface CurrencyInterface extends Interface {
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "transferOwnership",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "updatePermit2Allowance",
     values: [boolean]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "DOMAIN_SEPARATOR",
     data: BytesLike
@@ -181,20 +173,24 @@ export interface CurrencyInterface extends Interface {
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "cancelOwnershipHandover",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "completeOwnershipHandover",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "eip712Domain",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "minterRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ownershipHandoverExpiresAt",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "permit2Enabled",
@@ -205,16 +201,15 @@ export interface CurrencyInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "renounceRole",
+    functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "requestOwnershipHandover",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setMinterRole",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
@@ -228,6 +223,10 @@ export interface CurrencyInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "updatePermit2Allowance",
     data: BytesLike
   ): Result;
@@ -237,13 +236,13 @@ export namespace ApprovalEvent {
   export type InputTuple = [
     owner: AddressLike,
     spender: AddressLike,
-    value: BigNumberish
+    amount: BigNumberish
   ];
-  export type OutputTuple = [owner: string, spender: string, value: bigint];
+  export type OutputTuple = [owner: string, spender: string, amount: bigint];
   export interface OutputObject {
     owner: string;
     spender: string;
-    value: bigint;
+    amount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -251,10 +250,37 @@ export namespace ApprovalEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace EIP712DomainChangedEvent {
-  export type InputTuple = [];
-  export type OutputTuple = [];
-  export interface OutputObject {}
+export namespace OwnershipHandoverCanceledEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
+  export interface OutputObject {
+    pendingOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipHandoverRequestedEvent {
+  export type InputTuple = [pendingOwner: AddressLike];
+  export type OutputTuple = [pendingOwner: string];
+  export interface OutputObject {
+    pendingOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OwnershipTransferredEvent {
+  export type InputTuple = [oldOwner: AddressLike, newOwner: AddressLike];
+  export type OutputTuple = [oldOwner: string, newOwner: string];
+  export interface OutputObject {
+    oldOwner: string;
+    newOwner: string;
+  }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
   export type Log = TypedEventLog<Event>;
@@ -273,75 +299,17 @@ export namespace Permit2AllowanceUpdatedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RoleAdminChangedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    previousAdminRole: BytesLike,
-    newAdminRole: BytesLike
-  ];
-  export type OutputTuple = [
-    role: string,
-    previousAdminRole: string,
-    newAdminRole: string
-  ];
-  export interface OutputObject {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RoleGrantedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
-  ];
-  export type OutputTuple = [role: string, account: string, sender: string];
-  export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RoleRevokedEvent {
-  export type InputTuple = [
-    role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
-  ];
-  export type OutputTuple = [role: string, account: string, sender: string];
-  export interface OutputObject {
-    role: string;
-    account: string;
-    sender: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
 export namespace TransferEvent {
   export type InputTuple = [
     from: AddressLike,
     to: AddressLike,
-    value: BigNumberish
+    amount: BigNumberish
   ];
-  export type OutputTuple = [from: string, to: string, value: bigint];
+  export type OutputTuple = [from: string, to: string, amount: bigint];
   export interface OutputObject {
     from: string;
     to: string;
-    value: bigint;
+    amount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -392,25 +360,23 @@ export interface Currency extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
-
   DOMAIN_SEPARATOR: TypedContractMethod<[], [string], "view">;
 
   PERMIT2: TypedContractMethod<[], [string], "view">;
 
   allowance: TypedContractMethod<
-    [owner: AddressLike, spender: AddressLike],
+    [_owner: AddressLike, spender: AddressLike],
     [bigint],
     "view"
   >;
 
   approve: TypedContractMethod<
-    [spender: AddressLike, value: BigNumberish],
+    [spender: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
 
-  balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
+  balanceOf: TypedContractMethod<[owner: AddressLike], [bigint], "view">;
 
   burn: TypedContractMethod<
     [account: AddressLike, amount: BigNumberish],
@@ -418,37 +384,15 @@ export interface Currency extends BaseContract {
     "nonpayable"
   >;
 
-  decimals: TypedContractMethod<[], [bigint], "view">;
+  cancelOwnershipHandover: TypedContractMethod<[], [void], "payable">;
 
-  eip712Domain: TypedContractMethod<
-    [],
-    [
-      [string, string, string, bigint, string, string, bigint[]] & {
-        fields: string;
-        name: string;
-        version: string;
-        chainId: bigint;
-        verifyingContract: string;
-        salt: string;
-        extensions: bigint[];
-      }
-    ],
-    "view"
-  >;
-
-  getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
-
-  grantRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
+  completeOwnershipHandover: TypedContractMethod<
+    [pendingOwner: AddressLike],
     [void],
-    "nonpayable"
+    "payable"
   >;
 
-  hasRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [boolean],
-    "view"
-  >;
+  decimals: TypedContractMethod<[], [bigint], "view">;
 
   mint: TypedContractMethod<
     [account: AddressLike, amount: BigNumberish],
@@ -456,9 +400,19 @@ export interface Currency extends BaseContract {
     "nonpayable"
   >;
 
+  minterRole: TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
+
   name: TypedContractMethod<[], [string], "view">;
 
   nonces: TypedContractMethod<[owner: AddressLike], [bigint], "view">;
+
+  owner: TypedContractMethod<[], [string], "view">;
+
+  ownershipHandoverExpiresAt: TypedContractMethod<
+    [pendingOwner: AddressLike],
+    [bigint],
+    "view"
+  >;
 
   permit: TypedContractMethod<
     [
@@ -482,28 +436,14 @@ export interface Currency extends BaseContract {
     "nonpayable"
   >;
 
-  renounceRole: TypedContractMethod<
-    [role: BytesLike, callerConfirmation: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  renounceOwnership: TypedContractMethod<[], [void], "payable">;
 
-  revokeRole: TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  requestOwnershipHandover: TypedContractMethod<[], [void], "payable">;
 
   setMinterRole: TypedContractMethod<
-    [account: AddressLike],
+    [account: AddressLike, isMinter: boolean],
     [void],
     "nonpayable"
-  >;
-
-  supportsInterface: TypedContractMethod<
-    [interfaceId: BytesLike],
-    [boolean],
-    "view"
   >;
 
   symbol: TypedContractMethod<[], [string], "view">;
@@ -511,15 +451,21 @@ export interface Currency extends BaseContract {
   totalSupply: TypedContractMethod<[], [bigint], "view">;
 
   transfer: TypedContractMethod<
-    [to: AddressLike, value: BigNumberish],
+    [to: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
 
   transferFrom: TypedContractMethod<
-    [from: AddressLike, to: AddressLike, value: BigNumberish],
+    [from: AddressLike, to: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
+  >;
+
+  transferOwnership: TypedContractMethod<
+    [newOwner: AddressLike],
+    [void],
+    "payable"
   >;
 
   updatePermit2Allowance: TypedContractMethod<
@@ -533,9 +479,6 @@ export interface Currency extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "DEFAULT_ADMIN_ROLE"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
     nameOrSignature: "DOMAIN_SEPARATOR"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
@@ -544,20 +487,20 @@ export interface Currency extends BaseContract {
   getFunction(
     nameOrSignature: "allowance"
   ): TypedContractMethod<
-    [owner: AddressLike, spender: AddressLike],
+    [_owner: AddressLike, spender: AddressLike],
     [bigint],
     "view"
   >;
   getFunction(
     nameOrSignature: "approve"
   ): TypedContractMethod<
-    [spender: AddressLike, value: BigNumberish],
+    [spender: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "balanceOf"
-  ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
+  ): TypedContractMethod<[owner: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "burn"
   ): TypedContractMethod<
@@ -566,42 +509,14 @@ export interface Currency extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "cancelOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
+  getFunction(
+    nameOrSignature: "completeOwnershipHandover"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [void], "payable">;
+  getFunction(
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "eip712Domain"
-  ): TypedContractMethod<
-    [],
-    [
-      [string, string, string, bigint, string, string, bigint[]] & {
-        fields: string;
-        name: string;
-        version: string;
-        chainId: bigint;
-        verifyingContract: string;
-        salt: string;
-        extensions: bigint[];
-      }
-    ],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "getRoleAdmin"
-  ): TypedContractMethod<[role: BytesLike], [string], "view">;
-  getFunction(
-    nameOrSignature: "grantRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "hasRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [boolean],
-    "view"
-  >;
   getFunction(
     nameOrSignature: "mint"
   ): TypedContractMethod<
@@ -610,11 +525,20 @@ export interface Currency extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "minterRole"
+  ): TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
+  getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "nonces"
   ): TypedContractMethod<[owner: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "owner"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "ownershipHandoverExpiresAt"
+  ): TypedContractMethod<[pendingOwner: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "permit"
   ): TypedContractMethod<
@@ -641,25 +565,18 @@ export interface Currency extends BaseContract {
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "renounceRole"
-  ): TypedContractMethod<
-    [role: BytesLike, callerConfirmation: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "renounceOwnership"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "revokeRole"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "requestOwnershipHandover"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
     nameOrSignature: "setMinterRole"
-  ): TypedContractMethod<[account: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "supportsInterface"
-  ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
+  ): TypedContractMethod<
+    [account: AddressLike, isMinter: boolean],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "symbol"
   ): TypedContractMethod<[], [string], "view">;
@@ -669,17 +586,20 @@ export interface Currency extends BaseContract {
   getFunction(
     nameOrSignature: "transfer"
   ): TypedContractMethod<
-    [to: AddressLike, value: BigNumberish],
+    [to: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "transferFrom"
   ): TypedContractMethod<
-    [from: AddressLike, to: AddressLike, value: BigNumberish],
+    [from: AddressLike, to: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "transferOwnership"
+  ): TypedContractMethod<[newOwner: AddressLike], [void], "payable">;
   getFunction(
     nameOrSignature: "updatePermit2Allowance"
   ): TypedContractMethod<[enabled: boolean], [void], "nonpayable">;
@@ -692,11 +612,25 @@ export interface Currency extends BaseContract {
     ApprovalEvent.OutputObject
   >;
   getEvent(
-    key: "EIP712DomainChanged"
+    key: "OwnershipHandoverCanceled"
   ): TypedContractEvent<
-    EIP712DomainChangedEvent.InputTuple,
-    EIP712DomainChangedEvent.OutputTuple,
-    EIP712DomainChangedEvent.OutputObject
+    OwnershipHandoverCanceledEvent.InputTuple,
+    OwnershipHandoverCanceledEvent.OutputTuple,
+    OwnershipHandoverCanceledEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipHandoverRequested"
+  ): TypedContractEvent<
+    OwnershipHandoverRequestedEvent.InputTuple,
+    OwnershipHandoverRequestedEvent.OutputTuple,
+    OwnershipHandoverRequestedEvent.OutputObject
+  >;
+  getEvent(
+    key: "OwnershipTransferred"
+  ): TypedContractEvent<
+    OwnershipTransferredEvent.InputTuple,
+    OwnershipTransferredEvent.OutputTuple,
+    OwnershipTransferredEvent.OutputObject
   >;
   getEvent(
     key: "Permit2AllowanceUpdated"
@@ -704,27 +638,6 @@ export interface Currency extends BaseContract {
     Permit2AllowanceUpdatedEvent.InputTuple,
     Permit2AllowanceUpdatedEvent.OutputTuple,
     Permit2AllowanceUpdatedEvent.OutputObject
-  >;
-  getEvent(
-    key: "RoleAdminChanged"
-  ): TypedContractEvent<
-    RoleAdminChangedEvent.InputTuple,
-    RoleAdminChangedEvent.OutputTuple,
-    RoleAdminChangedEvent.OutputObject
-  >;
-  getEvent(
-    key: "RoleGranted"
-  ): TypedContractEvent<
-    RoleGrantedEvent.InputTuple,
-    RoleGrantedEvent.OutputTuple,
-    RoleGrantedEvent.OutputObject
-  >;
-  getEvent(
-    key: "RoleRevoked"
-  ): TypedContractEvent<
-    RoleRevokedEvent.InputTuple,
-    RoleRevokedEvent.OutputTuple,
-    RoleRevokedEvent.OutputObject
   >;
   getEvent(
     key: "Transfer"
@@ -746,15 +659,37 @@ export interface Currency extends BaseContract {
       ApprovalEvent.OutputObject
     >;
 
-    "EIP712DomainChanged()": TypedContractEvent<
-      EIP712DomainChangedEvent.InputTuple,
-      EIP712DomainChangedEvent.OutputTuple,
-      EIP712DomainChangedEvent.OutputObject
+    "OwnershipHandoverCanceled(address)": TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
     >;
-    EIP712DomainChanged: TypedContractEvent<
-      EIP712DomainChangedEvent.InputTuple,
-      EIP712DomainChangedEvent.OutputTuple,
-      EIP712DomainChangedEvent.OutputObject
+    OwnershipHandoverCanceled: TypedContractEvent<
+      OwnershipHandoverCanceledEvent.InputTuple,
+      OwnershipHandoverCanceledEvent.OutputTuple,
+      OwnershipHandoverCanceledEvent.OutputObject
+    >;
+
+    "OwnershipHandoverRequested(address)": TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+    OwnershipHandoverRequested: TypedContractEvent<
+      OwnershipHandoverRequestedEvent.InputTuple,
+      OwnershipHandoverRequestedEvent.OutputTuple,
+      OwnershipHandoverRequestedEvent.OutputObject
+    >;
+
+    "OwnershipTransferred(address,address)": TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
+    >;
+    OwnershipTransferred: TypedContractEvent<
+      OwnershipTransferredEvent.InputTuple,
+      OwnershipTransferredEvent.OutputTuple,
+      OwnershipTransferredEvent.OutputObject
     >;
 
     "Permit2AllowanceUpdated(bool)": TypedContractEvent<
@@ -766,39 +701,6 @@ export interface Currency extends BaseContract {
       Permit2AllowanceUpdatedEvent.InputTuple,
       Permit2AllowanceUpdatedEvent.OutputTuple,
       Permit2AllowanceUpdatedEvent.OutputObject
-    >;
-
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
-      RoleAdminChangedEvent.InputTuple,
-      RoleAdminChangedEvent.OutputTuple,
-      RoleAdminChangedEvent.OutputObject
-    >;
-    RoleAdminChanged: TypedContractEvent<
-      RoleAdminChangedEvent.InputTuple,
-      RoleAdminChangedEvent.OutputTuple,
-      RoleAdminChangedEvent.OutputObject
-    >;
-
-    "RoleGranted(bytes32,address,address)": TypedContractEvent<
-      RoleGrantedEvent.InputTuple,
-      RoleGrantedEvent.OutputTuple,
-      RoleGrantedEvent.OutputObject
-    >;
-    RoleGranted: TypedContractEvent<
-      RoleGrantedEvent.InputTuple,
-      RoleGrantedEvent.OutputTuple,
-      RoleGrantedEvent.OutputObject
-    >;
-
-    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
-      RoleRevokedEvent.InputTuple,
-      RoleRevokedEvent.OutputTuple,
-      RoleRevokedEvent.OutputObject
-    >;
-    RoleRevoked: TypedContractEvent<
-      RoleRevokedEvent.InputTuple,
-      RoleRevokedEvent.OutputTuple,
-      RoleRevokedEvent.OutputObject
     >;
 
     "Transfer(address,address,uint256)": TypedContractEvent<
