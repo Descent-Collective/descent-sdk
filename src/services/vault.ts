@@ -74,34 +74,14 @@ const collateralizeVault = async (
   transaction: Transaction,
   internal: Internal,
 ) => {
-  const abiCoder = AbiCoder.defaultAbiCoder();
   const collateralAddress: any = getContractAddress(collateral, chainId);
-  const vaultContractAddress: any = getContractAddress('Vault', chainId);
-
   const _amount = BigInt(amount) * BigInt(1e6);
 
-  // encode
   // build transaction object
-  const to: any = getContractAddress('VaultRouter', chainId);
-  let iface = internal.getInterface(VaultRouter__factory.abi);
+  const to: any = getContractAddress('Vault', chainId);
+  let iface = internal.getInterface(Vault__factory.abi);
 
-  const packedOperations = ethers.solidityPacked(
-    ['uint8', 'uint8'],
-    [VaultOperations.ERC20_TransferFrom, VaultOperations.DepositCollateral],
-  );
-  let encodedParameters = [];
-
-  encodedParameters.push(
-    abiCoder.encode(
-      ['address', 'address', 'uint256'],
-      [vaultContractAddress, collateralAddress, _amount],
-    ),
-  );
-  encodedParameters.push(abiCoder.encode(['address', 'uint256'], [collateralAddress, _amount]));
-
-  console.log(encodedParameters, 'encoded parameters');
-
-  const data = iface.encodeFunctionData('multiInteract', [packedOperations, encodedParameters]);
+  const data = iface.encodeFunctionData('depositCollateral', [collateralAddress, owner, _amount]);
 
   const txConfig = await internal.getTransactionConfig({
     from: owner,
@@ -130,8 +110,8 @@ const withdrawCollateral = async (
 
   const _amount = BigInt(amount) * BigInt(1e6);
 
-  const to: any = getContractAddress('VaultRouter', chainId);
-  let iface = internal.getInterface(VaultRouter__factory.abi);
+  const to: any = getContractAddress('Vault', chainId);
+  let iface = internal.getInterface(Vault__factory.abi);
 
   const maxWithdrawable = await vaultGetterContract.getMaxWithdrawable(
     vaultContractAddress,
@@ -144,14 +124,14 @@ const withdrawCollateral = async (
   if (Number(amount) > Number(formattedMaxWithdrawable.toString())) {
     throw new Error(' Withdrawal amount is more than available collateral balance');
   }
+  const recepientAddress = owner;
 
   // build transaction object
-  const data = iface.encodeFunctionData('multiInteract', [
-    [vaultContractAddress],
-    [VaultOperations.WithdrawCollateral],
-    [collateralAddress],
-    [owner],
-    [_amount],
+  const data = iface.encodeFunctionData('withdrawCollateral', [
+    collateralAddress,
+    owner,
+    recepientAddress,
+    _amount,
   ]);
   const txConfig = await internal.getTransactionConfig({
     from: owner,
@@ -192,15 +172,16 @@ const mintCurrency = async (
     throw new Error(' Borrow amount is more than available currency borrowable');
   }
 
+  const recepientAddress = owner;
+
   // build transaction object
-  const to: any = getContractAddress('VaultRouter', chainId);
-  let iface = internal.getInterface(VaultRouter__factory.abi);
-  const data = iface.encodeFunctionData('multiInteract', [
-    [vaultContractAddress],
-    [VaultOperations.MintCurrency],
-    [collateralAddress],
-    [owner],
-    [_amount],
+  const to: any = getContractAddress('Vault', chainId);
+  let iface = internal.getInterface(Vault__factory.abi);
+  const data = iface.encodeFunctionData('mintCurrency', [
+    collateralAddress,
+    owner,
+    recepientAddress,
+    _amount,
   ]);
   const txConfig = await internal.getTransactionConfig({
     from: owner,
@@ -223,7 +204,6 @@ const burnCurrency = async (
   signer: Signer,
 ) => {
   const collateralAddress: any = getContractAddress(collateral, chainId);
-  const vaultContractAddress: any = getContractAddress('Vault', chainId);
 
   const currencyContractAddress: any = getContractAddress('Currency', chainId);
 
@@ -238,17 +218,10 @@ const burnCurrency = async (
   if (Number(amount) > Number(formattedBalance.toString())) {
     throw new Error('Payback xNGN: Insufficient funds');
   }
-
   // build transaction object
-  const to: any = getContractAddress('VaultRouter', chainId);
-  let iface = internal.getInterface(VaultRouter__factory.abi);
-  const data = iface.encodeFunctionData('multiInteract', [
-    [vaultContractAddress],
-    [VaultOperations.BurnCurrency],
-    [collateralAddress],
-    [owner],
-    [_amount],
-  ]);
+  const to: any = getContractAddress('Vault', chainId);
+  let iface = internal.getInterface(Vault__factory.abi);
+  const data = iface.encodeFunctionData('burnCurrency', [collateralAddress, owner, _amount]);
   const txConfig = await internal.getTransactionConfig({
     from: owner,
     to,
